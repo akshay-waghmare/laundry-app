@@ -6,12 +6,37 @@
   top: 0;
   height: 100vh;
 }
-.sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
+.sidebar-wrapper {
+  position: relative;
+  height: calc(100vh - 75px);
+  overflow: auto;
   width: 260px;
-  background: white;
+  z-index: 4;
+  padding-bottom: 30px;
+
+
+}
+
+.nav {
+  margin-top: 20px;
+  display: block;
+}
+
+.nav p {
+  margin: 0;
+  line-height: 30px;
+  font-size: 14px;
+  position: relative;
+  display: block;
+  height: auto;
+  white-space: nowrap;
+}
+.nav i {
+  font-size: 24px;
+  float: left;
+  margin-right: 15px;
+  line-height: 30px;
+  width: 30px;
+  text-align: center;
+  color: #a9afbb;
 }
