@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from '../app/app.routing';
 import { AdminLayoutsComponent } from './layouts/admin-layouts/admin-layouts.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SidebarComponent } from './component/sidebar/sidebar.component';
+import {ComponentsModule} from '../app/component/components.module';
 
 @NgModule({
   declarations: [
@@ -16,8 +18,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BrowserModule,
     RouterModule,
     AppRoutingModule,
+    ComponentsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [SidebarComponent]
 })
 export class AppModule { }
