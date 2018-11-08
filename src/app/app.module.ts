@@ -8,6 +8,7 @@ import { AdminLayoutsComponent } from './layouts/admin-layouts/admin-layouts.com
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import {ComponentsModule} from '../app/component/components.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {ComponentsModule} from '../app/component/components.module';
     RouterModule,
     AppRoutingModule,
     ComponentsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
