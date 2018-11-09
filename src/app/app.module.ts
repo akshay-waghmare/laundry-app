@@ -14,10 +14,12 @@ import { MatRippleModule } from '@angular/material';
 
 import 'hammerjs';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutsComponent,
+    
   ],
   imports: [
     BrowserModule,

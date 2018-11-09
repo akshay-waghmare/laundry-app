@@ -17,7 +17,7 @@ import {MatFormFieldModule,
   ],
   declarations: [
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   exports: [
     SidebarComponent,
