@@ -9,6 +9,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import {ComponentsModule} from '../app/component/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatRippleModule } from '@angular/material';
+
+
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     ComponentsModule,
     BrowserAnimationsModule,
+    MatRippleModule,
+
+    
   ],
   providers: [],
   bootstrap: [AppComponent],

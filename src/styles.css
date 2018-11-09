@@ -1,6 +1,7 @@
 
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
+
 .wrapper{
   position: relative;
   top: 0;
@@ -191,6 +192,6 @@
     padding: 0.625rem 10rem;
     font-weight: 300;
     margin-left: 6rem;
-     
+
   }
-  
+
