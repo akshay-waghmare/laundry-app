@@ -7,7 +7,8 @@ import { AddServiceComponent } from '../../add-service/add-service.component';
 import {
   MatFormFieldModule,
   MatButtonModule,
-  MatInputModule
+  MatInputModule,
+  MatRippleModule
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import {
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
+    MatRippleModule,
   ],
   declarations: [
     DashboardComponent,

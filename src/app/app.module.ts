@@ -19,7 +19,7 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     AdminLayoutsComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -29,10 +29,10 @@ import 'hammerjs';
     BrowserAnimationsModule,
     MatRippleModule,
 
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [SidebarComponent]
+  // exports: [SidebarComponent]
 })
 export class AppModule { }
