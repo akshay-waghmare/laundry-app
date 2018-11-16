@@ -213,25 +213,6 @@
     display: block;
 }
 
-.card-header{
-       position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;
-    background: linear-gradient(60deg, #ef5350, #e53935);
-    margin: -508px 37px 0px 29px;
-    color: white;
-    font-size: 1.125rem;
-    line-height: 1.4em;
-    font-weight: 300;
-    z-index: 3 !important;
-}
-
 
 .row{
 
@@ -259,7 +240,7 @@
   background-clip: border-box;
   border: 1px solid #eeeeee;
   border-radius: 0.25rem;
-  margin-top: -428px;
+  margin-top: -500px;
   height: 400px;
 }
 .card-body {
@@ -277,3 +258,56 @@
     padding-top: 0rem;
     border: 0;
     border-radius: 6px; }
+    
+    .card-header {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #eeeeee;
+  border-bottom: none;
+    background: transparent;
+    z-index:  3 !important;
+    
+  }
+  .card-header:first-child {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0; }
+  .card-header + .list-group .list-group-item:first-child {
+    border-top: 0; }
+
+    .card .card-header-danger .card-icon,
+  .card .card-header-danger .card-text,
+  .card .card-header-danger:not(.card-header-icon):not(.card-header-text), .card.bg-danger,
+  .card.card-rotate.bg-danger .front,
+  .card.card-rotate.bg-danger .back {
+    background: linear-gradient(60deg, #ef5350, #e53935);
+       padding: 9px;
+       margin-top: -23px;
+       color:#fff ;
+       border-radius: 6px;
+      }
+
+    .card .card-header-danger .card-icon,
+  .card .card-header-danger:not(.card-header-icon):not(.card-header-text),
+  .card .card-header-danger .card-text {
+    -webkit-box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4);
+            box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4); }
+
+    .card [class*="card-header-"] {
+    margin: 0px 15px 0;
+    padding: 0;
+    position: relative;
+}
+.clearfix::after {
+  display: block;
+  clear: both;
+  content: ""; }
+
+  .addServiceButton {
+
+        margin-left: 200px;
+    margin-top: 35px;
+  }
+
+
+
+   

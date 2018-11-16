@@ -2,20 +2,28 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-8">
+         
         <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Add Service</h4>
+            <p class="card-category">Services provided to be listed</p>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
                       <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Fist Name" type="text">
+                        <input matInput placeholder="Service Name" type="text">
                       </mat-form-field>
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Last Name" type="text">
+                        <input matInput placeholder="Service price" type="text">
                       </mat-form-field>
                     </div>
+                    <button mat-raised-button type="submit" class="btn btn-danger pull-right addServiceButton">Add Service</button>
+                    <div class="clearfix"></div>
                 </div>
+                
              </div>
         </div>
       </div>
