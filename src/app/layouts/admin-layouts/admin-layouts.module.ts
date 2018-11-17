@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { AdminLayoutsRoute } from './admin-layouts.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { AddServiceComponent } from '../../add-service/add-service.component';
+import { ServiceListComponent } from '../../service-list/service-list.component';
+
 import {
   MatFormFieldModule,
   MatButtonModule,
@@ -22,6 +24,7 @@ import {
   declarations: [
     DashboardComponent,
     AddServiceComponent,
+    ServiceListComponent,
   ],
   exports: [
     RouterModule
