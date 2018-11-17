@@ -16,10 +16,12 @@ import 'hammerjs';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutsComponent,
+    
 
   ],
   imports: [
