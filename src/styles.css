@@ -242,7 +242,7 @@
   background-clip: border-box;
   border: 1px solid #eeeeee;
   border-radius: 0.25rem;
-  margin-top: -500px;
+  margin-top: -575px;
   padding-bottom: 25px;
 }
 .card-body {
@@ -314,6 +314,10 @@
   .row button {
     margin-left:105px
   }
+
+  .full-width{
+    width: 100%;
+}
 
 
 
