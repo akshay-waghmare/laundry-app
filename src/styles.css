@@ -8,7 +8,7 @@
   height: 100vh;
 }
 .sidebar-wrapper {
-  position: relative;
+  position: fixed;
   height: 99.9vh;;
   overflow: auto;
   width: 260px;
@@ -157,7 +157,10 @@
   float: right;
   width: calc(100% - 260px);
   -webkit-transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);
-  transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1); }
+  transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);
+  height: -webkit-fill-available;
+  background-color: rgba(224, 224, 224, 0.90);
+}
 
 .navbar-brand {
   display: inline-block;
@@ -242,7 +245,7 @@
   background-clip: border-box;
   border: 1px solid #eeeeee;
   border-radius: 0.25rem;
-  margin-top: -575px;
+  margin-top: 50px;
   padding-bottom: 25px;
 }
 .card-body {
