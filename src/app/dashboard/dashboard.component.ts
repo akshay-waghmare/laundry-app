@@ -30,8 +30,8 @@ export class DashboardComponent implements OnInit {
       value: 'in',
       required: true,
       options: [
-        { key: 'm', label: 'Male' , mode:true},
-        { key: 'f', label: 'Female', mode:true }
+        { key: 'm', label: 'Male' , mode:'male'},
+        { key: 'm', label: 'Female', mode:'fem' }
       ]
     }
   ];
