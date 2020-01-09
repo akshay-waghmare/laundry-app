@@ -1,0 +1,8 @@
+<div [formGroup]="form">
+  <div class="col-md-9" [ngSwitch]="field.type">
+    <div *ngSwitchCase="'textbox'">
+      <textbox [field]="field" [form]="form"></textbox>
+  </div>
+    <div *ngSwitchCase="'radio'">radio</div>
+  </div>
+</div>
