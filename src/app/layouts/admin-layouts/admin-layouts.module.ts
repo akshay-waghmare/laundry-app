@@ -1,3 +1,4 @@
+import { DynamicFormbuilderModule } from './../../dynamic-formbuilder/dynamic-formbuilder.module';
 import { AddCustomerComponent } from './../../add-customer/add-customer.component';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -24,6 +25,7 @@ import {
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
+    DynamicFormbuilderModule
   ],
   declarations: [
     DashboardComponent,

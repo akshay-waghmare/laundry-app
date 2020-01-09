@@ -1,3 +1,4 @@
+import { DynamicFormbuilderModule } from './dynamic-formbuilder/dynamic-formbuilder.module';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -29,6 +30,7 @@ import 'hammerjs';
     RouterModule,
     AppRoutingModule,
     ComponentsModule,
+    DynamicFormbuilderModule,
     BrowserAnimationsModule,
     MatRippleModule,
 

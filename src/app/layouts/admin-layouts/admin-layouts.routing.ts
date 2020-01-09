@@ -15,5 +15,6 @@ export const AdminLayoutsRoute: Routes = [
   { path: 'add-customer', component: AddCustomerComponent},
   { path: 'customer-list', component: CustomerListComponent},
   { path: 'add-fuller', component: AddFullerComponent},
-  { path: 'fuller-list', component: FullerListComponent}, ];
+  { path: 'fuller-list', component: FullerListComponent},
+ ];
 

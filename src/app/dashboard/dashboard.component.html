@@ -39,4 +39,21 @@
             </div>
         </div>
      </div>
+     <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header"><h3>Dynamic Forms</h3></div>
+
+                <div>
+                    <dynamic-formbuilder (onSubmit)="asd($event)" [fields]="fields"></dynamic-formbuilder>
+                </div>
+                <div [formGroup]="form">
+                    <label>JSON</label>
+                    <textarea formControlName="fields"></textarea>
+                    <p>
+                        {{formvalue}}
+                    </p>
+                </div>
+
+        </div>
+     </div>
 </div>
