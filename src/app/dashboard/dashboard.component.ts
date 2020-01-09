@@ -24,13 +24,18 @@ export class DashboardComponent implements OnInit {
       type: 'textbox'
     },
     {
-      name: 'asd',
-      type: 'textbox'
-    },
-    {
-      name: 'fdggg',
-      type: 'textbox'
-    }];
+      type: 'radio',
+      name: 'country',
+      label: 'Country',
+      value: 'in',
+      required: true,
+      options: [
+        { key: 'm', label: 'Male' , mode:true},
+        { key: 'f', label: 'Female', mode:true }
+      ]
+    }
+  ];
+
   constructor() { }
     
 

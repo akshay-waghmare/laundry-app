@@ -20,12 +20,25 @@ export class DynamicFormbuilderComponent implements OnInit {
     this.form = new FormGroup({});
     let fieldsCtrl = {};
     this.fields.forEach(field => {
-      //   console.log(field.name);
-      //   fieldsCtrl[field.name] = new FormControl('');
-      //   console.log("logging fieldsctrl" + fieldsCtrl);
-      // this.form = new FormGroup(fieldsCtrl);
-      
-      this.form.addControl(field.name,new FormControl(''));
+      if(field.type == 'textbox'){
+        
+          console.log(field.name);
+          fieldsCtrl[field.name] = new FormControl('');
+          console.log("logging fieldsctrl" + fieldsCtrl);
+        // this.form.addControl(field.name,new FormControl(''));
+      }
+      else{
+
+        let opts = {};
+        field.options.forEach(option => {
+          opts[option.key] = new FormControl(option.value);
+        });
+
+        fieldsCtrl[field.name] = new FormGroup(opts);
+      }
+
+      this.form = new FormGroup(fieldsCtrl);
+
      
     });
     console.log("form inside dynamci-formbuilder" , this.form);
