@@ -9,10 +9,20 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import {ComponentsModule} from '../app/component/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatRippleModule } from '@angular/material';
 
 
 import 'hammerjs';
+import { LoginComponent } from './login/login.component';
+import {
+  MatFormFieldModule,
+  MatButtonModule,
+  MatInputModule,
+  MatRippleModule
+} from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthenticationGuard } from './authentication.guard';
+import { TokenStorage } from './token.storage';
 
 
 
@@ -21,20 +31,27 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     AdminLayoutsComponent,
+    LoginComponent
     
 
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     AppRoutingModule,
     ComponentsModule,
     BrowserAnimationsModule,
     MatRippleModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
 
 
   ],
-  providers: [],
+  providers: [AuthenticationGuard,TokenStorage],
   bootstrap: [AppComponent],
   // exports: [SidebarComponent]
 })
