@@ -22,16 +22,25 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.logout();
   }
 
   signin(){
     console.log("attempt to sign in");
     this.authService.attemptAuth(this.signinForm.value).subscribe((res) =>{
       console.log(res);
-      this.tokenStorage.saveToken(res.body.token);
+      let user = window.atob(res.body.token.split('.')[1]);
+      console.log(user);
+      this.tokenStorage.saveToken(user,res.body.token);
       this.router.navigate(['dashboard']);
       
     } );
+  }
+
+  public logout() {
+
+  	// Remove user from local storage to log user out
+  	this.tokenStorage.signOut();
   }
 
   initForm(){
