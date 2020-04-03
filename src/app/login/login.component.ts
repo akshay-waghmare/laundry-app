@@ -34,7 +34,12 @@ export class LoginComponent implements OnInit {
       this.tokenStorage.saveToken(user,res.body.token);
       this.router.navigate(['dashboard']);
       
-    } );
+    },
+    
+  			error => {
+  				alert(error.error.message);
+  				console.log( error );
+  			} );
   }
 
   public logout() {
