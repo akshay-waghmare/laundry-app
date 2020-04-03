@@ -17,12 +17,16 @@ import {
   MatFormFieldModule,
   MatButtonModule,
   MatInputModule,
-  MatRippleModule
+  MatRippleModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationGuard } from './authentication.guard';
 import { TokenStorage } from './token.storage';
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderService } from './loader/loader.service';
+import { LoaderInterceptor } from './loader/loader.interceptor';
 
 
 
@@ -31,7 +35,8 @@ import { TokenStorage } from './token.storage';
   declarations: [
     AppComponent,
     AdminLayoutsComponent,
-    LoginComponent
+    LoginComponent,
+    LoaderComponent
     
 
   ],
@@ -48,10 +53,14 @@ import { TokenStorage } from './token.storage';
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
+    MatProgressSpinnerModule,
 
 
   ],
-  providers: [AuthenticationGuard,TokenStorage],
+  providers: [AuthenticationGuard,TokenStorage,
+    LoaderService,
+    HttpClientModule,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }],
   bootstrap: [AppComponent],
   // exports: [SidebarComponent]
 })
