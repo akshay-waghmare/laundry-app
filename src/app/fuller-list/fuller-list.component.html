@@ -5,97 +5,52 @@
 
         <div class="card">
           <div class="card-header card-header-danger">
-            <h4 class="card-title">FullerList</h4>
-            <p class="card-category">Fullers working for us</p>
+            <h4 class="card-title">Market List</h4>
+            <p class="card-category">Horse race upcoming markets</p>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table">
-                  <thead class=" text-primary">
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        First Name
-                    </th>
-                    <th>
-                        Last Name
-                    </th>
 
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            xyz
-                        </td>
-                        <td>
-                            asd
-                        </td>
+                <table mat-table [dataSource]="marketsAboutToStart"class="table">
+                
+                  <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+                
+                  <!-- id -->
+                  <!-- <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> ID. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                  </ng-container> -->
+                
+                  <!-- Event TypeId -->
+                  <ng-container matColumnDef="startTime">
+                    <th mat-header-cell *matHeaderCellDef> EventTypeId </th>
+                    <td mat-cell *matCellDef="let element"> {{element.startTime}} </td>
+                  </ng-container>
+                
+                  <!-- Event Name -->
+                  <ng-container matColumnDef="eventName">
+                    <th mat-header-cell *matHeaderCellDef> eventName </th>
+                    <td mat-cell *matCellDef="let element"> {{element.eventName}} </td>
+                  </ng-container>
+                
+                  <!-- Market Name -->
+                  <ng-container matColumnDef="marketName">
+                    <th mat-header-cell *matHeaderCellDef> marketName </th>
+                    <td mat-cell *matCellDef="let element"> {{element.marketName}} </td>
+                  </ng-container>
 
-
-                    </tr>
-                    <tr>
-                      <td>
-                          2
-                      </td>
-                      <td>
-                          xyz
-                      </td>
-                      <td>
-                          asd
-                      </td>
-
-
-                  </tr>
-                    <tr>
-                        <td>
-                            3
-                        </td>
-                        <td>
-                          xyz
-                      </td>
-                      <td>
-                          asd
-                      </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            4
-                        </td>
-                        <td>
-                          xyz
-                      </td>
-                      <td>
-                          asd
-                      </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                            5
-                        </td>
-                        <td>
-                          xyz
-                      </td>
-                      <td>
-                          asd
-                      </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            6
-                        </td>
-                        <td>
-                          xyz
-                      </td>
-                      <td>
-                          asd
-                      </td>
-                    </tr>
-                </tbody>
+                  <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> view </th>
+                    <td mat-cell *matCellDef="let element"> 
+                      <button (click)="showMarket(element)" mat-mini-fab color="basic">
+                        <mat-icon>remove_red_eye</mat-icon>
+                      </button> 
+                    </td>
+                  </ng-container>
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
                </div>
 

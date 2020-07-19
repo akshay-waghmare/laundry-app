@@ -11,7 +11,7 @@
     </div>
 
   <ul class="nav">
-      <li *ngFor="let menuItem of menuItems">
+      <li *ngFor="let menuItem of results">
           <a class="nav-link" [routerLink]="[menuItem.path]">
               <i class="material-icons">{{menuItem.icon}}</i>
               <p>{{menuItem.title}}</p>

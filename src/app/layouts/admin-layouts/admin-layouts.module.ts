@@ -15,22 +15,25 @@ import {
   MatFormFieldModule,
   MatButtonModule,
   MatInputModule,
-  MatRippleModule
+  MatRippleModule,
+  MatTableModule,
+  MatIconModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationGuard } from 'src/app/authentication.guard';
+import { BetMarketComponent } from 'src/app/bet-market/bet-market.component';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutsRoute),
     FormsModule,
+    MatTableModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
-    
-    
+    MatIconModule
   ],
   declarations: [
     DashboardComponent,
@@ -40,6 +43,7 @@ import { AuthenticationGuard } from 'src/app/authentication.guard';
     CustomerListComponent,
     AddFullerComponent,
     FullerListComponent,
+    BetMarketComponent
 
   ],
   exports: [

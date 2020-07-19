@@ -37,8 +37,6 @@ import { LoaderInterceptor } from './loader/loader.interceptor';
     AdminLayoutsComponent,
     LoginComponent,
     LoaderComponent
-    
-
   ],
   imports: [
     BrowserModule,

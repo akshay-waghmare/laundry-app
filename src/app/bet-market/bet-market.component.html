@@ -1,0 +1,46 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Horse Racing</h4>
+            <p class="card-category">
+              <p> {{market.startTime}} {{market.eventDetails}} ({{market.countryCode}})</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table mat-table [dataSource]="selections"class="table">
+                
+                
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                  </ng-container>
+                
+                  <!-- Event Name -->
+                  <ng-container matColumnDef="lastPriceTraded">
+                    <th mat-header-cell *matHeaderCellDef> Odds </th>
+                    <td mat-cell *matCellDef="let element">
+                       <button  mat-raised-button color="primary">
+                        {{element.lastPriceTraded}}
+                      </button>
+                      </td>
+                  </ng-container>
+                
+                  
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table> 
+               </div>
+
+             </div>
+        </div>
+      </div>
+    </div>
+   </div>
+ </div>
+
+

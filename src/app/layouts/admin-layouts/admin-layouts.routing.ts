@@ -9,6 +9,7 @@ import { AddFullerComponent } from '../../add-fuller/add-fuller.component';
 import { FullerListComponent } from '../../fuller-list/fuller-list.component';
 import { LoginComponent } from 'src/app/login/login.component';
 import { AuthenticationGuard } from 'src/app/authentication.guard';
+import { BetMarketComponent } from 'src/app/bet-market/bet-market.component';
 
 export const AdminLayoutsRoute: Routes = [
   { path: 'dashboard', component: DashboardComponent ,canActivate: [ AuthenticationGuard ]},
@@ -17,5 +18,6 @@ export const AdminLayoutsRoute: Routes = [
   { path: 'add-customer', component: AddCustomerComponent},
   { path: 'customer-list', component: CustomerListComponent},
   { path: 'add-fuller', component: AddFullerComponent},
-  { path: 'fuller-list', component: FullerListComponent}, ];
+  { path: 'fuller-list', component: FullerListComponent},
+  { path: 'bet-market/:id', component: BetMarketComponent}, ];
 
