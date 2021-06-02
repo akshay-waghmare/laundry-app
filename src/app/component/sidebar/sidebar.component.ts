@@ -48,7 +48,7 @@ export class SidebarComponent implements OnInit {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
 
     this.eventListService.getEvents().subscribe( data => {
-        this.results = data.result;
+        this.results = data;
         this.results = this.results.map(({id, name}, index) => {
          const entry = N_ROUTES.filter(x => x.title === name);
          const icon = entry[0]['icon'];
