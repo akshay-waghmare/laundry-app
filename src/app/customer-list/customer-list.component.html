@@ -13,13 +13,13 @@
                 <table class="table">
                   <thead class=" text-primary">
                     <th>
-                        ID
+                        Id
                     </th>
                     <th>
-                        First Name
+                        Stock Name
                     </th>
                     <th>
-                        Last Name
+                        Stock Name
                     </th>
                     <th>
                         Address
@@ -162,6 +162,9 @@
                 </table>
                </div>
 
+               <div *ngFor="let ticker of tickerMap | keyvalue">
+                    Key: <b *ngIf="ticker.key!='get' && ticker.key!='set'">{{ticker.key}}</b> and Value: <b *ngIf="ticker.key!='get' && ticker.key!='set'">{{ticker.value}}</b>
+               </div>   
              </div>
         </div>
       </div>

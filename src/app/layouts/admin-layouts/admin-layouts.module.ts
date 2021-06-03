@@ -22,19 +22,21 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationGuard } from 'src/app/authentication.guard';
 import { BetMarketComponent } from 'src/app/bet-market/bet-market.component';
-import { StompService, StompConfig } from '@stomp/ng2-stompjs';
+import { StompService, StompConfig ,rxStompServiceFactory ,RxStompService, InjectableRxStompConfig  } from '@stomp/ng2-stompjs';
 
-const stompConfig: StompConfig = {
+const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
-  url: 'ws://127.0.0.1:8099/ws/websocket',
-  headers: {
+  brokerURL: 'ws://127.0.0.1:8099/ws/websocket',
+  connectHeaders: {
     login: 'guest',
     passcode: 'guest'
   },
-  heartbeat_in: 0,
-  heartbeat_out: 20000, // 20000 - every 20 seconds
-  reconnect_delay: 5000,
-  debug: true
+  heartbeatIncoming: 0,
+  heartbeatOutgoing: 20000, // 20000 - every 20 seconds
+  reconnectDelay: 5000,
+  debug: (msg: string): void => {
+    console.log(new Date(), msg);
+  }
 };
 
 @NgModule({
@@ -62,10 +64,15 @@ const stompConfig: StompConfig = {
 
   ],
   providers: [
-    StompService,
+    RxStompService,
     {
-      provide: StompConfig,
-      useValue: stompConfig
+      provide: InjectableRxStompConfig,
+      useValue: myRxStompConfig
+    },
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory,
+      deps: [InjectableRxStompConfig]
     }
   ],
   exports: [
