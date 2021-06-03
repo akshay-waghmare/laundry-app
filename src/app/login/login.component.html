@@ -1,0 +1,68 @@
+
+
+ <div class="wrapper">
+  
+    <div class="main-content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8">
+    
+            <div class="card">
+              <div class="card-header card-header-danger">
+                <h4 class="card-title">Login</h4>
+                <p class="card-category">Please fill in your details</p>
+                </div>
+                <div class="card-body">
+
+
+                    <!-- <div class="row">
+            
+                        <div class="col-md-6">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="User Name" type="text">
+                            <mat-error  
+                             class="form-error-msg">Username is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Password" type="password">
+                          </mat-form-field>
+                        </div>
+                        <button mat-stroked-button [disabled]="signinForm.invalid" id="signinBtn"> Sign in </button>
+    
+                    </div> -->
+                    <form [formGroup]="signinForm" (ngSubmit)="signin()" autocomplete="off">
+
+                      <input id="fakeUsername" name="userName" style="display:none" type="text" autocomplete="off">
+                      <input id="fakePassword" name="password" style="display:none" type="password" autocomplete="off">
+                  
+                      <h3>Please fill in your username and password</h3>
+                  
+                      <mat-form-field class="full-width">
+                        <mat-label class="white">Username</mat-label>
+                        <input matInput maxlength="30" name="username" formControlName="username" required id="username"
+                          autocomplete="off">
+                        <mat-error  class="form-error-msg">Username is required</mat-error>
+                      </mat-form-field>
+                  
+                      <mat-form-field class="full-width">
+                        <mat-label class="white">Password</mat-label>
+                        <input matInput type="password" name="password" formControlName="password" required id="password"
+                          autocomplete="off">
+                        <mat-error class="form-error-msg">Password is required</mat-error>
+                      </mat-form-field>
+                  
+                      <button  mat-stroked-button  id="signinBtn"> Sign in </button>
+                  
+                    </form>
+
+                 </div>
+                 
+            </div>
+          </div>
+        </div>
+       </div>
+     </div>
+  
+</div>

@@ -9,10 +9,24 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import {ComponentsModule} from '../app/component/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatRippleModule } from '@angular/material';
 
 
 import 'hammerjs';
+import { LoginComponent } from './login/login.component';
+import {
+  MatFormFieldModule,
+  MatButtonModule,
+  MatInputModule,
+  MatRippleModule,
+  MatProgressSpinnerModule
+} from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthenticationGuard } from './authentication.guard';
+import { TokenStorage } from './token.storage';
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderService } from './loader/loader.service';
+import { LoaderInterceptor } from './loader/loader.interceptor';
 
 
 
@@ -21,20 +35,32 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     AdminLayoutsComponent,
+    LoginComponent,
+    LoaderComponent
     
 
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     AppRoutingModule,
     ComponentsModule,
     BrowserAnimationsModule,
     MatRippleModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
 
 
   ],
-  providers: [],
+  providers: [AuthenticationGuard,TokenStorage,
+    LoaderService,
+    HttpClientModule,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }],
   bootstrap: [AppComponent],
   // exports: [SidebarComponent]
 })
