@@ -122,6 +122,16 @@
   position: absolute;
 }
 
+.favourite-not-logged{
+  text-align: center;
+    font-weight: 400 !important;
+    padding-top: 30px !important;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+    padding-bottom: 30px !important;
+    font-family: 'Roboto';
+}
+
 .sidebar .logo .simple-text {
   text-transform: uppercase;
   padding: 5px 0px;
@@ -158,8 +168,9 @@
   width: calc(100% - 260px);
   -webkit-transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);
   transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);
-  height: -webkit-fill-available;
   background-color: rgba(224, 224, 224, 0.90);
+  background-repeat:repeat;
+  height:-webkit-fill-available;
 }
 
 .navbar-brand {

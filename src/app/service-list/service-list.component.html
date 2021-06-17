@@ -1,124 +1,97 @@
-<div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
+<!-- <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+  
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">Football Inplay</h4>
+              <p class="card-category">
+                <p> some code</p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table mat-table [dataSource]="result"class="table">
+                  
+                  
+                    <ng-container matColumnDef="home">
+                      <th mat-header-cell *matHeaderCellDef> Home </th>
+                      <td mat-cell *matCellDef="let element"> {{element.home}} 
+                        </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="away">
+                      <th mat-header-cell *matHeaderCellDef> Away </th>
+                      <td mat-cell *matCellDef="let element">
+                          {{element.away}} 
+                        </td>
+                    </ng-container>
 
-        <div class="card">
-          <div class="card-header card-header-danger">
-            <h4 class="card-title">Service List</h4>
-            <p class="card-category">Services provided by us</p>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table">
-                  <thead class=" text-primary">
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Quantity
-                    </th>
-                    <th>
-                        Price
-                    </th>
-
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            xyz
-                        </td>
-                        <td>
-                            1kg
-                        </td>
-                        <td>
-                            500rs
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                            2
-                        </td>
-                        <td>
-                          xyz
-                      </td>
-                      <td>
-                          1kg
-                      </td>
-                      <td>
-                          500rs
-                      </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            3
-                        </td>
-                        <td>
-                          xyz
-                      </td>
-                      <td>
-                          1kg
-                      </td>
-                      <td>
-                          500rs
-                      </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            4
-                        </td>
-                        <td>
-                          xyz
-                      </td>
-                      <td>
-                          1kg
-                      </td>
-                      <td>
-                          500rs
-                      </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            5
-                        </td>
-                        <td>
-                          xyz
-                      </td>
-                      <td>
-                          1kg
-                      </td>
-                      <td>
-                          500rs
-                      </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            6
-                        </td>
-                        <td>
-                          xyz
-                      </td>
-                      <td>
-                          1kg
-                      </td>
-                      <td>
-                          500rs
-                      </td>
-                    </tr>
-                </tbody>
-                </table>
+                    <ng-container matColumnDef="odds">
+                        <th mat-header-cell *matHeaderCellDef>  </th>
+                        <td mat-cell *matCellDef="let element">
+                            <button  mat-raised-button color="primary">
+                                {{element.odds.home}}
+                            </button> 
+                            <button  mat-raised-button color="primary">
+                                {{element.odds.draw}}
+                            </button> 
+                           <button  mat-raised-button color="primary">
+                              {{element.odds.away}}
+                          </button>
+                          </td>
+                      </ng-container>
+                  
+                    
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table> 
+                 </div>
+  
                </div>
-
-             </div>
+          </div>
         </div>
       </div>
-    </div>
-   </div>
- </div>
+     </div>
+   </div> -->
+   
+   
+   <div class="courses-panel">
+  <mat-tab-group (selectedIndexChange)="selectedTab.setValue($event)">
+    
+    <mat-tab label="Live">
+    <div class="card">
+      <div class="card-header card-header-danger">
+        <h5 class="card-title">LIVE</h5>
+      </div>
+      <div class="card-body">
+            <football-card-list 
+            [selectedTabIndex]="selectedTab.value" 
+            [footballData]="groupedByLeagesInplay"></football-card-list>
+          </div>
+        </div>
+      </mat-tab>
+        
+
+
+      <mat-tab label="All">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h5 class="card-title">HIGHLIGHTS</h5>
+          </div>
+          <div class="card-body">
+            <football-card-list 
+            [selectedTabIndex]="selectedTab.value"
+            [footballData]="groupedByLeaguesUpcoming"></football-card-list>
+              </div>
+           </div>
+
+      </mat-tab>
+
+  </mat-tab-group>
+
+
+
+</div>
+

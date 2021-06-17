@@ -14,7 +14,7 @@ import { BetMarketComponent } from 'src/app/bet-market/bet-market.component';
 export const AdminLayoutsRoute: Routes = [
   { path: 'dashboard', component: DashboardComponent ,canActivate: [ AuthenticationGuard ]},
   { path: 'add-service', component: AddServiceComponent },
-  { path: 'service-list', component: ServiceListComponent},
+  { path: 'football', component: ServiceListComponent},
   { path: 'add-customer', component: AddCustomerComponent},
   { path: 'customer-list', component: CustomerListComponent},
   { path: 'add-fuller', component: AddFullerComponent},

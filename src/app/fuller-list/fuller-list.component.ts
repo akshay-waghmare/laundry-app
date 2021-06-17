@@ -29,8 +29,8 @@ export class FullerListComponent implements OnInit {
   //     // console.log(this.marketListLatest);
   // });
   this.fullerService.getMarketListByEvent(7, false ).subscribe(data => {
-    this.marketListNInplay = data;
     // console.log(this.marketListNInplay);
+    this.marketListNInplay = data;
     this.marketsAboutToStart = data.result.filter(x => new Date(x.startTime) >= new Date());
       console.log(this.marketsAboutToStart);
 });

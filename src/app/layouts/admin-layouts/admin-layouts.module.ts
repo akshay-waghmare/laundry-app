@@ -17,12 +17,17 @@ import {
   MatInputModule,
   MatRippleModule,
   MatTableModule,
-  MatIconModule
+  MatIconModule,
+  MatCardModule,
+  MatTabsModule,
+  MatDividerModule,
+  MatGridListModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationGuard } from 'src/app/authentication.guard';
 import { BetMarketComponent } from 'src/app/bet-market/bet-market.component';
 import { StompService, StompConfig ,rxStompServiceFactory ,RxStompService, InjectableRxStompConfig  } from '@stomp/ng2-stompjs';
+import { FootballCardListComponent } from 'src/app/football-card-list/football-card-list.component';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -50,7 +55,12 @@ const myRxStompConfig: InjectableRxStompConfig = {
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    MatTabsModule,
+    MatDividerModule,
+    MatGridListModule,
+  
   ],
   declarations: [
     DashboardComponent,
@@ -60,7 +70,8 @@ const myRxStompConfig: InjectableRxStompConfig = {
     CustomerListComponent,
     AddFullerComponent,
     FullerListComponent,
-    BetMarketComponent
+    BetMarketComponent,
+    FootballCardListComponent,
 
   ],
   providers: [

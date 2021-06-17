@@ -28,6 +28,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader/loader.service';
 import { LoaderInterceptor } from './loader/loader.interceptor';
 import { StompService, StompConfig } from '@stomp/ng2-stompjs';
+import { ElapsedTimePipe } from './utils/elapsed-time.pipe';
 
 const stompConfig: StompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -48,7 +49,8 @@ const stompConfig: StompConfig = {
     AppComponent,
     AdminLayoutsComponent,
     LoginComponent,
-    LoaderComponent
+    LoaderComponent,
+    ElapsedTimePipe,
   ],
   imports: [
     BrowserModule,

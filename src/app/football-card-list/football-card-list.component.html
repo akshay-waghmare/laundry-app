@@ -1,0 +1,114 @@
+
+
+<mat-card *ngFor="let league of footballData | keyvalue" class="mat-elevation-z10">
+
+  <mat-card-header>
+
+      <mat-card-title> {{league.key}} </mat-card-title>
+
+  </mat-card-header>
+
+  <!-- <img mat-card-image [src]="course.iconUrl"> -->
+
+   <mat-card-content *ngFor = " let matches of league.value | keyvalue as leagueMatches ;let i = index;">
+     <!-- so here i am getting the number of matches  -->
+      <!-- experimmenting here with the values i am getting      -->
+      <!-- so this works out as leagueMatches[i].value returns individua object  -->
+      <!-- {{leagueMatches[i].value['home']}} this should be used -->
+
+      <!-- working on the time to show correct time-->
+      
+      <mat-grid-list class="list-style" cols="6" rowHeight="4:1">
+
+          
+          <mat-grid-tile 
+          [colspan] = "1"
+          [rowspan]="2"
+          [style.background]="blue"
+          class=data-to-watch
+          > 
+          {{ getCalculatedElapsedTime(leagueMatches[i].value['startTime'], leagueMatches[i].value['periodTime']) }}
+          <span *ngIf="!selectedTabIndex==1" class="blink_me">'</span>
+          <mat-divider [vertical]="true" style="height:40px; margin-left:15px;"></mat-divider>
+        </mat-grid-tile>
+        <!-- </div> -->
+          
+            <mat-grid-tile
+            [colspan]="2"
+            [rowspan]="1"
+            class="football-card-list">
+             <p>{{leagueMatches[i].value['home']}}</p>
+            </mat-grid-tile>
+          
+          
+
+          <mat-grid-tile
+          [colspan]="2"
+          [rowspan]="1">
+          <button mat-button disabled class="odds-button">1</button>
+          <button mat-button disabled class="odds-button">X</button>
+          <button mat-button disabled class="odds-button">2</button>
+          
+          </mat-grid-tile>
+
+          <mat-grid-tile 
+          [colspan] = "1"
+          [rowspan]="1"
+          class="data-to-watch"
+          >
+          {{leagueMatches[i].value['home_score']}}
+          </mat-grid-tile>
+
+          <mat-grid-tile
+          [colspan]="2"
+          [rowspan]="1"
+          class="football-card-list">
+            <p>
+             {{leagueMatches[i].value['away']}}
+          </p>
+          </mat-grid-tile>
+
+          <mat-grid-tile
+          [colspan]="2"
+          [rowspan]="1">
+          <button mat-stroked-button class="odds-button"
+          [ngClass]="{'blink_once': ifBlink}" > {{leagueMatches[i].value['odds']['home']}} </button>
+          <button mat-stroked-button class="odds-button"
+          [ngClass]="{'blink_once': ifBlink}">{{leagueMatches[i].value['odds']['draw']}}</button>
+          <button mat-stroked-button class="odds-button"
+          [ngClass]="{'blink_once': ifBlink}">{{leagueMatches[i].value['odds']['away']}}</button>
+          
+          <!-- {{leagueMatches[i].value['odds']}}
+          {{leagueMatches[i].value['odds']}} -->
+          </mat-grid-tile>
+
+          <mat-grid-tile 
+          [colspan] = "1"
+          [rowspan]="1"
+          class="data-to-watch"
+          >{{leagueMatches[i].value['away_score']}}</mat-grid-tile>
+
+      </mat-grid-list> 
+           
+
+      <mat-divider></mat-divider>
+  </mat-card-content>
+<!--
+  <mat-card-actions class="course-actions">
+
+      <button mat-button class="mat-raised-button mat-primary">
+          VIEW Detail
+      </button>
+
+  </mat-card-actions> -->
+
+</mat-card>
+
+<mat-card *ngIf="isDataEmpty()" class="mat-elevation-z10">
+
+  <mat-card-header>
+
+      <mat-card-title class="text-alignment"> There are no matches currently available for this sport. </mat-card-title>
+
+  </mat-card-header>
+</mat-card> 

@@ -5,7 +5,8 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import {MatFormFieldModule,
         MatButtonModule,
-        MatInputModule} from '@angular/material';
+        MatInputModule,
+        MatDividerModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import {MatFormFieldModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
+    MatDividerModule,
   ],
   declarations: [
     SidebarComponent,

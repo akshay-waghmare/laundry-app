@@ -1,0 +1,40 @@
+.football-card-list >::ng-deep .mat-figure{
+    display: block !important;
+}
+
+.blink_me {
+    animation: blinker 1s linear infinite;
+  }
+
+  .blink_once {
+    animation: blinker 3s linear 2s;
+  }
+  
+  @keyframes blinker {  
+    50% { opacity: 0; }
+  }
+
+  .text-alignment{
+    padding: 1.9375rem 10.875rem;
+
+  }
+
+  .data-to-watch{
+    color:#0fa810;
+    white-space: pre-wrap;
+  }
+  .odds-button{
+    height:inherit;
+    line-height: 24px;
+    color:#0a74ef
+  }
+
+  .mat-elevation-z10{
+    box-shadow: none !important;
+  }
+
+  .list-style{
+    padding-bottom : calc(2.25 * ((4.16667% - 0.833333px) * 1) + 0px + 1px) !important;
+    font-weight: 500;
+
+  }
