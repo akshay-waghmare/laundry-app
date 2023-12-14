@@ -1,0 +1,88 @@
+<div class="courses-panel">
+  <mat-tab-group >
+    
+    <mat-tab label="RANKING">
+      <div class="card" >
+         <div class="card-header card-header-danger" style="display: inherit;">
+            <h5 class="card-title">TENNIS RANKING</h5>
+            
+              <!-- some code here  -->
+              <form class="courses-panel">
+                
+                  <mat-form-field >
+                    <input matInput placeholder="Search...">
+                   </mat-form-field>
+                   <button mat-mini-fab >
+                      <i class="material-icons">search</i>
+                   </button>
+                
+            </form>
+          </div>
+         <div class="card-body" >
+             
+              
+        
+          </div>
+      </div>
+      
+    </mat-tab> 
+   
+  </mat-tab-group>  
+ </div>
+<mat-card>
+  <mat-grid-list class="list-style" cols="5" rowHeight="3:0.5" >
+    <mat-grid-tile [colspan]="1" [rowspan]="1" style="text-align: center;" class="rank-list">
+      Ranking         
+    </mat-grid-tile>
+    
+    
+    <mat-grid-tile [colspan]="1" [rowspan]="1" class="rank-list">
+      <div aliggn="right" style="width:383px;" > Name/country</div>
+    </mat-grid-tile>
+  
+    <mat-grid-tile [colspan]="1" [rowspan]="1" class="rank-list">
+      <div aliggn="right"> country</div>
+    </mat-grid-tile>
+  
+    <mat-grid-tile [colspan]="1" [rowspan]="1" style="text-align: left ; padding-right: 75px;" class="rank-list">
+      <div>point</div>
+    </mat-grid-tile> 
+  </mat-grid-list>
+</mat-card>
+<mat-divider></mat-divider>
+<mat-card *ngFor="let rank of result " >
+  
+      
+       <mat-grid-list class="list-style" cols="5" rowHeight="3:0.5" >
+
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="blue" style="text-align: center;" class="rank-list">
+          {{rank.ranking}}         
+        </mat-grid-tile>
+        
+        
+        <mat-grid-tile [colspan]="1" [rowspan]="1" class="rank-list" >
+          <div aliggn="right"> {{rank.rowName}}</div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1" class="rank-list" >
+          <div aliggn="right">{{rank.team.country.name}}</div>
+        </mat-grid-tile>
+       
+       
+        <mat-grid-tile [colspan]="1" [rowspan]="1" class="rank-list">
+          <div>{{rank.points}}</div>
+        </mat-grid-tile> 
+      </mat-grid-list>
+
+      <mat-divider></mat-divider>
+</mat-card>
+
+
+<mat-card *ngIf="isDataEmpty()" class="mat-elevation-z10">
+
+  <mat-card-header>
+
+      <mat-card-title class="text-alignment"> There are no matches currently available for this sport. </mat-card-title>
+
+  </mat-card-header>
+</mat-card> 
