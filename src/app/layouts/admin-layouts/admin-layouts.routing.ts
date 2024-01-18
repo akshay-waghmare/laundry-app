@@ -10,6 +10,9 @@ import { FullerListComponent } from '../../fuller-list/fuller-list.component';
 import { LoginComponent } from 'src/app/login/login.component';
 import { AuthenticationGuard } from 'src/app/authentication.guard';
 import { BetMarketComponent } from 'src/app/bet-market/bet-market.component';
+import { TennisListComponent } from 'src/app/tennis-card-list/tennis-list/tennis-list.component';
+import { TennisRankingComponent } from 'src/app/tennis-card-list/tennis-list/tennis-ranking/tennis-ranking.component';
+
 
 export const AdminLayoutsRoute: Routes = [
   { path: 'dashboard', component: DashboardComponent ,canActivate: [ AuthenticationGuard ]},
@@ -19,5 +22,8 @@ export const AdminLayoutsRoute: Routes = [
   { path: 'customer-list', component: CustomerListComponent},
   { path: 'add-fuller', component: AddFullerComponent},
   { path: 'fuller-list', component: FullerListComponent},
-  { path: 'bet-market/:id', component: BetMarketComponent}, ];
+  { path: 'bet-market/:id', component: BetMarketComponent}, 
+  { path: 'tennis', component: TennisListComponent},
+  { path: 'tennis/atp/ranking', component: TennisRankingComponent},
+  { path: 'tennis/wta/ranking', component: TennisRankingComponent} ];
 

@@ -1,0 +1,75 @@
+.rank-list >::ng-deep .mat-figure{
+    display: block !important;
+}
+
+.blink_me {
+    animation: blinker 1s linear infinite;
+  }
+
+  .blink_once {
+    animation: blinker 3s linear 2s;
+  }
+  
+  @keyframes blinker {  
+    50% { opacity: 0; }
+  }
+
+  .text-alignment{
+    padding: 1.9375rem 10.875rem;
+    
+
+  }
+
+  .data-to-watch{
+    color:#0fa810;
+    white-space: pre-wrap;
+  }
+  .odds-button{
+    height:inherit;
+    line-height: 24px;
+    color:#0a74ef
+  }
+
+  .mat-elevation-z10{
+    box-shadow: none !important;
+  }
+
+  .list-style{
+    padding-bottom : calc(1.75 * ((3.16667% - 0.833333px) * 1) + 0px + 1px) !important;
+    font-weight: 500;
+    font-size: 14px;
+    
+
+  }
+  .mat-card {
+    
+    display: block;
+    position: relative;
+    padding: 16px;
+    border-radius: 4px;
+    width: 800px;
+    line-height: 2.5;
+    
+   height: 75px;
+}
+
+.mat-grid-tile {
+  display: block;
+  position: absolute;
+  overflow: inherit;
+}
+.card {
+  font-size: .875rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #eeeeee;
+  border-radius: 0.25rem;
+  margin-top: 50px;
+  padding-bottom: 25px;
+  width: 800px;
+}

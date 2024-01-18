@@ -1,0 +1,53 @@
+
+
+<div class="courses-panel">
+  <mat-tab-group (selectedIndexChange)="selectedTab.setValue($event)">
+    
+    <mat-tab label="Live">
+      <div class="card">
+         <div class="card-header card-header-danger">
+            <h5 class="card-title">LIVE</h5>
+         </div>
+         <div class="card-body">
+             <tennis-card-list 
+            [selectedTabIndex]="selectedTab.value" 
+            [tennisData]="result"></tennis-card-list> 
+         </div>
+      </div>
+    </mat-tab>
+
+
+      <mat-tab label="All">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h5 class="card-title">HIGHLIGHTS</h5>
+          </div>
+          <div class="card-body">
+            <tennis-card-list 
+            [selectedTabIndex]="selectedTab.value"
+            [tennisData]="result1">
+            </tennis-card-list> 
+              </div>
+           </div>
+
+      </mat-tab>
+     <!--  <mat-tab label="Ranking">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h5 class="card-title">Ranking</h5>
+          </div>
+          <div class="card-body">
+            <tennis-ranking 
+            [selectedTabIndex]="selectedTab.value"
+            [tennisData]="result1">
+            </tennis-ranking> 
+              </div>
+           </div>
+
+      </mat-tab> -->
+
+  
+  </mat-tab-group>
+
+
+</div>  

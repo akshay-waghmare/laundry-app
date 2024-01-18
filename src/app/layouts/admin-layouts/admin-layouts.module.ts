@@ -10,6 +10,8 @@ import { CustomerListComponent } from '../../customer-list/customer-list.compone
 import { AddFullerComponent } from '../../add-fuller/add-fuller.component';
 import { FullerListComponent } from '../../fuller-list/fuller-list.component';
 import { LoginComponent } from 'src/app/login/login.component';
+import { TennisService } from 'src/app/tennis-card-list/tennis-list/tennis.service';
+import { TennisaRankingService } from 'src/app/tennis-card-list/tennis-list/tennis-ranking/tennisa-ranking.service';
 
 import {
   MatFormFieldModule,
@@ -28,6 +30,9 @@ import { AuthenticationGuard } from 'src/app/authentication.guard';
 import { BetMarketComponent } from 'src/app/bet-market/bet-market.component';
 import { StompService, StompConfig ,rxStompServiceFactory ,RxStompService, InjectableRxStompConfig  } from '@stomp/ng2-stompjs';
 import { FootballCardListComponent } from 'src/app/football-card-list/football-card-list.component';
+import { TennisListComponent } from 'src/app/tennis-card-list/tennis-list/tennis-list.component';
+import { TennisCardListComponent } from 'src/app/tennis-card-list/tennis-card-list.component';
+import { TennisRankingComponent } from 'src/app/tennis-card-list/tennis-list/tennis-ranking/tennis-ranking.component';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -72,7 +77,9 @@ const myRxStompConfig: InjectableRxStompConfig = {
     FullerListComponent,
     BetMarketComponent,
     FootballCardListComponent,
-
+    TennisListComponent,
+    TennisCardListComponent,
+    TennisRankingComponent,
   ],
   providers: [
     RxStompService,

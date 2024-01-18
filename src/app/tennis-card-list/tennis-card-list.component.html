@@ -1,0 +1,184 @@
+<mat-card *ngFor="let t of tennisData">
+
+
+  <mat-card-header>
+
+    <mat-card-title> {{t.tournament.name}} </mat-card-title>
+
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <mat-grid-list class="list-style" cols="9" rowHeight="4:1">
+
+      <mat-grid-tile *ngIf="t.status.type !=='finished'" [colspan]="1" [rowspan]="2" [style.background]="blue" class=data-to-watch>
+        {{ t.startTimestamp * 1000 | date:'shortTime' }}<br>&nbsp;{{t.status.description}}
+        <span *ngIf="!selectedTabIndex==1" class="blink_me">'</span>
+        <mat-divider [vertical]="true" style="height:40px; margin-left:15px;"></mat-divider>
+        
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="t.status.type ==='finished'" [colspan]="1" [rowspan]="2" [style.background]="blue" class=data-to-watch>
+        {{ t.startTimestamp * 1000 | date:'shortDate' }}<br>&nbsp;{{t.status.description}}
+        <span *ngIf="!selectedTabIndex==1" class="blink_me">'</span>
+        <mat-divider [vertical]="true" style="height:40px; margin-left:15px;"></mat-divider>
+        
+      </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="1" class="tennis-card-list">
+          <p>{{t.homeTeam.name}}</p>
+        </mat-grid-tile>
+      
+      
+      <mat-grid-tile *ngIf="t.firstToServe=='1' && t.status.type !=='finished'" [colspan]="2" [rowspan]="1" class="tennis-card-list">
+        <i class="material-icons tennis-circle">brightness_1</i>
+      </mat-grid-tile>
+
+      
+      <mat-grid-tile *ngIf="t.firstToServe=='2' || t.status.type ==='finished' " [colspan]="2" [rowspan]="1" class="tennis-card-list">
+        <p></p>
+      </mat-grid-tile>
+     
+      <mat-grid-tile *ngIf="!isDataHas(t)" [colspan]="2" [rowspan]="1" class="tennis-card-list">
+        <p></p>
+      </mat-grid-tile>
+
+
+      <mat-grid-tile *ngIf="t.homeScore.point !== 'Null'" [colspan]="1" [rowspan]="1" class="tennis-card-list">
+        <button  mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}" >{{t.homeScore.point}}</button>
+      
+      </mat-grid-tile>
+      
+      <mat-grid-tile *ngIf="t.awayScore.point== 'Null'" [colspan]="1" [rowspan]="1" class="tennis-card-list">
+        <p>nn</p>
+      </mat-grid-tile>
+     
+      
+      <mat-grid-tile *ngIf="t.status.type !=='notstarted' && t.status.type !=='canceled'"
+      [colspan]="2"
+      [rowspan]="1" class="tennis-card-list">
+      <button *ngIf="!isPeriod1Has(t.homeScore)" mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}" > {{t.homeScore.period1}}</button>
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}">{{t.homeScore.period1}}<sup>{{t.homeScore.period1TieBreak}}</sup></button>
+      <button *ngIf="!isPeriod2Has(t.homeScore)" mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}" > {{t.homeScore.period2}}</button>
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}">{{t.homeScore.period2}}<sup>{{t.homeScore.period2TieBreak}}</sup></button>
+      <button *ngIf="!isPeriod3Has(t.homeScore)" mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}" > {{t.homeScore.period3}}</button>
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}">{{t.homeScore.period3}}<sup>{{t.homeScore.period3TieBreak}}</sup></button>
+      
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="t.status.type ==='notstarted' || t.status.type ==='canceled'"
+      [colspan]="2"
+      [rowspan]="1" class="tennis-card-list">
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}" > </button>
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}"></button>
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}"></button>
+      
+      
+      </mat-grid-tile>
+      
+      <mat-grid-tile [colspan]="1" [rowspan]="1" class="tennis-card-list">
+        <p>{{t.homeScore.current}}</p>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="t.homeScore.current == 'Null'" [colspan]="1" [rowspan]="1" class="tennis-card-list">
+        <p></p>
+      </mat-grid-tile>
+     
+      
+      <mat-grid-tile [colspan]="2" [rowspan]="1" class="tennis-card-list">
+        <p>
+          {{t.awayTeam.name}}
+        </p>
+      </mat-grid-tile>
+  
+        <mat-grid-tile *ngIf="t.firstToServe=='2' && t.status.type !=='finished'" [colspan]="2" [rowspan]="1" class="tennis-card-list">
+          <i class="material-icons tennis-circle" >brightness_1</i>
+        </mat-grid-tile>
+  
+        
+        <mat-grid-tile *ngIf="t.firstToServe=='1' || t.status.type ==='finished'" [colspan]="2" [rowspan]="1" class="tennis-card-list">
+          <p></p>
+        </mat-grid-tile>
+      
+        <mat-grid-tile *ngIf="!isDataHas(t)" [colspan]="2" [rowspan]="1" class="tennis-card-list">
+          <p></p>
+        </mat-grid-tile>
+  
+
+      <mat-grid-tile *ngIf="t.awayScore.point !== 'Null'" [colspan]="1" [rowspan]="1" class="tennis-card-list">
+        
+        <button  mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}" >{{t.awayScore.point}} </button>
+      
+      </mat-grid-tile>
+
+     
+
+      <mat-grid-tile *ngIf="t.status.type !=='notstarted' && t.status.type !=='canceled'"
+      [colspan]="2"
+      [rowspan]="1" class="tennis-card-list">
+      <button *ngIf="!isPeriod1Has(t.awayScore)" mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}" > {{t.awayScore.period1}}</button>
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}">{{t.awayScore.period1}}<sup>{{t.awayScore.period1TieBreak}}</sup></button>
+      <button *ngIf="!isPeriod2Has(t.awayScore)" mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}" > {{t.awayScore.period2}}</button>
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}">{{t.awayScore.period2}}<sup>{{t.awayScore.period2TieBreak}}</sup></button>
+      <button *ngIf="!isPeriod3Has(t.awayScore)" mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}" > {{t.awayScore.period3}}</button>
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}">{{t.awayScore.period3}}<sup>{{t.awayScore.period3TieBreak}}</sup></button>
+      
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="t.status.type ==='notstarted' || t.status.type ==='canceled'"
+      [colspan]="2"
+      [rowspan]="1" class="tennis-card-list">
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}" > </button>
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}"></button>
+      <button mat-stroked-button class="odds-button"
+      [ngClass]="{'blink_once': ifBlink}"></button>
+      
+      
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1" class="tennis-card-list">
+        <p>{{t.awayScore.current}}</p>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="t.awayScore.current == 'Null'" [colspan]="1" [rowspan]="1" class="tennis-card-list">
+        <p></p>
+      </mat-grid-tile>
+     
+    
+     
+    </mat-grid-list>
+
+    <mat-divider></mat-divider>
+  </mat-card-content>
+  
+</mat-card>
+
+
+
+
+<mat-card *ngIf="isDataEmpty()" class="mat-elevation-z10">
+
+  <mat-card-header>
+
+    <mat-card-title class="text-alignment"> There are no matches currently available for this sport. </mat-card-title>
+
+  </mat-card-header>
+</mat-card>

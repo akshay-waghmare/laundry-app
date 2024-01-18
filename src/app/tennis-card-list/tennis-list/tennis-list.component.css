@@ -1,0 +1,16 @@
+.courses-panel{
+    
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+
+}
+::ng-deep md-grid-tile.mat-grid-tile .mat-figure {
+    display: inline-block !important; /* or whichever you need */
+  }
+  .mat-tab-group {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+}
