@@ -11,7 +11,7 @@
          <div class="card-body">
              <tennis-card-list 
             [selectedTabIndex]="selectedTab.value" 
-            [tennisData]="result"></tennis-card-list> 
+            [tennisData]="groupedByLeagesInplay"></tennis-card-list> 
          </div>
       </div>
     </mat-tab>
@@ -25,7 +25,7 @@
           <div class="card-body">
             <tennis-card-list 
             [selectedTabIndex]="selectedTab.value"
-            [tennisData]="result1">
+            [tennisData]="groupedByLeaguesUpcoming">
             </tennis-card-list> 
               </div>
            </div>

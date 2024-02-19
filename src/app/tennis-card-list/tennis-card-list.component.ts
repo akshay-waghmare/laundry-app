@@ -31,26 +31,25 @@ export class TennisCardListComponent implements OnInit {
     return _.isEmpty(this.tennisData);
   }
 
-  isDataHas(t:any){
+  /* isDataHas(leagueMatches:any){
     //  console.log("pppp",_.has(t,"firstToServe"));
-      return _.has(t,"firstToServe");
+      return _.has(leagueMatches,"firstToServe");
     }
-  isPeriod1Has(t:any){
-      return _.has(t,"period1TieBreak")
+  isPeriod1Has(leagueMatches:any){
+      return _.has(leagueMatches,"period1TieBreak")
     }
-  isPeriod2Has(t:any){
-      return _.has(t,"period2TieBreak")
+  isPeriod2Has(leagueMatches:any){
+      return _.has(leagueMatches,"period2TieBreak")
     }
 
-  isPeriod3Has(t:any){
-      return _.has(t,"period2TieBreak")
+  isPeriod3Has(leagueMatches:any){
+      return _.has(leagueMatches,"period2TieBreak")
     }
-  isAwayScore(t:any){
-    return _.has(t,"point")
+  isAwayScore(leagueMatches:any){
+    return _.has(leagueMatches,"point")
   }
-  isHomeScore(t:any){
-    return _.has(t,"point")
-  }
+  isHomeScore(leagueMatches:any){
+    return _.has(leagueMatches,"point")
+  } */
 
-  }
-
+}

@@ -20,13 +20,13 @@ export class TennisService {
 
   getUpcomingTennisEvents() : Observable<any> {
 
-    return this._http.get(this.upcoming_tennis_url);
+    return this._http.get(this.inplay_tennis_url);
 
   }
 
   getAllTennisEvents() : Observable<any> {
 
-    return this._http.get(this.inplay_tennis_url);
+    return this._http.get(this.upcoming_tennis_url);
 
   }
 

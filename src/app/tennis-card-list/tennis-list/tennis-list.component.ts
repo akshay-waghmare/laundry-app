@@ -35,24 +35,29 @@ export class TennisListComponent implements OnInit {
                ngOnInit() {
                 
                 console.log("tennis list");
+                //upcoming tennis  data
                 this.tennisService.getUpcomingTennisEvents().subscribe((data) => {
                // console.log(data,"Tennis data");     
                    
-                 this.result=data.events;
-                console.log(this.result);
-            //  this.groupedByLeaguesUpcoming = _.groupBy(this.result,(obj) => { return obj.tournament.name });
+                 let result=data.events;
+                console.log(result);
+            this.groupedByLeaguesUpcoming = _.groupBy(result,(obj) => { return obj.tournament.name });
 
-        //console.log("upcoming : " + this.groupedByLeaguesUpcoming);
+        console.log("upcoming : " + this.groupedByLeaguesUpcoming);
             
                 });
-
+                //live tennis data
                 this.tennisService.getAllTennisEvents().subscribe((data) => {
                    console.log(data,"Tennis data");     
                       
-                   this.d=new Date;
-                    this.result1=_.filter(data.events,this.d);
+                   //this.d=new Date;
+                    //this.result1=_.filter(data.events,this.d);
+                  let result=data.events;
+                   console.log(result);
+                   this.groupedByLeagesInplay = _.groupBy(result,(obj) => { return obj.tournament.name });
 
-                   console.log(this.result1);
+                    console.log("upcoming : " + this.groupedByLeagesInplay);
+            
                 
                 });
                 
@@ -62,6 +67,10 @@ export class TennisListComponent implements OnInit {
                   this.result=_.toArray(data.events);
                     
                   console.log("printing in websocket call " + this.result);
+                  this.groupedByLeagesInplay = _.groupBy(this.result,(obj) => { return obj.tournament.name });
+
+                    console.log("upcoming : " + this.groupedByLeagesInplay);
+            
                   //console.log(this.groupedByLeagesInplay);
                 });
    }

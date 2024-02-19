@@ -1,5 +1,13 @@
 .tennis-card-list >::ng-deep .mat-figure{
-    display: block !important;
+    display:inline-block !important;
+    width: 1000px;
+    
+}
+.team-name {
+  margin-left: 10px;
+  white-space: nowrap; /* Prevents text from wrapping */
+  overflow: hidden; /* Hides any overflowing text */
+  text-overflow: ellipsis; /* Displays an ellipsis (...) to indicate that text has been truncated */
 }
 
 .blink_me {
@@ -22,11 +30,13 @@
   .data-to-watch{
     color:#0fa810;
     white-space: pre-wrap;
+    
   }
   .odds-button{
     height:inherit;
     line-height: 24px;
-    color:#0a74ef
+    color:#0a74ef;
+    border: none;
   }
 
   .mat-elevation-z10{
@@ -36,6 +46,7 @@
   .list-style{
     padding-bottom : calc(2.25 * ((4.16667% - 0.833333px) * 1) + 0px + 1px) !important;
     font-weight: 500;
+    
 
   }
   .small_div{
@@ -87,6 +98,8 @@
   word-wrap: normal;
   direction: ltr;
   color: green;
+  margin-left: 80px;
+  padding-left: 0%;
   
   -webkit-font-smoothing: antialiased;
 }
