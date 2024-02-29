@@ -23,5 +23,19 @@
               <p>{{menuItem.title}}</p>
           </a>
       </li>
+      <li>
+        <a class="nav-link">
+          <i class="material-icons">live_tv</i>
+          <p>Live</p>
+    
+          <ul>
+            <li *ngFor="let matchTeam of matchTeams">
+              <a class="nav-link" (click)="sendLinkToBackend(matchTeam.url)">
+                <p>{{matchTeam.teamName}}</p>
+              </a>
+            </li>
+          </ul>
+        </a>
+      </li>
   </ul>
 </div>

@@ -1,0 +1,327 @@
+.cricket-odds {
+    border: 1px solid #eaeaea; /* Softer border color */
+    padding: 20px;
+    max-width: 600px; /* Increased width for better layout */
+    margin: 20px auto;
+    text-align: center;
+    background-color: #f9f9f9; /* Lighter and softer background */
+    border-radius: 10px; /* More rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05); /* Softer shadow for depth */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Enhanced typography for better readability */
+.team-label, .session-label, .score-update, .team-overs, .team-score {
+    color: #333; /* Darker text for better contrast */
+    line-height: 1.5; /* Improved line spacing */
+}
+
+.favorite-odds {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.team-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.back-odds,
+.lay-odds {
+    color: #007BFF;
+    margin: 5px;
+}
+
+
+/* Styles for the left-half and right-half sections */
+.left-half,
+.right-half {
+    font-size: 8px;
+    flex: 1;
+    text-align: bottom;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.team-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.team-label,
+.team-overs,
+.team-score {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Styles for the team scores and overs */
+.team-overs,
+.team-score {
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.bottom {
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px; /* Adjust the gap as needed */
+}
+
+.left-half,
+.match-info {
+  flex: 1; /* Allows each section to take up equal space, adjust as needed */
+  text-align: left; /* Aligns text to the left for the left-half, adjust if necessary */
+  color: #333; /* Sets text color to black */
+  font-weight: bold; /* Makes text bold */
+  padding: 0 10px; /* Padding for internal spacing */
+}
+
+.score-update, .team-overs, .team-score, .crr, .final-result-text {
+    font-size: 18px; /* Slightly smaller font size for details */
+    font-weight: 500; /* Medium weight */
+}
+
+.team-label, .session-label {
+    font-size: 20px; /* Larger font size for headings */
+    font-weight: 600; /* Semi-bold */
+}
+
+.team-label, .session-label, .score-update, .team-overs, .team-score, .crr, .final-result-text {
+    color: #34495e; /* Deep, professional text color */
+    line-height: 1.4;
+    margin: 5px 0; /* Uniform margin for clean spacing */
+}
+
+.ball {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.back-odds-button {
+    background-color: lightseagreen;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.lay-odds-button {
+    background-color: lightcoral;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.favorite-odds {
+    display: flex;
+    align-items: center;
+}
+
+.odds-buttons {
+    display: flex;
+    gap: 10px;
+    /* Adjust the space between buttons as needed */
+    margin-left: 135px;
+}
+
+.back-odds-button,
+.lay-odds-button {
+    border: none;
+    cursor: pointer;
+    padding: 12px 24px;
+    font-size: 16px; /* Larger font size for readability */
+    border-radius: 20px; /* Rounded corners for a modern look */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.back-odds-button:hover, .lay-odds-button:hover {
+    opacity: 0.9; /* Slight opacity change on hover */
+}
+.odds-buttons button[disabled] {
+    opacity: 0.5; /* Dim disabled buttons for clarity */
+    cursor: not-allowed;
+}
+
+.lay-active {
+    background-color: lightcoral !important; /* Change this to your desired lighter tone color */
+    /* Add any other styles you want for the active state */
+  }
+
+.live-score {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0 auto;
+    width: 100%;
+    background-color: #e0c5c5;
+    color: white;
+    /* Set your preferred background color */
+    border: none;
+    /* Add a border for a rectangular appearance */
+    padding: 15px 0;
+    /* Add padding to the content inside the rectangle */
+    border-radius: 8px;
+    /* Add rounded corners for a softer appearance */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* Add a subtle shadow for depth */
+}
+
+.score-update {
+    font-size: 30px; /* Larger font size for score update */
+    font-weight: bold; /* Bold font for emphasis */
+    color: #d9534f; /* Attention-grabbing color */
+    margin-bottom: 15px; /* Additional spacing */
+    margin: 0;
+    padding: 10px 0;
+
+}
+
+/* Adjusting the team name, score, and overs for clarity */
+.team-label, .team-score, .team-overs {
+    font-size: 18px; /* Slightly larger font size */
+    margin: 5px 0; /* Adjust margin for spacing */
+    font-weight: normal; /* Regular font weight for a cleaner look */
+}
+
+.team-score, .team-overs {
+    font-weight: bold; /* Bold font weight for these elements */
+}
+
+
+
+/* Styles for the first "favorite odds" section */
+.favorite-odds.team-section {
+    background-color: #f0f0f0;
+    margin-top: 25px;
+}
+
+/* Enhance visibility of team details */
+.left-half, .right-half {
+    text-align: center; /* Center align text */
+    margin: 10px 0; /* Add margin for separation */
+}
+
+/* Styles for the second "favorite odds" section */
+.favorite-odds.session-section {
+    background-color: #f0f0f0;
+}
+
+/* Styles for the team labels */
+.team-label,
+.session-label {
+    font-weight: bold;
+}
+
+/* Styles for the odds buttons (adjust as needed) */
+.odds-buttons {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+}
+
+/* Custom CSS class for betting options */
+.betting-options {
+    font-weight: bold; /* Bold font for buttons */
+    background-color: #3f51b5; /* Match the Back button's color */
+    background-color: rgba(63, 81, 181, 0.9); /* Adjust the opacity to make it lighter */
+    padding: 10px;
+    border-radius: 5px;
+    color: white; /* Text color for contrast */
+    display: flex; /* Use flexbox to align children in a row */
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-around; /* Distribute space evenly around items */
+    flex-wrap: wrap; /* Allow items to wrap as needed */
+    gap: 10px; /* Add a gap between items for spacing */
+  }
+
+  .betting-options input,
+  .betting-options button {
+      flex: 1; /* Allow inputs and buttons to grow and fill available space */
+      margin: 0 5px; /* Add some margin for spacing */
+      padding: 5px 10px; /* Adjust padding for better appearance */
+      border-radius: 4px; /* Rounded corners for inputs and buttons */
+  }
+
+  /* Ensure buttons are identifiable and not overly stretched */
+.betting-options button {
+    white-space: nowrap; /* Prevent button text from wrapping */
+    padding: 8px 12px; /* Adjust padding for buttons */
+}
+  
+  .betting-options input[type="number"] {
+    max-width: 100px; /* Limit width of number inputs to keep the UI tidy */
+}
+
+
+.betting-options label {
+    display: block; /* Make labels block level for better alignment */
+    margin-bottom: 5px; /* Space between label and input */
+    font-weight: bold;
+}
+
+
+/* Style the Place Bet button with a different background color */
+.betting-options button.place-bet {
+    background-color: #4caf50; /* Green color for the Place Bet button */
+  }
+
+  .match-info {
+    text-align: right; /* Align text to the right for the right-half section */
+    font-size: 17px; /* Adjust font size as needed */
+
+  }
+  
+  
+  /* Style the Cancel button with a different background color */
+  .betting-options button.cancel-bet {
+    background-color: #f44336; /* Red background for the "Cancel" button */
+  }
+
+  .suspension-label {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
+    color: red;
+    padding: 4px 8px;
+    border-radius: 4px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  .last-6-balls {
+    margin-top: 20px; /* Space from the content above */
+    padding: 15px;
+    background-color: #e7e7e7; /* Softer background for form */
+    color: #333;
+    border-radius: 8px; /* Rounded corners */
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 15px;
+}
+
+.ball {
+    width: 40px; /* Slightly larger for visibility */
+    height: 40px;
+    line-height: 40px; /* Vertically center the text */
+    font-size: 16px; /* Larger font for visibility */
+    margin: 0 16px; /* Space between balls */
+    background-color: #32bbe3f2; /* Consistent with the back odds button */
+    color: white; /* White text for contrast */
+}
+  

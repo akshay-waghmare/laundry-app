@@ -20,12 +20,9 @@ export class FootballCardListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("inside football-card-list component");
-    console.log("printing footballData : " , this.footballData);
   }
 
   isDataEmpty(){
-    console.log("printing isempty " , _.isEmpty(this.footballData));
     return _.isEmpty(this.footballData);
   }
 
@@ -48,7 +45,6 @@ export class FootballCardListComponent implements OnInit {
     let breakMinutes = Math.floor(timeBetweenStartingOfHalves / 60) - 45;
 
     if(Math.floor(timeBetweenStartingOfHalves / 60) >= 60){
-      console.log('in second half');
       secondhalf = true;
     }
 
@@ -67,7 +63,6 @@ export class FootballCardListComponent implements OnInit {
     // only run when property "data" changed
     if (changes['footballData']) {
       this.ifBlink=true;
-      console.log("data changed here man !!");
     }
 }
 

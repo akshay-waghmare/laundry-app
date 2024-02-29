@@ -1,0 +1,76 @@
+<mat-card class="bet-history-container">
+  <mat-card-content>
+    <div class="filter-section">
+      <mat-form-field appearance="fill">
+        <mat-label>Data Source</mat-label>
+        <mat-select>
+          <mat-option value="cricket">Cricket</mat-option>
+          <mat-option value="tennis">Tennis</mat-option>
+          <mat-option value="football">Football</mat-option>
+          <!-- More options here -->
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>From Date</mat-label>
+        <input matInput [matDatepicker]="pickerFrom" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>To Date</mat-label>
+        <input matInput [matDatepicker]="pickerTo" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="getHistory()">Get History</button>
+    </div>
+    <mat-table [dataSource]="bets" class="mat-elevation-z8">
+      <ng-container matColumnDef="sportName">
+        <mat-header-cell *matHeaderCellDef> Sport Name </mat-header-cell>
+        <mat-cell *matCellDef="let bet"> {{bet.sportName}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="eventName">
+        <mat-header-cell *matHeaderCellDef> Event Name </mat-header-cell>
+        <mat-cell *matCellDef="let bet"> {{bet.eventName}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="marketName">
+        <mat-header-cell *matHeaderCellDef> Market Name </mat-header-cell>
+        <mat-cell *matCellDef="let bet"> {{bet.marketName}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="selection">
+        <mat-header-cell *matHeaderCellDef> Selection </mat-header-cell>
+        <mat-cell *matCellDef="let bet"> {{bet.marketName}} </mat-cell>
+      </ng-container>
+      <!-- ng-container for 'Type' -->
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+        <mat-cell *matCellDef="let bet"> {{bet.marketName}} </mat-cell>
+      </ng-container>
+      <!-- ng-container for 'Odds' -->
+      <ng-container matColumnDef="odds">
+        <mat-header-cell *matHeaderCellDef> Odds </mat-header-cell>
+        <mat-cell *matCellDef="let bet"> {{bet.marketName}} </mat-cell>
+      </ng-container>
+      <!-- ng-container for 'Stake' -->
+      <ng-container matColumnDef="stake">
+        <mat-header-cell *matHeaderCellDef> Stake </mat-header-cell>
+        <mat-cell *matCellDef="let bet"> {{bet.marketName}} </mat-cell>
+      </ng-container>
+      <!-- ng-container for 'Placed Time' -->
+      <ng-container matColumnDef="placedTime">
+        <mat-header-cell *matHeaderCellDef> Placed Time </mat-header-cell>
+        <mat-cell *matCellDef="let bet"> {{bet.marketName}} </mat-cell>
+      </ng-container>
+      <!-- ng-container for 'Matched Time' -->
+      <ng-container matColumnDef="matchedTime">
+        <mat-header-cell *matHeaderCellDef> Matched Time </mat-header-cell>
+        <mat-cell *matCellDef="let bet"> {{bet.marketName}} </mat-cell>
+      </ng-container>
+      
+      
+      <!-- More columns... -->
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>

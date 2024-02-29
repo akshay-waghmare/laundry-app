@@ -7,6 +7,25 @@ import {MatFormFieldModule,
         MatButtonModule,
         MatInputModule,
         MatDividerModule} from '@angular/material';
+import { InjectableRxStompConfig, RxStompService, StompConfig, rxStompServiceFactory } from '@stomp/ng2-stompjs';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderInterceptor } from '../loader/loader.interceptor';
+
+const myRxStompConfig: InjectableRxStompConfig = {
+  // added '/websocket' for spring boot SockJS
+  brokerURL: 'ws://127.0.0.1:8099/ws/websocket',
+  connectHeaders: {
+    login: 'guest',
+    passcode: 'guest'
+  },
+  heartbeatIncoming: 0,
+  heartbeatOutgoing: 20000, // 20000 - every 20 seconds
+  reconnectDelay: 5000,
+  debug: (msg: string): void => {
+    console.log(new Date(), msg);
+  }
+};
+
 
 @NgModule({
   imports: [
@@ -24,6 +43,16 @@ import {MatFormFieldModule,
   exports: [
     SidebarComponent,
     NavbarComponent
-  ]
+  ],
+  providers: [RxStompService,
+    {
+      provide: InjectableRxStompConfig,
+      useValue: myRxStompConfig
+    },
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory,
+      deps: [InjectableRxStompConfig]
+    }]
 })
 export class ComponentsModule { }

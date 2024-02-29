@@ -14,16 +14,22 @@ import { TennisListComponent } from 'src/app/tennis-card-list/tennis-list/tennis
 import { TennisRankingComponent } from 'src/app/tennis-card-list/tennis-list/tennis-ranking/tennis-ranking.component';
 
 
+import { CricketOddsComponent } from 'src/app/cricket-odds/cricket-odds.component';
+import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
+
 export const AdminLayoutsRoute: Routes = [
   { path: 'dashboard', component: DashboardComponent ,canActivate: [ AuthenticationGuard ]},
   { path: 'add-service', component: AddServiceComponent },
   { path: 'football', component: ServiceListComponent},
   { path: 'add-customer', component: AddCustomerComponent},
   { path: 'customer-list', component: CustomerListComponent},
+  { path: 'cric-live/:path', component: CricketOddsComponent}, // Add this line
   { path: 'add-fuller', component: AddFullerComponent},
   { path: 'fuller-list', component: FullerListComponent},
   { path: 'bet-market/:id', component: BetMarketComponent}, 
   { path: 'tennis', component: TennisListComponent},
   { path: 'tennis/atp/ranking', component: TennisRankingComponent},
-  { path: 'tennis/wta/ranking', component: TennisRankingComponent} ];
+  { path: 'tennis/wta/ranking', component: TennisRankingComponent},
+  { path: 'account/bet-history', component: BetHistoryComponent}  
+];
 

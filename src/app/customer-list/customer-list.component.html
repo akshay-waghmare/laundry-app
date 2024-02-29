@@ -164,7 +164,10 @@
 
                <div *ngFor="let ticker of tickerMap | keyvalue">
                     Key: <b *ngIf="ticker.key!='get' && ticker.key!='set'">{{ticker.key}}</b> and Value: <b *ngIf="ticker.key!='get' && ticker.key!='set'">{{ticker.value}}</b>
-               </div>   
+               </div>  
+               <div *ngFor="let cric of cricObj | keyvalue">
+                Key: <b *ngIf="cric.key!='get' && cric.key!='set'">{{cric.key}}</b> and Value: <b *ngIf="cric.key!='get' && cric.key!='set'">{{cric.value}}</b>
+           </div>  
              </div>
         </div>
       </div>

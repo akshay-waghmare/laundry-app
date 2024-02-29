@@ -1,4 +1,4 @@
-import { RouterModule } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -18,7 +18,8 @@ import {
   MatButtonModule,
   MatInputModule,
   MatRippleModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatToolbarModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -29,6 +30,8 @@ import { LoaderService } from './loader/loader.service';
 import { LoaderInterceptor } from './loader/loader.interceptor';
 import { StompService, StompConfig } from '@stomp/ng2-stompjs';
 import { ElapsedTimePipe } from './utils/elapsed-time.pipe';
+import { CustomReuseStrategy } from './custom-reuse-strategy';
+
 
 const stompConfig: StompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -51,6 +54,7 @@ const stompConfig: StompConfig = {
     LoginComponent,
     LoaderComponent,
     ElapsedTimePipe,
+    
   ],
   imports: [
     BrowserModule,
@@ -65,6 +69,7 @@ const stompConfig: StompConfig = {
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
+    MatToolbarModule,
     MatProgressSpinnerModule,
 
 
@@ -73,6 +78,7 @@ const stompConfig: StompConfig = {
     LoaderService,
     HttpClientModule,
     StompConfig,
+    {provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
     { provide: HTTP_INTERCEPTORS,useValue: stompConfig, useClass: LoaderInterceptor, multi: true }],
   bootstrap: [AppComponent],
   

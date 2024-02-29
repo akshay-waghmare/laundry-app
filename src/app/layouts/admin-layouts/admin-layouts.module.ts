@@ -1,5 +1,5 @@
 import { AddCustomerComponent } from './../../add-customer/add-customer.component';
-import { RouterModule } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminLayoutsRoute } from './admin-layouts.routing';
@@ -23,7 +23,13 @@ import {
   MatCardModule,
   MatTabsModule,
   MatDividerModule,
-  MatGridListModule
+  MatGridListModule,
+  MatToolbarModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  DateAdapter,
+  MAT_DATE_LOCALE
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationGuard } from 'src/app/authentication.guard';
@@ -33,6 +39,10 @@ import { FootballCardListComponent } from 'src/app/football-card-list/football-c
 import { TennisListComponent } from 'src/app/tennis-card-list/tennis-list/tennis-list.component';
 import { TennisCardListComponent } from 'src/app/tennis-card-list/tennis-card-list.component';
 import { TennisRankingComponent } from 'src/app/tennis-card-list/tennis-list/tennis-ranking/tennis-ranking.component';
+import { CricketOddsComponent } from 'src/app/cricket-odds/cricket-odds.component';
+import { CustomReuseStrategy } from 'src/app/custom-reuse-strategy';
+import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -65,6 +75,12 @@ const myRxStompConfig: InjectableRxStompConfig = {
     MatTabsModule,
     MatDividerModule,
     MatGridListModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule, 
+    MatMomentDateModule
+    
   
   ],
   declarations: [
@@ -80,9 +96,18 @@ const myRxStompConfig: InjectableRxStompConfig = {
     TennisListComponent,
     TennisCardListComponent,
     TennisRankingComponent,
+    CricketOddsComponent,
+    BetHistoryComponent
+
   ],
   providers: [
+    
     RxStompService,
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
     {
       provide: InjectableRxStompConfig,
       useValue: myRxStompConfig

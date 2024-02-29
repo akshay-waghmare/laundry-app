@@ -1,0 +1,142 @@
+<div class="courses-panel" style="margin-top: 170px;">
+  <mat-card>
+    <mat-card-header class="mat-card-header-danger">
+      <mat-card-title>LIVE</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="cricket-odds">
+        <!-- Live Score Update -->
+        <div class="live-score">
+          <div class="score-update">{{ liveScoreUpdate }}</div>
+          <div class="bottom">
+            <div class="left-half">
+              <div class="team-label">{{ team1Name }}</div>
+              <div class="team-score">{{ team1Score }}</div>
+              <div class="team-overs">{{ team1Overs }}</div>
+            </div>
+            <div class="match-info">
+              <!-- Displaying CRR and final result text -->
+              <div class="crr">CRR: {{ currentRunRate }}</div>
+              <div class="final-result-text">{{ finalResultTextValue }}</div>
+            </div>
+
+            <!-- Right Half -->
+            <!-- <div class="right-half">
+              <div class="team-label">{{ team2Name }}</div>
+              <div class="team-score">{{ team2Score }}</div>
+              <div class="team-overs">{{ team2Overs }}</div>
+            </div> -->
+          </div>
+        </div>
+
+        <!-- Favorite Team Odds -->
+        <div *ngIf="testMatchOdds === undefined && favTeam !== '-'">
+          <div class="favorite-odds team-section">
+            <div class="team-label">{{ favTeam }}</div>
+            <div class="odds-buttons">
+              <button mat-raised-button color="primary" [disabled]="liveScoreUpdate === 'Ball Start'"
+                (click)="showBettingOptions('teamSectionBackOdds')">
+                {{ backOdds }} <ng-container *ngIf="liveScoreUpdate === 'Ball Start'">
+                  <div class="suspension-label">SUS</div>
+                </ng-container></button>
+              <button mat-raised-button color="accent" [disabled]="liveScoreUpdate === 'Ball Start'" (click)="toggleLayButton()"
+                (click)="showBettingOptions('layOdds')">{{ layOdds }} <ng-container *ngIf="liveScoreUpdate === 'Ball Start'">
+                  <div class="suspension-label">SUS</div>
+                </ng-container></button>
+            </div>
+          </div>
+        
+          <div class="betting-options" [class.lay-active]="layButtonActive"
+            *ngIf="showBetting && (showBettingFor === 'teamSectionBackOdds' || showBettingFor === 'layOdds' )">
+            <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+            <div class="odds">
+              <label for="odds">Odds:</label>
+              <input type="number" id="odds" (input)="handleOddsInputChange()" (blur)="handleOddsBlur()"
+                [value]="selectedOdds" />
+            </div>
+            <div class="amount">
+              <label for="amount">Amount:</label>
+              <input type="number" id="amount" [(ngModel)]="betAmount" />
+            </div>
+            <button mat-raised-button class="place-bet" color="primary" (click)="placeBet()">Place Bet</button>
+          </div>
+        </div>
+
+        <!-- Test Match Odds -->
+        <!-- This section is shown only if it's a test match, i.e., testMatchOdds has values -->
+        <div *ngIf="testMatchOdds && testMatchOdds.length">
+          <div *ngFor="let match of testMatchOdds; let i = index" class="test-match-odds">
+            <div class="favorite-odds team-section">
+              <div class="team-label">{{ match.teamName }}</div>
+              <div class="odds-buttons">
+                <button mat-raised-button color="primary" (click)="showBettingOptionsForTestMatch('testMatchOdds', i)" [disabled]="liveScoreUpdate === 'Ball Start'">
+                   {{ match.odds.backOdds }}
+                </button>
+                <button mat-raised-button color="accent" (click)="showBettingOptionsForTestMatch('testMatchOdds', i)" [disabled]="liveScoreUpdate === 'Ball Start'">
+                   {{ match.odds.layOdds }}
+                </button>
+              </div>
+            </div>
+            <!-- Corrected conditional rendering and class binding syntax -->
+            <div class="betting-options" *ngIf="showBetting && showBettingFor === 'testMatchOdds' && currentMatchIndex === i" [class.lay-active]="layButtonActive">
+              <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+              <div class="odds">
+                <label for="odds{{i}}">Odds:</label>
+                <input type="number" id="odds{{i}}" [(ngModel)]="selectedOdds" />
+              </div>
+              <div class="amount">
+                <label for="amount{{i}}">Amount:</label>
+                <input type="number" id="amount{{i}}" [(ngModel)]="betAmount" />
+              </div>
+              <button mat-raised-button class="place-bet" color="primary" (click)="placeBet(match)">Place Bet</button>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Session Odds -->
+        <div *ngIf="session !== '-'"> 
+          <div class="favorite-odds session-section">
+            <div class="session-label">{{ session }}</div>
+            <div class="odds-buttons">
+              <button mat-raised-button color="primary" [disabled]="liveScoreUpdate === 'Ball Start'"
+                (click)="showBettingOptions('sessionBackOdds')">{{ sessionBackOdds }} <ng-container
+                  *ngIf="liveScoreUpdate === 'Ball Start'">
+                  <div class="suspension-label">SUS</div>
+                </ng-container></button>
+              <button mat-raised-button color="accent" [disabled]="liveScoreUpdate === 'Ball Start'"
+                (click)="toggleLayButton()" (click)="showBettingOptions('sessionLayOdds')">{{ sessionLayOdds }}
+                <ng-container *ngIf="liveScoreUpdate === 'Ball Start'">
+                  <div class="suspension-label">SUS</div>
+                </ng-container></button>
+            </div>
+          </div>
+  
+          <div class="betting-options" [class.lay-active]="layButtonActive"
+            *ngIf="showBetting && (showBettingFor === 'sessionBackOdds' || showBettingFor === 'sessionLayOdds')">
+            <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+            <div class="odds">
+              <label for="odds">Odds:</label>
+              <input type="number" id="odds" (input)="handleOddsInputChange()" (blur)="handleOddsBlur()"
+                [value]="selectedOdds" />
+            </div>
+            <div class="amount">
+              <label for="amount">Amount:</label>
+              <input type="number" id="amount" [(ngModel)]="betAmount" />
+            </div>
+            <button mat-raised-button class="place-bet" color="primary" (click)="placeBet()">Place Bet</button>
+          </div>
+        </div>
+
+        <!-- Last 6 Balls -->
+        <div class="last-6-balls">
+          <div class="ball" *ngFor="let ball of last6Balls">
+            <div class="ball-score">{{ ball.score }}</div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
