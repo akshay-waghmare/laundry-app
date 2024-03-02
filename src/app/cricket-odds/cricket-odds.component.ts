@@ -4,6 +4,8 @@ import { RxStompService } from '@stomp/ng2-stompjs';
 import { Subject } from 'rxjs';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { CricketService } from './cricket-odds.service';
+import { TokenStorage } from '../token.storage';
+import { EventListService } from '../component/event-list.service';
 
 
 @Component({
@@ -57,9 +59,16 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   testMatchOdds: any[];
   currentRunRate: any;
   finalResultTextValue: any;
+  betType: string;
+  loggedUser: string;
+  matchUrl: any;
+  isBetProcessing: boolean;
+  betStatusSubscription: any;
 
   constructor(private rxStompService: RxStompService,
               private cricketService: CricketService,
+              private tokenStorage:TokenStorage,
+              private eventListService:EventListService,
               private activatedRoute: ActivatedRoute,private router: Router) { }
 
   ngOnDestroy() {
@@ -110,6 +119,10 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     //watching live score for cricet data
     this.fetchCricketData();
 
+    //fetch user details from tokenStorage
+    const user = this.tokenStorage.getUser();
+    this.loggedUser =  JSON.parse(user);
+
   }
   
 
@@ -117,6 +130,7 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   private fetchCricketData() {
     this.activatedRoute.params.subscribe(params => {
       const match = params['path']; // Use 'path' instead of 'match'
+      this.matchUrl = match;
 
       this.cricketService.getLastUpdatedData(match).subscribe(data => {
         this.parseCricObjData(data);
@@ -345,6 +359,51 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     console.log('Bet Amount: ', this.betAmount);
   }
 
+  placeTestBet(match) {
+    
+    const betDetails = {
+      betType: this.betType,
+      teamName: match.teamName,
+      odd: Number(this.selectedOdds),
+      amount: Number(this.betAmount),
+      matchUrl: this.matchUrl // Adding the match url to betDetails
+    };
+    // Example logic for placing a bet
+    console.log(`Placing a ${this.betType} bet on team ${match.teamName} with odds ${this.selectedOdds} and amount ${this.betAmount}`);
+    this.showBetting = false;
+    this.isBetProcessing = true;
+    // Send this data to your backend or process it as needed
+
+    this.cricketService.placeBet(betDetails).subscribe({
+      next: (response) => {
+        console.log('Bet placed successfully', response);
+        this.showBetting = false; // Hide betting options
+        // Additional success handling
+        this.checkBetConfirmation(response.betId);
+      },
+      error: (error) => {
+        console.error('Error placing bet', error);
+        this.isBetProcessing = false;
+        // Error handling
+      }
+    });
+  }
+
+  checkBetConfirmation(betId: number) {
+    // Implement WebSocket subscription or polling to check bet status
+    // Once confirmed:
+    this.betStatusSubscription = this.eventListService.subscribeToBetStatusTopic().subscribe(bet => {
+      console.log("Bet status received here after confirmation  ", bet);
+      // parse bet json
+      const parsedBet = JSON.parse(bet.body);
+      if(parsedBet.status === 'Confirmed' && parsedBet.betId === betId) {
+        console.log("setting is bet processing to false after confirmation");
+        this.isBetProcessing = false;
+      }
+    });
+    // Update UI based on bet confirmation
+  }
+
   updateOddsStep() {
     if (this.selectedOdds > this.prevOdds) {
       // Incrementing odds
@@ -381,21 +440,28 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   // Example modification of the showBettingOptions method to accept match context
   // overload this showBettingOptions method to accept match context
     
-  showBettingOptionsForTestMatch(section:string,  index: number) {
+  showBettingOptionsForTestMatch(section:string,  index: number , betType:string) {
     this.showBetting = true;
     // If it's a test match, set the selected odds and amount based on the match parameter
     this.currentMatchIndex = index; // Set the current match index
+    this.betType = betType;
+    
     const match = this.testMatchOdds[index]; // Access the match using the index
 
-    if (match) {
-      this.selectedOdds = match.selectedOdds;
-      this.betAmount = match.betAmount;
-    } else {
-      // For the favorite team or session, keep the existing logic
-      this.selectedOdds = this.backOdds;
+    if (betType === 'back') {
+      this.selectedOdds = match.odds.backOdds;
+    } else if (betType === 'lay') {
+      this.selectedOdds = match.odds.layOdds;
     }
     this.showBettingFor = section;
     // Additional logic to handle the lay button state...
+    if (this.showBettingFor == 'testMatchOdds' && betType === 'lay') {
+      this.layButtonActive = true;
+    }
+    if (this.showBettingFor == 'testMatchOdds' && betType === 'back') {
+      this.layButtonActive = false;
+    }
+
   }
 
 }

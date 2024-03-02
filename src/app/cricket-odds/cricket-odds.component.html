@@ -4,6 +4,10 @@
       <mat-card-title>LIVE</mat-card-title>
     </mat-card-header>
     <mat-card-content>
+      <div *ngIf="isBetProcessing" class="loader-container">
+        <div class="loader"></div>
+        <!-- Optional: Add text like 'Confirming bet...' -->
+      </div>
       <div class="cricket-odds">
         <!-- Live Score Update -->
         <div class="live-score">
@@ -19,13 +23,6 @@
               <div class="crr">CRR: {{ currentRunRate }}</div>
               <div class="final-result-text">{{ finalResultTextValue }}</div>
             </div>
-
-            <!-- Right Half -->
-            <!-- <div class="right-half">
-              <div class="team-label">{{ team2Name }}</div>
-              <div class="team-score">{{ team2Score }}</div>
-              <div class="team-overs">{{ team2Overs }}</div>
-            </div> -->
           </div>
         </div>
 
@@ -69,10 +66,10 @@
             <div class="favorite-odds team-section">
               <div class="team-label">{{ match.teamName }}</div>
               <div class="odds-buttons">
-                <button mat-raised-button color="primary" (click)="showBettingOptionsForTestMatch('testMatchOdds', i)" [disabled]="liveScoreUpdate === 'Ball Start'">
+                <button mat-raised-button color="primary" (click)="showBettingOptionsForTestMatch('testMatchOdds', i, 'back')" [disabled]="liveScoreUpdate === 'Ball Start'">
                    {{ match.odds.backOdds }}
                 </button>
-                <button mat-raised-button color="accent" (click)="showBettingOptionsForTestMatch('testMatchOdds', i)" [disabled]="liveScoreUpdate === 'Ball Start'">
+                <button mat-raised-button color="accent" (click)="showBettingOptionsForTestMatch('testMatchOdds', i, 'lay')" [disabled]="liveScoreUpdate === 'Ball Start'">
                    {{ match.odds.layOdds }}
                 </button>
               </div>
@@ -88,7 +85,7 @@
                 <label for="amount{{i}}">Amount:</label>
                 <input type="number" id="amount{{i}}" [(ngModel)]="betAmount" />
               </div>
-              <button mat-raised-button class="place-bet" color="primary" (click)="placeBet(match)">Place Bet</button>
+              <button mat-raised-button class="place-bet" color="primary" (click)="placeTestBet(match)">Place Bet</button>
             </div>
           </div>
         </div>

@@ -28,6 +28,10 @@ export class EventListService {
     return this.rxStompService.watch('/topic/live-matches');
   }
 
+  subscribeToBetStatusTopic(): Observable<any> {
+    return this.rxStompService.watch('/topic/bet-status');
+  }
+
   /// this url will be sent to the backend to activate the scraping logic for the new match
   sendLinkToBackend(urlToSend: String) {
     //post request to the backend with the url as payload
