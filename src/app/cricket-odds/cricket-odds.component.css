@@ -346,3 +346,70 @@
     100% { transform: rotate(360deg); }
   }
   
+
+
+  .live-match-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .cricket-odds-container {
+    flex: 3; /* Adjust this value based on your layout needs */
+    margin-right: 20px; /* Adds some space between the sections */
+  }
+  
+  .user-bets-container {
+    flex: 1; /* Adjust this value based on your layout needs */
+    padding: 20px;
+    background-color: #f2f2f2; /* Light grey background for visual distinction */
+    border-radius: 10px; /* Optional: adds rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow */
+    max-height: 600px; /* Optional: limits the height of the bets container */
+    overflow-y: auto; /* Optional: adds scroll for overflow */
+  }
+  
+  .user-bets-container h3 {
+    color: #333; /* Dark text for the title */
+    margin-bottom: 15px;
+  }
+  
+  .user-bets {
+    max-width: 400px; /* or any other width */
+    margin: auto; /* centers the card */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for elegance */
+  }
+  
+  .mat-card-header {
+    background-color: #1976d2; /* example blue */
+    color: white;
+  }
+  
+  .mat-card-title {
+    font-size: 20px;
+  }
+  
+  
+
+  
+
+  
+
+
+  .user-bets .mat-table {
+    width: 100%;
+    overflow: auto;
+  }
+  
+  .user-bets th.mat-header-cell, .user-bets td.mat-cell {
+    text-align: left;
+    padding: 8px; /* Adjust padding as needed */
+  }
+  
+  .user-bets th {
+    font-weight: bold;
+  }
+  
+  .user-bets td {
+    font-size: 14px; /* Smaller font for compact look */
+  }

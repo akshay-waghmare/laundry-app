@@ -29,7 +29,9 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   DateAdapter,
-  MAT_DATE_LOCALE
+  MAT_DATE_LOCALE,
+  MatList,
+  MatListModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationGuard } from 'src/app/authentication.guard';
@@ -39,10 +41,9 @@ import { FootballCardListComponent } from 'src/app/football-card-list/football-c
 import { TennisListComponent } from 'src/app/tennis-card-list/tennis-list/tennis-list.component';
 import { TennisCardListComponent } from 'src/app/tennis-card-list/tennis-card-list.component';
 import { TennisRankingComponent } from 'src/app/tennis-card-list/tennis-list/tennis-ranking/tennis-ranking.component';
-import { CricketOddsComponent } from 'src/app/cricket-odds/cricket-odds.component';
-import { CustomReuseStrategy } from 'src/app/custom-reuse-strategy';
-import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { CricketOddsComponent } from 'src/app/cricket-odds/cricket-odds.component';
+import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -79,7 +80,8 @@ const myRxStompConfig: InjectableRxStompConfig = {
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule, 
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatListModule
     
   
   ],

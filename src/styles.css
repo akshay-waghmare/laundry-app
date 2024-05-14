@@ -8,6 +8,9 @@
   height: 100vh;
 }
 .sidebar-wrapper {
+  background-color: #34495e; /* Deep blue background */
+  color: #ecf0f1; /* Light text color for contrast */
+  font-family: 'Poppins', sans-serif; /* Modern, clean font */
   position: fixed;
   height: 99.9vh;;
   overflow: auto;
@@ -62,6 +65,9 @@
   display: block;
   height: auto;
   white-space: nowrap;
+  color: #ecf0f1; /* Ensure this color contrasts well against your sidebar's background */
+  font-size: 14px; /* Adjust font size for readability */
+  padding: 10px 15px; /* Add some padding for better spacing */
 }
 
 .sidebar .nav li a, .sidebar .nav li .dropdown-menu a {
@@ -89,6 +95,13 @@
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  transition: color 0.3s, background-color 0.3s; /* Smooth transition for hover effects */
+  color: #bdc3c7; /* Soft gray for text */
+}
+
+.nav-link:hover, .nav-link:focus {
+  background-color: #1abc9c; /* Bright color for hover */
+  color: #ecf0f1;
 }
 
 .sidebar .nav li a:hover {
@@ -117,8 +130,9 @@
 }
 
 .logo-img img{
-  width: 35px;
+  width: 50px;
   top: 16px;
+  margin: auto; /* Center logo */
   position: absolute;
 }
 
@@ -130,8 +144,22 @@
     padding-left: 10px !important;
     padding-bottom: 30px !important;
     font-family: 'Roboto';
+    color: #bdc3c7; /* Matching text color */
+  font-size: 14px; /* Adjusted font size */
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    width: 100%; /* Full width on smaller screens */
+    height: auto; /* Adjust height */
+    position: relative; /* Change position */
+  }
+
+  .nav {
+    display: block; /* Stack items vertically */
+  }
+}
 .sidebar .logo .simple-text {
   text-transform: uppercase;
   padding: 5px 0px;
@@ -162,6 +190,7 @@
     background-color: rgba(180, 180, 180, 0.3);
   }
 
+  
   .main-panel {
   position: relative;
   float: right;

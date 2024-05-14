@@ -19,7 +19,8 @@ import {
   MatInputModule,
   MatRippleModule,
   MatProgressSpinnerModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatIconModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -71,6 +72,7 @@ const stompConfig: StompConfig = {
     MatInputModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
+    MatIconModule,
 
 
   ],

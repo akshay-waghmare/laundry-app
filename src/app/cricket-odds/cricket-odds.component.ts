@@ -6,6 +6,7 @@ import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { CricketService } from './cricket-odds.service';
 import { TokenStorage } from '../token.storage';
 import { EventListService } from '../component/event-list.service';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -44,7 +45,12 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
 
   layButtonActive: boolean = false;
 
+  selectedBetType: string = ''; // Initialize as 'back' or 'lay' based on user selection
+
+
   currentMatchIndex: number | null = null; 
+
+  displayedColumns: string[] = ['teamName','type','amount', 'odd', 'status']; // Add more column names here
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -65,10 +71,14 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   isBetProcessing: boolean;
   betStatusSubscription: any;
 
+  userBets: any[] = []; // To store the bets
+  updatedUserData: any;
+
   constructor(private rxStompService: RxStompService,
               private cricketService: CricketService,
               private tokenStorage:TokenStorage,
               private eventListService:EventListService,
+              private authService : AuthService,
               private activatedRoute: ActivatedRoute,private router: Router) { }
 
   ngOnDestroy() {
@@ -122,6 +132,8 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     //fetch user details from tokenStorage
     const user = this.tokenStorage.getUser();
     this.loggedUser =  JSON.parse(user);
+
+    this.loadUserBets();
 
   }
   
@@ -322,6 +334,15 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
       if (this.layButtonActive) {
         this.layButtonActive = false;
       }
+
+      if(this.showBettingFor === 'sessionBackOdds'){
+        this.selectedBetType = 'back';
+        this.selectedOdds = this.backOdds;
+      }
+    }
+    if(this.showBettingFor == 'layOdds'){
+      this.selectedBetType = 'lay'; 
+      this.selectedOdds = this.layOdds; 
     }
 
   }
@@ -353,10 +374,35 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
 
   // Function to place the bet (you can add your logic here)
   placeBet() {
+
+    const betDetails = {
+      betType: this.selectedBetType,
+      teamName: this.favTeam,
+      odd: 1 + (Number(this.selectedOdds)/100),
+      amount: Number(this.betAmount),
+      matchUrl: this.matchUrl // Adding the match url to betDetails
+    };
     // Add your logic to handle the bet placement here
+
+    this.showBetting = false;
+    this.isBetProcessing = true;
+    
     console.log('Placing bet...');
     console.log('Selected Odds: ', this.selectedOdds);
     console.log('Bet Amount: ', this.betAmount);
+
+    this.cricketService.placeBet(betDetails).subscribe({
+      next: (response) => {
+        console.log('Bet placed successfully', response);
+        this.showBetting = false; // Hide betting options
+        // Additional success handling
+        this.checkBetConfirmation(response.betId);
+      },
+      error: (error) => {
+        console.error('Error placing bet', error);
+        // Error handling
+      }
+    });
   }
 
   placeTestBet(match) {
@@ -399,6 +445,13 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
       if(parsedBet.status === 'Confirmed' && parsedBet.betId === betId) {
         console.log("setting is bet processing to false after confirmation");
         this.isBetProcessing = false;
+        this.loadUserBets();
+        this.authService.updateUserDetails(parsedBet.user);
+      }
+      if(parsedBet.status === 'Cancelled' && parsedBet.betId === betId) {
+        console.log("setting is bet processing to false after cancellation");
+        this.isBetProcessing = false;
+        this.loadUserBets();
       }
     });
     // Update UI based on bet confirmation
@@ -427,6 +480,7 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   handleOddsBlur() {
     this.selectedOdds = parseFloat(this.selectedOdds.toFixed(1));
   }
+
   handleOddsInputChange(event: Event) {
     const inputValue = (event.target as HTMLInputElement).value;
     this.selectedOdds = parseFloat(inputValue);
@@ -462,6 +516,19 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
       this.layButtonActive = false;
     }
 
+  }
+
+  loadUserBets(): void {
+    this.cricketService.getUserBetsForMatch(this.matchUrl).subscribe(
+      (bets) => {
+        console.log(bets);
+        this.userBets= bets;
+        this.updatedUserData = this.userBets[0].user;
+      }, 
+      (error) => {
+        console.error('Error fetching bets:', error);
+      }
+    );
   }
 
 }
