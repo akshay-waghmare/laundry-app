@@ -29,7 +29,7 @@
             </div>
     
             <!-- Favorite Team Odds -->
-            <div *ngIf="testMatchOdds === undefined && favTeam !== '-'">
+            <div *ngIf="!(testMatchOdds && testMatchOdds.length > 0) && favTeam !== '-'">
               <div class="favorite-odds team-section">
                 <div class="team-label">{{ favTeam }}</div>
                 <div class="odds-buttons">

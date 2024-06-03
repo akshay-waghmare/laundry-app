@@ -18,8 +18,8 @@
         </div>
       </form> -->
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <div class="user-info d-flex align-items-center">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="material-icons icon-large me-2">account_circle</i>
             <div>
               <div class="font-weight-bold">{{user?.username}}</div>
@@ -32,6 +32,18 @@
                 Exposure: <span class="ms-1">{{user?.exposure | currency}}</span>
               </div>
             </div>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="#"><i class="material-icons">home</i> Home</a>
+            <a class="dropdown-item" href="#"><i class="material-icons">account_balance_wallet</i> Deposit</a>
+            <a class="dropdown-item" href="#"><i class="material-icons">payment</i> Withdraw</a>
+            <a class="dropdown-item" href="#"><i class="material-icons">person</i> My Profile</a>
+            <a class="dropdown-item" href="#"><i class="material-icons">description</i> Account Statement</a>
+            <a class="dropdown-item" href="#"><i class="material-icons">settings</i> Stake Settings</a>
+            <a class="dropdown-item" href="#"><i class="material-icons">trending_up</i> Profit & Loss</a>
+            <a class="dropdown-item" href="#"><i class="material-icons">hourglass_empty</i> Unsettled Bets</a>
+            <a class="dropdown-item" href="#"><i class="material-icons">lock</i> Change Password</a>
+            <a class="dropdown-item" href="#"><i class="material-icons">logout</i> Sign Out</a>
           </div>
         </li>
       </ul>
