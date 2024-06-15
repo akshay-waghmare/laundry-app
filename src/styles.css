@@ -505,6 +505,10 @@ body, html {
     width: 200px;
   }
 
+  .courses-panel {
+    margin-top: 0px !important; /* Remove top margin for viewports smaller than 768px */
+  }
+
   .main-panel {
     margin-left: 200px;
   }
