@@ -14,7 +14,7 @@ const authHeaders = new HttpHeaders({
 })
 export class AuthService {
 
-  private userUrl = 'http://139.59.34.101:8099'; // Adjust the URL as needed
+  private userUrl = 'http://127.0.0.1:8099'; // Adjust the URL as needed
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
