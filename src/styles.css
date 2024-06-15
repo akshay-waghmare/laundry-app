@@ -12,12 +12,12 @@
   color: #ecf0f1; /* Light text color for contrast */
   font-family: 'Poppins', sans-serif; /* Modern, clean font */
   position: fixed;
-  height: 99.9vh;;
+  height: 100%;
   overflow: auto;
   width: 260px;
   z-index: 4;
   padding-bottom: 30px;
-
+  transition: width 0.3s;
   -webkit-box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
           box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
@@ -442,6 +442,91 @@ a {
 }
 
 
+/* new html changes for responsivenes */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+}
 
+.wrapper {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
 
+.sidebar-wrapper {
+  background-color: #34495e;
+  color: #ecf0f1;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  width: 260px;
+  z-index: 1000; /* Ensure the sidebar is below the toggle button */
+  padding-bottom: 30px;
+  transition: width 0.3s, display 0.3s;
+}
 
+.sidebar-hidden .sidebar-wrapper {
+  display: none;
+}
+
+.main-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-left: 260px;
+  transition: margin-left 0.3s;
+  z-index: 999; /* Ensure the main panel is below the toggle button */
+}
+
+.sidebar-hidden .main-panel {
+  margin-left: 0;
+}
+
+.sidebar-toggle-button {
+  display: block;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: #343a40;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1001; /* Ensure the button is on top of everything */
+}
+
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    width: 200px;
+  }
+
+  .main-panel {
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar-wrapper {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .main-panel {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .sidebar-toggle-button {
+    display: block;
+  }
+}

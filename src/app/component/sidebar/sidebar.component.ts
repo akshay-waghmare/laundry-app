@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { EventListService } from '../event-list.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { N_ROUTES } from 'src/app/constants/constants';
 import { ROUTES } from 'src/app/constants/constants';
+import { SidebarService } from './sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +19,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   matchTeams: any[] = [];
   eventlistSubscription: Subscription;
 
-  constructor(private eventListService: EventListService, private router: Router) { }
+  @Output() toggleSidebar = new EventEmitter<void>();
+
+  constructor(private eventListService: EventListService,
+              private sidebarService: SidebarService,
+              private router: Router) { }
 
 
   ngOnInit() {
@@ -108,6 +113,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     // Navigate to the 'cric-live' route with the extracted matchPart as a parameter
     this.router.navigate(['cric-live', matchPart]);
+  }
+
+  toggle() {
+    console.log('Toggle button clicked'); // Add console log
+    this.sidebarService.toggleVisibility();
   }
   
 } 

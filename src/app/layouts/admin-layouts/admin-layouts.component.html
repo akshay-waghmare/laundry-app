@@ -1,6 +1,6 @@
-<div class="wrapper">
+<div class="wrapper" [class.sidebar-hidden]="!isSidebarVisible">
   <div class="sidebar">
-      <app-sidebar></app-sidebar>
+      <app-sidebar (toggleSidebar)="handleToggleSidebar()" ></app-sidebar>
   </div>
 
   <div class="main-panel">
