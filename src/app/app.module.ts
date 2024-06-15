@@ -32,11 +32,12 @@ import { LoaderInterceptor } from './loader/loader.interceptor';
 import { StompService, StompConfig } from '@stomp/ng2-stompjs';
 import { ElapsedTimePipe } from './utils/elapsed-time.pipe';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
+import { environment } from 'src/environments/environment';
 
 
 const stompConfig: StompConfig = {
   // added '/websocket' for spring boot SockJS
-  url: 'ws://127.0.0.1:8099/ws/websocket',
+  url: environment.ws.brokerURL,
   headers: {
     login: 'guest',
     passcode: 'guest'

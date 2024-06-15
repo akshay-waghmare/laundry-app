@@ -1,0 +1,54 @@
+version: '3.7'
+
+services:
+  spring-security-jwt-app:
+    build: .
+    image: spring-boot-backend
+    container_name: spring-security-jwt-app
+    ports:
+      - "8099:8099"
+    networks:
+      - my_network
+    volumes:
+      - /c/Users/admn/Documents/Cricket/jwt-example-role-based/testdb.mv.db:/app/testdb.mv.db
+    environment:
+      - SPRING_H2_CONSOLE_ENABLED=true
+      - SPRING_H2_CONSOLE_PATH=/h2-console
+      - SPRING_DATASOURCE_URL=jdbc:h2:file:/app/testdb;DB_CLOSE_ON_EXIT=FALSE
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.h2.Driver
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.H2Dialect
+      - SPRING_DATASOURCE_HIKARI_DATA_SOURCE_PROPERTIES.webAllowOthers=true
+
+  id-card-app:
+    image: my-angular-app
+    container_name: id-card-app
+    ports:
+      - "80:80"
+    networks:
+      - my_network
+    depends_on:
+      - spring-security-jwt-app
+
+  my-scrapper-1:
+    image: my-scrapper-1-2
+    container_name: my-scrapper-1
+    ports:
+      - "5000:5000"
+    networks:
+      - my_network
+    depends_on:
+      - spring-security-jwt-app
+    volumes:
+      - /c/Project/crawler_learning/crex_scrapper_python/url_state.db:/app/url_state.db
+    environment:
+      - TOKEN_URL=http://spring-security-jwt-app:8099/token/generate-token
+      - SERVICE_URL=http://spring-security-jwt-app:8099/cricket-data
+      - ADD_LIVE_MATCHES_URL=http://spring-security-jwt-app:8099/cricket-data/add-live-matches
+
+networks:
+  my_network:
+
+volumes:
+  db_data:

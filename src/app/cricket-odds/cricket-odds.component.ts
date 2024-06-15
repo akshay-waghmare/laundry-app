@@ -54,6 +54,11 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject<void>();
 
+  totalPotentialWin: number = 0;
+  totalPotentialLoss: number = 0;
+  winFormattedKey: string = '';
+  loseFormattedKey: string = '';
+
   last6Balls: { score: number }[] = [{ score: 1 }, { score: 0 }, { score: 0 }, { score: 0 }, { score: 0 }, { score: 6 }]; // Example: Array to store last 6 ball scores.
   cricetTopicSubscription: any;
   cricObj: any;
@@ -520,15 +525,43 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
 
   loadUserBets(): void {
     this.cricketService.getUserBetsForMatch(this.matchUrl).subscribe(
-      (bets) => {
-        console.log(bets);
-        this.userBets= bets;
+      (response) => {
+        console.log(response);
+        this.userBets= response.bets;
         this.updatedUserData = this.userBets[0].user;
+        this.formatAdjustedExposures(response.adjustedExposures);
+        console.log('Total Potential Win:', this.totalPotentialWin);
+        console.log('Total Potential Loss:', this.totalPotentialLoss);
+        console.log('Win Formatted Key:', this.winFormattedKey);
+        console.log('Lose Formatted Key:', this.loseFormattedKey);
       }, 
       (error) => {
         console.error('Error fetching bets:', error);
       }
     );
   }
+
+  formatAdjustedExposures(exposures: any): any {
+    const formattedExposures = {};
+
+    Object.keys(exposures).forEach(key => {
+        const parts = key.split(' ');
+        const teamName = parts[0];
+        const outcome = parts[parts.length - 1].toLowerCase();
+        const formattedKey = `${teamName} ${outcome}`;
+        formattedExposures[formattedKey] = exposures[key];
+
+        if (outcome === 'win') {
+            this.totalPotentialWin = exposures[key];
+            this.winFormattedKey = formattedKey;
+            
+        } else if (outcome === 'lose') {
+            this.totalPotentialLoss = exposures[key];
+            this.loseFormattedKey = formattedKey;
+        }
+    });
+
+    return formattedExposures;
+}
 
 }

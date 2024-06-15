@@ -17,8 +17,14 @@
 }
 
 .favorite-odds {
-    font-size: 16px;
-    margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 15px 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .team-label {
@@ -86,8 +92,10 @@
 }
 
 .team-label, .session-label {
-    font-size: 20px; /* Larger font size for headings */
-    font-weight: 600; /* Semi-bold */
+  font-size: 18px;
+  font-weight: bold;
+  color: #34495e;
+  margin-bottom: 5px;
 }
 
 .team-label, .session-label, .score-update, .team-overs, .team-score, .crr, .final-result-text {
@@ -211,8 +219,11 @@
 
 /* Enhance visibility of team details */
 .left-half, .right-half {
-    text-align: center; /* Center align text */
-    margin: 10px 0; /* Add margin for separation */
+  font-size: 16px;
+  text-align: left;
+  color: #333;
+  font-weight: bold;
+  padding: 0 10px;
 }
 
 /* Styles for the second "favorite odds" section */
@@ -231,6 +242,22 @@
     display: flex;
     justify-content: center;
     margin-left: auto;
+    gap: 15px;
+}
+
+.odds-buttons button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.odds-buttons button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.odds-buttons button {
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 /* Custom CSS class for betting options */
@@ -412,4 +439,45 @@
   
   .user-bets td {
     font-size: 14px; /* Smaller font for compact look */
+  }
+
+
+
+
+
+  .overall-win-loss {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    align-items: center;
+  }
+
+  .overall-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .win-label, .loss-label {
+    font-weight: 500;
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  .win-amount {
+    color: #28a745;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .loss-amount {
+    color: #dc3545;
+    font-size: 22px;
+    font-weight: bold;
   }

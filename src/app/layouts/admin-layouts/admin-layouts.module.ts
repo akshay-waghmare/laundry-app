@@ -44,10 +44,11 @@ import { TennisRankingComponent } from 'src/app/tennis-card-list/tennis-list/ten
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { CricketOddsComponent } from 'src/app/cricket-odds/cricket-odds.component';
 import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
+import { environment } from 'src/environments/environment';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
-  brokerURL: 'ws://127.0.0.1:8099/ws/websocket',
+  brokerURL: environment.ws.brokerURL,
   connectHeaders: {
     login: 'guest',
     passcode: 'guest'

@@ -28,6 +28,18 @@
               </div>
             </div>
     
+            <!-- Overall Win/Loss Summary -->
+            <div class="overall-win-loss">
+              <div class="overall-item">
+                <span class="win-label">{{ winFormattedKey }}:</span>
+                <span class="win-amount">{{ totalPotentialWin | currency }}</span>
+              </div>
+              <div class="overall-item">
+                <span class="loss-label">{{ loseFormattedKey }}:</span>
+                <span class="loss-amount">{{ totalPotentialLoss | currency }}</span>
+              </div>
+            </div>
+            
             <!-- Favorite Team Odds -->
             <div *ngIf="!(testMatchOdds && testMatchOdds.length > 0) && favTeam !== '-'">
               <div class="favorite-odds team-section">

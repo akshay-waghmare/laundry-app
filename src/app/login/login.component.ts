@@ -42,6 +42,8 @@ export class LoginComponent implements OnInit {
   			} );
   }
 
+  
+
   public logout() {
 
   	// Remove user from local storage to log user out

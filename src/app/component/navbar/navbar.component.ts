@@ -35,5 +35,4 @@ export class NavbarComponent implements OnInit {
       this.authService.updateUserDetails(data);
     }, error => console.log(error));
   }
-
 }

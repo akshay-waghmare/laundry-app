@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TokenStorage } from './token.storage';
+import { environment } from 'src/environments/environment.prod';
+
 
 const authHeaders = new HttpHeaders({
   'Content-Type': 'application/json'
@@ -12,7 +14,7 @@ const authHeaders = new HttpHeaders({
 })
 export class AuthService {
 
-  private userUrl = 'http://localhost:8099'; // Adjust the URL as needed
+  private userUrl = 'http://139.59.34.101:8099'; // Adjust the URL as needed
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -32,7 +34,7 @@ export class AuthService {
   attemptAuth(formData:any) : any {
     const body = JSON.stringify(formData);
     console.log('attempAuth ::');
-    return this.http.post('http://localhost:8099/token/generate-token', body, {headers:authHeaders,observe:'response'});
+    return this.http.post(`${this.userUrl}/token/generate-token`, body, {headers:authHeaders,observe:'response'});
   }
 
 

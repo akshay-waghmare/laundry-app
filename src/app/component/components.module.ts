@@ -10,10 +10,11 @@ import {MatFormFieldModule,
 import { InjectableRxStompConfig, RxStompService, StompConfig, rxStompServiceFactory } from '@stomp/ng2-stompjs';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from '../loader/loader.interceptor';
+import { environment } from 'src/environments/environment';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
-  brokerURL: 'ws://127.0.0.1:8099/ws/websocket',
+  brokerURL: environment.ws.brokerURL,
   connectHeaders: {
     login: 'guest',
     passcode: 'guest'
