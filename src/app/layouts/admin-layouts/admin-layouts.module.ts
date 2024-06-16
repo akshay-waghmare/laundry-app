@@ -12,6 +12,7 @@ import { FullerListComponent } from '../../fuller-list/fuller-list.component';
 import { LoginComponent } from 'src/app/login/login.component';
 import { TennisService } from 'src/app/tennis-card-list/tennis-list/tennis.service';
 import { TennisaRankingService } from 'src/app/tennis-card-list/tennis-list/tennis-ranking/tennisa-ranking.service';
+import { LogoutFormComponent } from 'src/app/logout-form/logout-form.component';
 
 import {
   MatFormFieldModule,
@@ -100,7 +101,9 @@ const myRxStompConfig: InjectableRxStompConfig = {
     TennisCardListComponent,
     TennisRankingComponent,
     CricketOddsComponent,
-    BetHistoryComponent
+    BetHistoryComponent,
+    LogoutFormComponent,
+    
 
   ],
   providers: [
