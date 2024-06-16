@@ -25,6 +25,7 @@
   background-color: #f8f9fa;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
 }
 
 .team-label {
@@ -125,6 +126,8 @@
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    
 }
 
 .lay-odds-button {
@@ -133,6 +136,11 @@
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-odds-button:hover, .lay-odds-button:hover {
+  opacity: 0.9;
 }
 
 .favorite-odds {
@@ -144,7 +152,7 @@
     display: flex;
     gap: 10px;
     /* Adjust the space between buttons as needed */
-    margin-left: 135px;
+    margin-left: auto;
 }
 
 .back-odds-button,
@@ -377,6 +385,7 @@
 
   .live-match-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 20px;
   }
@@ -385,6 +394,7 @@
     flex: 3; /* Adjust this value based on your layout needs */
     margin-right: 20px; /* Adds some space between the sections */
   }
+  
   
   .user-bets-container {
     flex: 1; /* Adjust this value based on your layout needs */
@@ -481,3 +491,107 @@
     font-size: 22px;
     font-weight: bold;
   }
+
+  /* Responsive adjustments for .favorite-odds */
+.favorite-odds {
+  flex-wrap: wrap; /* Allows items to wrap to the next line on smaller screens */
+  justify-content: center; /* Center align items on smaller screens */
+  padding: 10px;
+}
+
+.favorite-odds .odds-buttons {
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+/* Responsive adjustments for .betting-options */
+.betting-options {
+  flex-direction: column; /* Stack elements vertically on smaller screens */
+  align-items: flex-start; /* Align items to the start on smaller screens */
+  width: 100%;
+  padding: 10px 0;
+}
+
+.betting-options input, .betting-options button {
+  width: 100%; /* Full width on smaller screens */
+  max-width: none; /* Remove max-width */
+  margin: 5px 0; /* Adjust margins for better spacing */
+}
+
+.live-match-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.cricket-odds-container {
+  flex: 1 1 100%; /* Full width on smaller screens */
+  margin: 10px 0; /* Adjust margin */
+}
+
+@media (max-width: 768px) {
+  .cricket-odds-container, .user-bets-container {
+      flex: 1 1 100%;
+      margin: 0;
+      max-width: -webkit-fill-available;
+  }
+
+  .score-update {
+      font-size: 24px;
+  }
+
+  .team-label, .session-label, .team-overs, .team-score {
+      font-size: 14px;
+  }
+
+  .overall-win-loss {
+      flex-direction: column;
+  }
+
+  .overall-item {
+      width: 100%;
+      margin-bottom: 10px;
+  }
+
+  .favorite-odds .odds-buttons {
+      flex-direction: row;
+      justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .cricket-odds-container, .user-bets-container {
+    flex: 1 1 100%;
+    margin: 0;
+    max-width: -webkit-fill-available;
+}
+
+  .score-update {
+      font-size: 18px;
+  }
+
+  .team-label, .session-label, .team-overs, .team-score {
+      font-size: 12px;
+  }
+
+  .favorite-odds {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .favorite-odds .team-label {
+      font-size: 16px;
+  }
+
+  .betting-options {
+      padding: 10px 0;
+  }
+
+  .last-6-balls .ball {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 12px;
+  }
+}
