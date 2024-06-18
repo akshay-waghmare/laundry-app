@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  spring-security-jwt-app:
+    image: macubex/spring-boot-backend:latest  # Using the pre-built image from Docker Hub
+    container_name: spring-security-jwt-app
+    ports:
+      - "8099:8099"
+    networks:
+      - my_network
+    volumes:
+      - ./testdb.mv.db:/app/testdb.mv.db  # Updated path to use relative path within the project directory on the Droplet
+    environment:
+      - SPRING_H2_CONSOLE_ENABLED=true
+      - SPRING_H2_CONSOLE_PATH=/h2-console
+      - SPRING.H2.CONSOLE.SETTINGS.WEB-ALLOW-OTHERS=true
+      - SPRING_DATASOURCE_URL=jdbc:h2:file:/app/testdb;DB_CLOSE_ON_EXIT=FALSE
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.h2.Driver
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.H2Dialect
+      - SPRING_DATASOURCE_HIKARI_DATA_SOURCE_PROPERTIES.webAllowOthers=true
+
+  id-card-app:
+    image: macubex/my-angular-app:latest  # Using the pre-built image from Docker Hub
+    container_name: id-card-app
+    ports:
+      - "80:80"
+    networks:
+      - my_network
+    depends_on:
+      - spring-security-jwt-app
+
+  my-scrapper-1:
+    image: macubex/crex-scrapper:latest  # Using the pre-built image from Docker Hub
+    container_name: my-scrapper-1
+    ports:
+      - "5000:5000"
+    networks:
+      - my_network
+    depends_on:
+      - spring-security-jwt-app
+    volumes:
+      - ./url_state.db:/app/url_state.db  # Updated path to use relative path within the project directory on the Droplet
+    environment:
+      - TOKEN_URL=http://spring-security-jwt-app:8099/token/generate-token
+      - SERVICE_URL=http://spring-security-jwt-app:8099/cricket-data
+      - ADD_LIVE_MATCHES_URL=http://spring-security-jwt-app:8099/cricket-data/add-live-matches
+
+networks:
+  my_network:

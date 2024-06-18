@@ -71,7 +71,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
         const newMatchUrl = message.url;
         this.addUrlList(newMatchUrl);
 
-      } else if (message.hasOwnProperty('status') && message.status === 'deleted') {
+      }
+      
+      if (message.hasOwnProperty('status') && message.status === 'deleted') {
         // Deletion Handling
         const urlToDelete = message.url;
         // Your logic to extract  matchTeam for UI link removal - you might need a minor 
