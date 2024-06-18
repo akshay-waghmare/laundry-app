@@ -16,6 +16,7 @@ import { TennisRankingComponent } from 'src/app/tennis-card-list/tennis-list/ten
 
 import { CricketOddsComponent } from 'src/app/cricket-odds/cricket-odds.component';
 import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
+import { LogoutFormComponent } from 'src/app/logout-form/logout-form.component';
 
 export const AdminLayoutsRoute: Routes = [
   { path: 'dashboard', component: DashboardComponent ,canActivate: [ AuthenticationGuard ]},
@@ -30,6 +31,7 @@ export const AdminLayoutsRoute: Routes = [
   { path: 'tennis', component: TennisListComponent},
   { path: 'tennis/atp/ranking', component: TennisRankingComponent},
   { path: 'tennis/wta/ranking', component: TennisRankingComponent},
-  { path: 'account/bet-history', component: BetHistoryComponent}  
+  { path: 'account/bet-history', component: BetHistoryComponent},
+  {path: 'logout',component: LogoutFormComponent}
 ];
 
