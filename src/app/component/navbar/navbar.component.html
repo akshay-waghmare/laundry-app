@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute">
+  <div class="container-fluid justify-content-end">
     <div class="navbar-wrapper">
       <a class="navbar-brand" href="#"></a>
     </div>
@@ -7,29 +7,19 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navigation">
-      <!-- <form class="navbar-form">
-        <div class="input-group no-border top-button">
-          <mat-form-field>
-            <input matInput placeholder="Search...">
-          </mat-form-field>
-          <button mat-mini-fab>
-            <i class="material-icons">search</i>
-          </button>
-        </div>
-      </form> -->
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle d-flex align-items-center" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="material-icons icon-large me-2">account_circle</i>
-            <div>
-              <div class="font-weight-bold">{{user?.username}}</div>
-              <div class="d-flex align-items-center">
+            <div class="user-info d-flex align-items-center">
+              <div class="username font-weight-bold">{{user?.username}}</div>
+              <div class="balance-info ms-3 d-none d-lg-flex">
                 <i class="material-icons me-1">account_balance_wallet</i>
-                Balance: <span class="ms-1">{{user?.balance | currency}}</span>
+                <span>{{user?.balance | currency}}</span>
               </div>
-              <div class="d-flex align-items-center">
+              <div class="exposure-info ms-3 d-none d-lg-flex">
                 <i class="material-icons me-1">insights</i>
-                Exposure: <span class="ms-1">{{user?.exposure | currency}}</span>
+                <span>{{user?.exposure | currency}}</span>
               </div>
             </div>
           </a>

@@ -14,7 +14,7 @@ const authHeaders = new HttpHeaders({
 })
 export class AuthService {
 
-  private userUrl = 'http://139.59.34.101:8099'; // Adjust the URL as needed
+  private userUrl = environment.apiUrl; // Adjust the URL as needed
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export class AuthService {
     const encodedName = encodeURIComponent(username);
     // Append the query parameter to the URL
     const url = `${this.userUrl}/users/search?name=${encodedName}`;
-    return this.http.get(url,{headers : this.headers});
+    return this.http.get(url);
   }
 
   updateUserDetails(userDetails: any) {

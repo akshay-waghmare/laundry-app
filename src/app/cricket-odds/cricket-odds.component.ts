@@ -52,6 +52,9 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['teamName','type','amount', 'odd', 'status']; // Add more column names here
 
+  quickStakeAmounts: number[] = [50, 100, 500, 1000, 1500, 2000, 2500, 3000]; // Define your quick stake amounts
+
+
   private destroy$: Subject<void> = new Subject<void>();
 
   totalPotentialWin: number = 0;
@@ -59,7 +62,7 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   winFormattedKey: string = '';
   loseFormattedKey: string = '';
 
-  last6Balls: { score: number }[] = [{ score: 1 }, { score: 0 }, { score: 0 }, { score: 0 }, { score: 0 }, { score: 6 }]; // Example: Array to store last 6 ball scores.
+  last6Balls: { score: number }[] = [{ score: 0 }, { score: 0 }, { score: 0 }, { score: 0 }, { score: 0 }, { score: 0 }]; // Example: Array to store last 6 ball scores.
   cricetTopicSubscription: any;
   cricObj: any;
 
@@ -539,6 +542,11 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
         console.error('Error fetching bets:', error);
       }
     );
+  }
+
+  // Set the stake amount based on the quick stake button clicked
+  setStake(amount: number) {
+    this.betAmount = amount;
   }
 
   formatAdjustedExposures(exposures: any): any {

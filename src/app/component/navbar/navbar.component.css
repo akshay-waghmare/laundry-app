@@ -1,45 +1,167 @@
+/* Base styles for navbar */
+.navbar {
+  padding-top: 0.5rem; /* Reduced padding for a more compact look */
+  padding-bottom: 0.5rem;
+}
+
 .navbar-nav {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Base styles for nav items */
+.nav-item {
+  margin-right: 20px;
+}
+
+/* Base styles for dropdown toggle */
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Larger icon size for user icon */
+.icon-large {
+  font-size: 36px;
+}
+
+/* Bold font weight for username */
+.font-weight-bold {
+  font-weight: bold;
+}
+
+/* Margin utilities */
+.me-1 {
+  margin-right: 0.25rem;
+}
+
+.me-2 {
+  margin-right: 0.5rem;
+}
+
+.ms-1 {
+  margin-left: 0.25rem;
+}
+
+.ms-3 {
+  margin-left: 1rem;
+}
+
+/* Margin for icons inside dropdown items */
+.dropdown-item i {
+  margin-right: 10px;
+}
+
+/* User info container */
+.user-info {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* Balance and exposure info styles */
+.balance-info, .exposure-info {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Hide balance and exposure on smaller screens */
+.d-none {
+  display: none !important;
+}
+
+.d-lg-flex {
+  display: flex !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-nav {
+      flex-direction: column; /* Stack nav items vertically */
+      align-items: flex-start; /* Align nav items to the start */
   }
-  
+
   .nav-item {
-    margin-right: 20px;
+      margin-right: 0; /* Remove right margin */
+      margin-bottom: 10px; /* Add bottom margin for spacing */
   }
-  
+
   .dropdown-toggle {
-    display: flex;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    padding: 0;
+      flex-direction: row; /* Keep items in a row */
+      align-items: center; /* Align items to the center */
   }
-  
+
+  .dropdown-menu {
+      width: 100%; /* Make dropdown menu take full width */
+  }
+
+  .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px; /* Adjust padding for better spacing */
+  }
+
+  .navbar-wrapper {
+      display: none; /* Hide navbar wrapper on screens smaller than 768px */
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+      padding-top: 0.25rem; /* Reduce padding for top and bottom */
+      padding-bottom: 0.25rem;
+  }
+
   .icon-large {
-    font-size: 36px;
+      font-size: 28px; /* Reduce icon size */
   }
-  
+
   .font-weight-bold {
-    font-weight: bold;
+      font-size: 14px; /* Reduce font size for username */
   }
-  
+
   .me-1 {
-    margin-right: 0.25rem;
+      margin-right: 0.2rem; /* Adjust right margin */
   }
-  
+
   .me-2 {
-    margin-right: 0.5rem;
+      margin-right: 0.4rem; /* Adjust right margin */
   }
-  
+
   .ms-1 {
-    margin-left: 0.25rem;
+      margin-left: 0.2rem; /* Adjust left margin */
   }
-  
-  .dropdown-item i {
-    margin-right: 10px;
+
+  .ms-3 {
+      margin-left: 0.5rem; /* Adjust left margin for smaller screens */
   }
+
+  .dropdown-item {
+      padding: 8px 16px; /* Adjust padding for compact display */
+  }
+
+  .user-info {
+      flex-direction: column; /* Display username, balance, and exposure in a column */
+      align-items: flex-start;
+  }
+
+  .balance-info, .exposure-info {
+      flex-direction: row; /* Display balance and exposure in a row */
+      align-items: center;
+      font-size: 12px; /* Reduce font size */
+  }
+
+  .navbar-wrapper {
+      display: none; /* Hide navbar wrapper on screens smaller than 480px */
+  }
+}

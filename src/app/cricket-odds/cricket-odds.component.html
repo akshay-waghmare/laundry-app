@@ -29,7 +29,7 @@
             </div>
     
             <!-- Overall Win/Loss Summary -->
-            <div class="overall-win-loss">
+            <div class="overall-win-loss" *ngIf="userBets.length > 0">
               <div class="overall-item">
                 <span class="win-label">{{ winFormattedKey }}:</span>
                 <span class="win-amount">{{ totalPotentialWin | currency }}</span>
@@ -61,14 +61,20 @@
               <div class="betting-options" [class.lay-active]="layButtonActive"
                 *ngIf="showBetting && (showBettingFor === 'teamSectionBackOdds' || showBettingFor === 'layOdds' )">
                 <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
-                <div class="odds">
-                  <label for="odds">Odds:</label>
-                  <input type="number" id="odds" (input)="handleOddsInputChange()" (blur)="handleOddsBlur()"
-                    [value]="selectedOdds" />
+                <div class="odds-amount">
+                  <div class="odds">
+                    <label for="odds">Odds:</label>
+                    <input type="number" id="odds" (input)="handleOddsInputChange()" (blur)="handleOddsBlur()" [value]="selectedOdds" />
+                  </div>
+                  <div class="amount">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" [(ngModel)]="betAmount" />
+                  </div>
                 </div>
-                <div class="amount">
-                  <label for="amount">Amount:</label>
-                  <input type="number" id="amount" [(ngModel)]="betAmount" />
+                <div class="quick-stakes">
+                  <button *ngFor="let amount of quickStakeAmounts" (click)="setStake(amount)">
+                    + {{ amount }}
+                  </button>
                 </div>
                 <button mat-raised-button class="place-bet" color="primary" (click)="placeBet()">Place Bet</button>
               </div>

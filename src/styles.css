@@ -441,6 +441,10 @@ a {
   background: linear-gradient(60deg, #66bb6a, #43a047);
 }
 
+.courses-panel {
+  margin-top: 0px !important;
+}
+
 
 /* new html changes for responsivenes */
 body, html {
