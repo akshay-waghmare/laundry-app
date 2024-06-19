@@ -546,7 +546,7 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
 
   // Set the stake amount based on the quick stake button clicked
   setStake(amount: number) {
-    this.betAmount = amount;
+    this.betAmount += amount;
   }
 
   formatAdjustedExposures(exposures: any): any {
