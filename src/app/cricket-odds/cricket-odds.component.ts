@@ -8,6 +8,10 @@ import { TokenStorage } from '../token.storage';
 import { EventListService } from '../component/event-list.service';
 import { AuthService } from '../auth.service';
 
+interface FormattedExposure {
+  win: number;
+  lose: number;
+}
 
 @Component({
   selector: 'app-cricket-odds',
@@ -15,6 +19,8 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./cricket-odds.component.css']
 })
 export class CricketOddsComponent implements OnInit, OnDestroy {
+
+  formattedExposures: Record<string, FormattedExposure> = {};
 
   team1Name: string = 'NA';
   team1Score: string = 'NA';
@@ -532,11 +538,27 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
         console.log(response);
         this.userBets= response.bets;
         this.updatedUserData = this.userBets[0].user;
-        this.formatAdjustedExposures(response.adjustedExposures);
-        console.log('Total Potential Win:', this.totalPotentialWin);
-        console.log('Total Potential Loss:', this.totalPotentialLoss);
-        console.log('Win Formatted Key:', this.winFormattedKey);
-        console.log('Lose Formatted Key:', this.loseFormattedKey);
+        this.formattedExposures = this.formatAndGroupExposures(response.adjustedExposures);
+
+        if (response && response.adjustedExposures) {
+          this.formattedExposures = this.formatAndGroupExposures(response.adjustedExposures);
+          // Select the first team to display
+          const teamNames = Object.keys(this.formattedExposures);
+          if (teamNames.length > 0) {
+
+            let teamName = teamNames[0];
+            this.totalPotentialWin = this.formattedExposures[teamName].win;
+            this.totalPotentialLoss = this.formattedExposures[teamName].lose;
+            this.winFormattedKey = `${teamName} Win`;
+            this.loseFormattedKey = `${teamName} Lose`;
+          }
+          console.log('Total Potential Win:', this.totalPotentialWin);
+          console.log('Total Potential Loss:', this.totalPotentialLoss);
+          console.log('Win Formatted Key:', this.winFormattedKey);
+          console.log('Lose Formatted Key:', this.loseFormattedKey);
+        }
+
+
       }, 
       (error) => {
         console.error('Error fetching bets:', error);
@@ -570,6 +592,28 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     });
 
     return formattedExposures;
+}
+
+formatAndGroupExposures(exposures: any): Record<string, FormattedExposure> {
+  const formattedExposures: Record<string, FormattedExposure> = {};
+
+  Object.keys(exposures).forEach(key => {
+    const parts = key.replace('Adjusted', '').trim().split(' ');
+    const teamName = parts.slice(0, -1).join(' '); 
+    const outcome = parts[parts.length - 1].toLowerCase(); 
+
+    if (!formattedExposures[teamName]) {
+      formattedExposures[teamName] = { win: 0, lose: 0 };
+    }
+
+    if (outcome === 'win') {
+      formattedExposures[teamName].win = exposures[key];
+    } else if (outcome === 'lose') {
+      formattedExposures[teamName].lose = exposures[key];
+    }
+  });
+
+  return formattedExposures;
 }
 
 }

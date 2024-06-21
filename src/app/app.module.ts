@@ -20,7 +20,8 @@ import {
   MatRippleModule,
   MatProgressSpinnerModule,
   MatToolbarModule,
-  MatIconModule
+  MatIconModule,
+  MatDialogModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -33,6 +34,7 @@ import { StompService, StompConfig } from '@stomp/ng2-stompjs';
 import { ElapsedTimePipe } from './utils/elapsed-time.pipe';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { environment } from 'src/environments/environment';
+import { LogoutFormComponent } from './logout-form/logout-form.component';
 
 
 const stompConfig: StompConfig = {
@@ -55,8 +57,7 @@ const stompConfig: StompConfig = {
     AdminLayoutsComponent,
     LoginComponent,
     LoaderComponent,
-    ElapsedTimePipe,
-    
+    ElapsedTimePipe    
   ],
   imports: [
     BrowserModule,
@@ -74,8 +75,12 @@ const stompConfig: StompConfig = {
     MatToolbarModule,
     MatProgressSpinnerModule,
     MatIconModule,
+    MatDialogModule
 
 
+  ],
+  entryComponents: [
+    LogoutFormComponent // Ensure the component is in entryComponents
   ],
   providers: [AuthenticationGuard,TokenStorage,
     LoaderService,

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logout-form',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogoutFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<LogoutFormComponent>,
+    private router: Router // Inject the router
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    //
+  }
+
+  onCancel(): void {
+    this.dialogRef.close();
+  }
+
+  onLogout(): void {
+    // Logic for logout action
+    this.dialogRef.close(true);
+    // Navigate to the login page
+    this.router.navigate(['/login']);
   }
 
 }

@@ -32,11 +32,13 @@
             <div class="overall-win-loss" *ngIf="userBets.length > 0">
               <div class="overall-item">
                 <span class="win-label">{{ winFormattedKey }}:</span>
-                <span class="win-amount">{{ totalPotentialWin | currency }}</span>
+                <span [ngClass]="{'win-amount': totalPotentialWin >= 0, 'loss-amount': totalPotentialWin < 0}">{{
+                  totalPotentialWin | currency }}</span>
               </div>
               <div class="overall-item">
                 <span class="loss-label">{{ loseFormattedKey }}:</span>
-                <span class="loss-amount">{{ totalPotentialLoss | currency }}</span>
+                <span [ngClass]="{'win-amount': totalPotentialLoss >= 0, 'loss-amount': totalPotentialLoss < 0}">{{
+                  totalPotentialLoss | currency }}</span>
               </div>
             </div>
             

@@ -6,11 +6,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {MatFormFieldModule,
         MatButtonModule,
         MatInputModule,
-        MatDividerModule} from '@angular/material';
+        MatDividerModule,
+        MatDialog,
+        MatDialogModule} from '@angular/material';
 import { InjectableRxStompConfig, RxStompService, StompConfig, rxStompServiceFactory } from '@stomp/ng2-stompjs';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from '../loader/loader.interceptor';
 import { environment } from 'src/environments/environment';
+import { LogoutFormComponent } from '../logout-form/logout-form.component';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -40,11 +43,17 @@ const myRxStompConfig: InjectableRxStompConfig = {
   declarations: [
     SidebarComponent,
     NavbarComponent,
+    LogoutFormComponent
+  ],
+  entryComponents: [
+    LogoutFormComponent // Ensure the component is in entryComponents
   ],
   exports: [
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    LogoutFormComponent
   ],
+
   providers: [RxStompService,
     {
       provide: InjectableRxStompConfig,

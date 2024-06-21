@@ -46,6 +46,7 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule, MomentDateAdapter
 import { CricketOddsComponent } from 'src/app/cricket-odds/cricket-odds.component';
 import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
 import { environment } from 'src/environments/environment';
+import { ComponentsModule } from 'src/app/component/components.module';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -83,7 +84,8 @@ const myRxStompConfig: InjectableRxStompConfig = {
     MatDatepickerModule,
     MatNativeDateModule, 
     MatMomentDateModule,
-    MatListModule
+    MatListModule,
+    ComponentsModule
     
   
   ],
@@ -102,9 +104,7 @@ const myRxStompConfig: InjectableRxStompConfig = {
     TennisRankingComponent,
     CricketOddsComponent,
     BetHistoryComponent,
-    LogoutFormComponent,
     
-
   ],
   providers: [
     

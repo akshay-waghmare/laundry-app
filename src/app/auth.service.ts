@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TokenStorage } from './token.storage';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
+
 
 
 const authHeaders = new HttpHeaders({
@@ -14,7 +15,7 @@ const authHeaders = new HttpHeaders({
 })
 export class AuthService {
 
-  private userUrl = environment.apiUrl; // Adjust the URL as needed
+  private userUrl = environment.REST_API_URL;
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -34,22 +35,24 @@ export class AuthService {
   attemptAuth(formData:any) : any {
     const body = JSON.stringify(formData);
     console.log('attempAuth ::');
-    return this.http.post(`${this.userUrl}/token/generate-token`, body, {headers:authHeaders,observe:'response'});
+    return this.http.post(`${this.userUrl}token/generate-token`, body, {headers:authHeaders,observe:'response'});
   }
 
 
 
   getUser(id: number): Observable<any> {
-    return this.http.get(`${this.userUrl}/${id}` , {headers : this.headers});
+    return this.http.get(`${this.userUrl}${id}` , {headers : this.headers});
   }
 
-  getUserByName(username : any): Observable<any> {
-    // Encode the name to handle special characters
-    console.log(username);
+  getUserByName(username: any): Observable<any> {
+    const token = this.tokenStorage.getToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
     const encodedName = encodeURIComponent(username);
-    // Append the query parameter to the URL
-    const url = `${this.userUrl}/users/search?name=${encodedName}`;
-    return this.http.get(url);
+    const url = `${this.userUrl}users/search?name=${encodedName}`;
+    return this.http.get(url, { headers });
   }
 
   updateUserDetails(userDetails: any) {

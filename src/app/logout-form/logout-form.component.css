@@ -1,0 +1,35 @@
+.dialog-title {
+    color: #003366; /* Primary color of your application */
+    font-weight: bold;
+  }
+  
+  .dialog-content {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .dialog-button {
+    min-width: 100px;
+  }
+  
+  .cancel-button {
+    background-color: #f44336; /* Red color */
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .logout-button {
+    background-color: #4caf50; /* Green color */
+    color: white;
+  }
+  
+  .dialog-button:hover {
+    opacity: 0.8;
+  }
+  
