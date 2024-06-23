@@ -559,6 +559,27 @@
   margin: 5px 0; /* Adjust margins for better spacing */
 }
 
+.betting-options .button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.disabled-input {
+  background-color: #f5f5f5; /* Light grey background */
+  border: 1px solid #ccc; /* Light grey border */
+  color: #999; /* Light grey text */
+  cursor: not-allowed; /* Change cursor to indicate disabled */
+  pointer-events: none; /* Prevent interactions */
+}
+.betting-options .button-row button {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.betting-options .button-row button:last-child {
+  margin-right: 0;
+}
+
 .live-match-container {
   display: flex;
   flex-wrap: wrap; /* Allow items to wrap on smaller screens */
@@ -577,6 +598,15 @@
   flex-wrap: wrap; /* Wrap items */
   gap: 10px; /* Space between items */
   margin-bottom: 10px; /* Margin below quick stakes */
+}
+
+.clear-bet {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+.clear-bet:hover {
+  background-color: #e68a00;
 }
 
 .quick-stakes button {

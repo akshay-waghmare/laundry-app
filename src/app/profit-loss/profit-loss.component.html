@@ -1,0 +1,23 @@
+<mat-card class="profit-loss-container">
+  <mat-card-header>
+    <mat-card-title>Account Profit and Loss</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="table-responsive">
+      <mat-table [dataSource]="profitLoss" class="mat-elevation-z8">
+        <!-- Table headers for profit and loss -->
+        <ng-container matColumnDef="matchName">
+          <mat-header-cell *matHeaderCellDef class="header-text"> Match Name </mat-header-cell>
+          <mat-cell *matCellDef="let pl" data-header="Match Name"> {{pl.matchName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="profitOrLoss">
+          <mat-header-cell *matHeaderCellDef class="header-text"> Profit/Loss </mat-header-cell>
+          <mat-cell *matCellDef="let pl" [ngClass]="{'profit': pl.profitOrLoss > 0, 'loss': pl.profitOrLoss < 0}" data-header="Profit/Loss"> {{pl.profitOrLoss | currency}} </mat-cell>
+        </ng-container>
+        <!-- Row template -->
+        <mat-header-row *matHeaderRowDef="profitLossColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: profitLossColumns;" class="data-row"></mat-row>
+      </mat-table>
+    </div>
+  </mat-card-content>
+</mat-card>

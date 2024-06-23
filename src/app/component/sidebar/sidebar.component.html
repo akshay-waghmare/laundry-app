@@ -1,37 +1,33 @@
-
 <div class="sidebar-wrapper">
-
-    <div class="logo">
-        <a class="simple-text">
-            <div class="logo-img">
-                <!-- <img src="/assets/img/angular2-logo-red.png"/> -->
-            </div>
-              VICTORY LINE
-          </a>
-    </div>
-
-    
+  <div class="logo">
+    <a class="simple-text">
+      <div class="logo-img">
+        <!-- <img src="/assets/img/angular2-logo-red.png"/> -->
+      </div>
+      VICTORY LINE
+    </a>
+  </div>
   <ul class="nav">
-      <li *ngFor="let menuItem of results">
-          <a class="nav-link" [routerLink]="[menuItem.path]">
-              <i class="material-icons">{{menuItem.icon}}</i>
-              <p>{{menuItem.title}}</p>
-          </a>
-      </li>
-      <li>
-        <a class="nav-link">
-          <i class="material-icons">live_tv</i>
-          <p>Live</p>
-    
-          <ul>
-            <li *ngFor="let matchTeam of matchTeams">
-              <a class="nav-link" (click)="sendLinkToBackend(matchTeam.url)">
-                <p>{{matchTeam.teamName}}</p>
-              </a>
-            </li>
-          </ul>
-        </a>
-      </li>
+    <li *ngFor="let menuItem of results">
+      <a class="nav-link" [routerLink]="[menuItem.path]" (click)="toggle()">
+        <i class="material-icons">{{menuItem.icon}}</i>
+        <p>{{menuItem.title}}</p>
+      </a>
+    </li>
+    <li>
+      <a class="nav-link">
+        <i class="material-icons">live_tv</i>
+        <p>Live</p>
+        <ul class="live-nav">
+          <li *ngFor="let matchTeam of matchTeams">
+            <a class="nav-link nav-link-live" (click)="sendLinkToBackend(matchTeam.url); toggle()">
+              <i class="material-icons dummy-icon">sports</i>
+              <p>{{matchTeam.teamName}}</p>
+            </a>
+          </li>
+        </ul>
+      </a>
+    </li>
   </ul>
 </div>
 <button (click)="toggle()" class="sidebar-toggle-button">

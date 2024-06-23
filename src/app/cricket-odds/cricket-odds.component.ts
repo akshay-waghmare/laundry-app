@@ -41,7 +41,7 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   sessionLayOdds: string = '-';
 
   showBetting: boolean = false; // Initially, hide betting options
-  selectedOdds: number = 2.0; // Initial odds value
+  selectedOdds: number = 0; // Initial odds value
   betAmount: number = 0; // Initial bet amount
   oddsStep: number = 0.1; // Initial step value
   // Store the previous odds value
@@ -344,6 +344,9 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
 
     this.showBettingFor = section;
 
+    this.betAmount = 0; // Clear the stakes when clicking on odds again
+
+
     if (this.showBettingFor == 'teamSectionBackOdds' || this.showBettingFor === 'sessionBackOdds') {
       if (this.layButtonActive) {
         this.layButtonActive = false;
@@ -492,7 +495,11 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   }
 
   handleOddsBlur() {
-    this.selectedOdds = parseFloat(this.selectedOdds.toFixed(1));
+    if (this.selectedOdds != null && !isNaN(Number(this.selectedOdds))) {
+      this.selectedOdds = parseFloat(Number(this.selectedOdds).toFixed(1));
+    } else {
+      this.selectedOdds = 0; // or some default value
+    }
   }
 
   handleOddsInputChange(event: Event) {
@@ -515,6 +522,8 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     this.betType = betType;
     
     const match = this.testMatchOdds[index]; // Access the match using the index
+    this.betAmount = 0; // Clear the stakes when clicking on odds again
+
 
     if (betType === 'back') {
       this.selectedOdds = match.odds.backOdds;
@@ -614,6 +623,11 @@ formatAndGroupExposures(exposures: any): Record<string, FormattedExposure> {
   });
 
   return formattedExposures;
+}
+
+// Function to clear the stake
+clearStake() {
+  this.betAmount = 0;
 }
 
 }

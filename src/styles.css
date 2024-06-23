@@ -13,7 +13,7 @@
   font-family: 'Poppins', sans-serif; /* Modern, clean font */
   position: fixed;
   height: 100%;
-  overflow: auto;
+  overflow-y: auto;
   width: 260px;
   z-index: 4;
   padding-bottom: 30px;
@@ -150,6 +150,10 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+
+  .sidebar .nav li a, .sidebar .nav li .dropdown-menu a {
+    margin: 0px;
+  }
   .sidebar-wrapper {
     width: 100%; /* Full width on smaller screens */
     height: auto; /* Adjust height */
@@ -504,7 +508,37 @@ body, html {
   z-index: 1001; /* Ensure the button is on top of everything */
 }
 
+.nav-link .dummy-icon {
+  font-size: 24px;
+  float: left;
+  margin-right: 15px;
+  line-height: 30px;
+  width: 30px;
+  text-align: center;
+  color: #a9afbb;
+}
+
+/* Ensure the sidebar is scrollable if there are more links than can fit on the screen */
+.sidebar-wrapper {
+  overflow-y: auto;
+}
+
+/* Align the links under "Live" section to the left */
+.nav-link-live {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link-live p {
+  margin-left: 15px; /* Adjust this value as needed to align text properly */
+}
 @media (max-width: 768px) {
+
+  .nav-link .nav-link-live {
+
+    margin: 0px !important;
+    padding: 0px !important;
+  }
   .sidebar-wrapper {
     width: 200px;
   }

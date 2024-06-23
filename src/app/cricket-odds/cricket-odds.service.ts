@@ -8,7 +8,8 @@ import { TokenStorage } from '../token.storage';
   providedIn: 'root'
 })
 export class CricketService {
-
+  private entity_bet_history = environment.REST_API_URL + 'cricket-data/'+'bet/history';
+  private profitLossEndpoint = environment.REST_API_URL + 'cricket-data/'+'bet/profit-loss';
   private lastUpdatedCricketData = environment.REST_API_URL + 'cricket-data';
   private  placeBetEndpoint = environment.REST_API_URL + 'cricket-data/' + 'placeBet';
   private  getAllbetsFormatch = environment.REST_API_URL + 'cricket-data/' + 'bets/';
@@ -32,6 +33,14 @@ export class CricketService {
 
   getUserBetsForMatch(matchUrl: any): Observable<any> {
     return this.http.get<any>(`${this.getAllbetsFormatch}?url=${matchUrl}`, {headers: this.headers});
+  }
+
+  getUserBetHistory(): Observable<any> {
+    return this.http.get(this.entity_bet_history, { headers: this.headers });
+  }
+
+  getProfitLoss(): Observable<any> {
+    return this.http.get(this.profitLossEndpoint, { headers: this.headers });
   }
 
 }

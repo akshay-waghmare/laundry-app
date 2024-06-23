@@ -1,0 +1,87 @@
+.profit-loss-container {
+    width: 90%;
+    margin: 20px auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  mat-card-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #3f51b5;
+  }
+  
+  .table-responsive {
+    overflow-x: auto;
+    margin-top: 20px;
+  }
+  
+  .header-text {
+    font-weight: bold;
+    color: #3f51b5;
+  }
+  
+  .mat-elevation-z8 {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 10px rgba(0, 0, 0, 0.12);
+  }
+  
+  :host {
+    display: block;
+    margin-top: 20px;
+  }
+  
+  @media screen and (max-width: 768px), screen and (max-width: 480px) {
+    .table-responsive {
+      margin-bottom: 16px;
+    }
+  
+    .header-text {
+      font-size: 12px;
+    }
+  
+    .mat-header-row {
+      display: table-row;
+    }
+  
+    .data-row {
+      display: table-row;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 0; /* Remove padding to keep rows consistent */
+    }
+  
+    .mat-cell, .mat-header-cell {
+      display: table-cell;
+      padding: 8px;
+      text-align: left;
+    }
+  }
+  
+  .mat-cell.profit {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .mat-cell.loss {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .mat-card-content {
+    padding: 20px;
+  }
+  
+  mat-card {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  mat-card:hover {
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  mat-card-header {
+    background-color: #3f51b5;
+    color: white;
+    padding: 10px 20px;
+  }
+  

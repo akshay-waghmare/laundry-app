@@ -62,11 +62,16 @@
     
               <div class="betting-options" [class.lay-active]="layButtonActive"
                 *ngIf="showBetting && (showBettingFor === 'teamSectionBackOdds' || showBettingFor === 'layOdds' )">
-                <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+                <div class="button-row">
+                  <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+                  <button mat-button class="clear-bet" (click)="clearStake()">Clear</button> <!-- Clear button -->
+                </div>
+
                 <div class="odds-amount">
                   <div class="odds">
                     <label for="odds">Odds:</label>
-                    <input type="number" id="odds" (input)="handleOddsInputChange()" (blur)="handleOddsBlur()" [value]="selectedOdds" />
+                    <input type="number" id="odds" class="disabled-input" readonly (input)="handleOddsInputChange()" (blur)="handleOddsBlur()" [value]="selectedOdds" />
+                    <input type="hidden" name="odds" [value]="selectedOdds" />
                   </div>
                   <div class="amount">
                     <label for="amount">Amount:</label>
@@ -105,10 +110,15 @@
                 <div class="betting-options"
                   *ngIf="showBetting && showBettingFor === 'testMatchOdds' && currentMatchIndex === i"
                   [class.lay-active]="layButtonActive">
-                  <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+                  <div class="button-row">
+                    <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+                    <button mat-button class="clear-bet" (click)="clearStake()">Clear</button> <!-- Clear button -->
+                  </div>
+
                   <div class="odds">
                     <label for="odds{{i}}">Odds:</label>
-                    <input type="number" id="odds{{i}}" [(ngModel)]="selectedOdds" />
+                    <input type="number" id="odds{{i}}" class="disabled-input" [(ngModel)]="selectedOdds" readonly/>
+                    <input type="hidden" name="odds{{i}}" [value]="selectedOdds" />
                   </div>
                   <div class="amount">
                     <label for="amount{{i}}">Amount:</label>
@@ -141,11 +151,16 @@
     
               <div class="betting-options" [class.lay-active]="layButtonActive"
                 *ngIf="showBetting && (showBettingFor === 'sessionBackOdds' || showBettingFor === 'sessionLayOdds')">
-                <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+                <div class="button-row">
+                  <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+                  <button mat-button class="clear-bet" (click)="clearStake()">Clear</button> <!-- Clear button -->
+                </div>
+
                 <div class="odds">
                   <label for="odds">Odds:</label>
-                  <input type="number" id="odds" (input)="handleOddsInputChange()" (blur)="handleOddsBlur()"
-                    [value]="selectedOdds" />
+                  <input type="number" id="odds" class="disabled-input" (input)="handleOddsInputChange()" (blur)="handleOddsBlur()"
+                    [value]="selectedOdds" readonly/>
+                    <input type="hidden" name="odds" [value]="selectedOdds" />
                 </div>
                 <div class="amount">
                   <label for="amount">Amount:</label>

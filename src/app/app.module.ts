@@ -57,7 +57,8 @@ const stompConfig: StompConfig = {
     AdminLayoutsComponent,
     LoginComponent,
     LoaderComponent,
-    ElapsedTimePipe    
+    ElapsedTimePipe,
+        
   ],
   imports: [
     BrowserModule,
