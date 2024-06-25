@@ -1,7 +1,6 @@
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from '../app/app.routing';
 import { AdminLayoutsComponent } from './layouts/admin-layouts/admin-layouts.component';
@@ -9,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import {ComponentsModule} from '../app/component/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 import 'hammerjs';
@@ -35,6 +35,8 @@ import { ElapsedTimePipe } from './utils/elapsed-time.pipe';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { environment } from 'src/environments/environment';
 import { LogoutFormComponent } from './logout-form/logout-form.component';
+import { AccountStatementComponent } from './account-statement/account-statement.component';
+//import { MatButtonModule } from '@angular/material/button';
 
 
 const stompConfig: StompConfig = {
@@ -71,18 +73,17 @@ const stompConfig: StompConfig = {
     BrowserAnimationsModule,
     MatRippleModule,
     MatFormFieldModule,
-    MatButtonModule,
+    MatButtonModule,   
     MatInputModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
     MatIconModule,
     MatDialogModule
-
-
+    
   ],
-  entryComponents: [
-    LogoutFormComponent // Ensure the component is in entryComponents
-  ],
+
+  entryComponents: [ LogoutFormComponent ],
+
   providers: [AuthenticationGuard,TokenStorage,
     LoaderService,
     HttpClientModule,

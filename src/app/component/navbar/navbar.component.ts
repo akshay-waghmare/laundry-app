@@ -1,8 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { namespaceHTML } from '@angular/core/src/render3';
-import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/auth.service';
 import { LogoutFormComponent } from 'src/app/logout-form/logout-form.component';
 import { TokenStorage } from 'src/app/token.storage';
@@ -17,7 +16,7 @@ export class NavbarComponent implements OnInit {
 
   //inject AuthService 
 
-  constructor(private router: Router, public dialog: MatDialog, private authService: AuthService, private tokenStorage: TokenStorage) { }
+  constructor(private authService : AuthService , private tokenStorage : TokenStorage ,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.user = JSON.parse(this.tokenStorage.getUser());
@@ -39,29 +38,15 @@ export class NavbarComponent implements OnInit {
     }, error => console.log(error));
   }
 
-  openLogoutDialog(): void {
-    const dialogRef = this.dialog.open(LogoutFormComponent, {
-      width: '300px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.logout();
-      }
-    });
-
-  }
-
-  logout(): void {
+  openLogoutDialog(): void { 
+    const dialogRef = this.dialog.open(LogoutFormComponent, { width: '300px', }); 
+    dialogRef.afterClosed().subscribe(result => { if (result) { this.logout(); } }); 
+  } 
+  logout(): void { 
     // Your logout logic here
-    console.log('User logged out');
+    console.log('User logged out'); 
   }
 
-  navigateToBetHistory(): void {
-    this.router.navigate(['/account/bet-history']);
-  }
 
-  navigateToProfitLoss():void {
-    this.router.navigate(['/account/profit-loss']);
-  }
+  
 }

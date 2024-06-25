@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,26 +7,23 @@ import { Router } from '@angular/router';
   templateUrl: './logout-form.component.html',
   styleUrls: ['./logout-form.component.css']
 })
-export class LogoutFormComponent implements OnInit {
-
+export class LogoutFormComponent {
   constructor(
-    public dialogRef: MatDialogRef<LogoutFormComponent>,
-    private router: Router // Inject the router
+    private router: Router,
+    public dialogRef: MatDialogRef<LogoutFormComponent>
   ) {}
 
-  ngOnInit(): void {
-    //
-  }
-
-  onCancel(): void {
+  logout() {
+    // Clear user session or token here
+    //localStorage.removeItem('userToken');  
     this.dialogRef.close();
-  }
-
-  onLogout(): void {
-    // Logic for logout action
-    this.dialogRef.close(true);
-    // Navigate to the login page
     this.router.navigate(['/login']);
   }
 
+  cancel() {
+    this.dialogRef.close();
+  }
 }
+
+
+

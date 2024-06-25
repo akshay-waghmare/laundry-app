@@ -7,13 +7,14 @@ import {MatFormFieldModule,
         MatButtonModule,
         MatInputModule,
         MatDividerModule,
-        MatDialog,
-        MatDialogModule} from '@angular/material';
+        MatDialogModule,
+        MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 import { InjectableRxStompConfig, RxStompService, StompConfig, rxStompServiceFactory } from '@stomp/ng2-stompjs';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from '../loader/loader.interceptor';
 import { environment } from 'src/environments/environment';
 import { LogoutFormComponent } from '../logout-form/logout-form.component';
+import { AccountStatementComponent } from '../account-statement/account-statement.component';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -39,6 +40,7 @@ const myRxStompConfig: InjectableRxStompConfig = {
     MatButtonModule,
     MatInputModule,
     MatDividerModule,
+    MatDialogModule, //new added
   ],
   declarations: [
     SidebarComponent,
@@ -48,13 +50,15 @@ const myRxStompConfig: InjectableRxStompConfig = {
   entryComponents: [
     LogoutFormComponent // Ensure the component is in entryComponents
   ],
+
   exports: [
     SidebarComponent,
     NavbarComponent,
     LogoutFormComponent
   ],
-
-  providers: [RxStompService,
+  providers: [
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
+    RxStompService,
     {
       provide: InjectableRxStompConfig,
       useValue: myRxStompConfig

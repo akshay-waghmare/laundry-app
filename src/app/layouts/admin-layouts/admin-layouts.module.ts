@@ -32,7 +32,9 @@ import {
   DateAdapter,
   MAT_DATE_LOCALE,
   MatList,
-  MatListModule
+  MatListModule,
+  MatDialogModule,
+  MAT_DIALOG_DEFAULT_OPTIONS
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationGuard } from 'src/app/authentication.guard';
@@ -48,6 +50,7 @@ import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
 import { environment } from 'src/environments/environment';
 import { ComponentsModule } from 'src/app/component/components.module';
 import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
+import { AccountStatementComponent } from 'src/app/account-statement/account-statement.component';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -88,6 +91,7 @@ const myRxStompConfig: InjectableRxStompConfig = {
     MatListModule,
     ComponentsModule
     
+    
   
   ],
   declarations: [
@@ -105,9 +109,11 @@ const myRxStompConfig: InjectableRxStompConfig = {
     TennisRankingComponent,
     CricketOddsComponent,
     BetHistoryComponent,
-    ProfitLossComponent
+    ProfitLossComponent,
+    AccountStatementComponent,
     
   ],
+  
   providers: [
     
     RxStompService,
@@ -132,4 +138,3 @@ const myRxStompConfig: InjectableRxStompConfig = {
 })
 export class AdminLayoutsModule {
 }
-
