@@ -18,6 +18,8 @@ import { CricketOddsComponent } from 'src/app/cricket-odds/cricket-odds.componen
 import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
 import { LogoutFormComponent } from 'src/app/logout-form/logout-form.component';
 import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
+import { PasswordComponent } from 'src/app/password/password.component';
+import { AddUserComponent } from 'src/app/adduser/adduser.component';
 
 export const AdminLayoutsRoute: Routes = [
   { path: 'dashboard', component: DashboardComponent ,canActivate: [ AuthenticationGuard ]},
@@ -34,6 +36,8 @@ export const AdminLayoutsRoute: Routes = [
   { path: 'tennis/wta/ranking', component: TennisRankingComponent},
   { path: 'account/bet-history', component: BetHistoryComponent},
   { path: 'account/profit-loss', component: ProfitLossComponent },
-  {path: 'logout',component: LogoutFormComponent}
+  {path: 'logout',component: LogoutFormComponent},
+  {path: 'password',component:PasswordComponent},
+  {path:'adduser', component:AddUserComponent,}
 ];
 

@@ -1,0 +1,59 @@
+/* Center the card */
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e0e0e0; /* Light grey background */
+  }
+  
+  /* Style the card */
+  mat-card {
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Style the card title */
+  mat-card-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Style the form fields */
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  input[type="password"] {
+    font-family: 'Courier New', Courier, monospace; /* Optional: set font for passwords */
+  }
+  
+  /* Style the submit button */
+  button[type="submit"] {
+    width: 100%;
+    background-color: #f44336; /* Red color */
+    color: white;
+    margin-top: 20px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+  }
+  
+  /* Style the cancel button */
+  button[type="button"] {
+    width: 100%;
+    color: #424242; /* Dark grey color */
+    margin-top: 10px;
+    background-color: white;
+    border: 1px solid #bdbdbd; /* Light grey border */
+  }
+  
+  button[type="button"]:hover {
+    background-color: #f5f5f5; /* Light grey on hover */
+  }
+  

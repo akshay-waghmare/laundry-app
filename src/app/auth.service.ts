@@ -4,6 +4,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { TokenStorage } from './token.storage';
 import { environment } from 'src/environments/environment';
 
+interface UserDto {
+  username: string;
+  password: string;
+  balance: number;
+  exposure: number;
+  role: string;
+}
 
 
 const authHeaders = new HttpHeaders({
@@ -17,6 +24,8 @@ export class AuthService {
 
   private userUrl = environment.REST_API_URL;
 
+  //private baseUrl = this.userUrl||'http://your-backend-url.com';  
+
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ' + this.tokenStorage.getToken()
@@ -27,10 +36,9 @@ export class AuthService {
   userUpdates = this.userUpdateSource.asObservable();
 
   constructor(
-    private readonly http:HttpClient, private tokenStorage : TokenStorage
-  ) { 
-
-  }
+    private readonly http:HttpClient, 
+    private tokenStorage : TokenStorage
+  ) { }
 
   attemptAuth(formData:any) : any {
     const body = JSON.stringify(formData);
@@ -58,4 +66,9 @@ export class AuthService {
   updateUserDetails(userDetails: any) {
     this.userUpdateSource.next(userDetails);
   }
+
+  signUp(user: UserDto): Observable<any> {
+    return this.http.post(`${this.userUrl}signup`, user);
+  }
+
 }

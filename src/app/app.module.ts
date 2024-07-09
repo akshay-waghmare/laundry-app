@@ -37,6 +37,8 @@ import { environment } from 'src/environments/environment';
 import { LogoutFormComponent } from './logout-form/logout-form.component';
 
 
+
+
 const stompConfig: StompConfig = {
   // added '/websocket' for spring boot SockJS
   url: environment.ws.brokerURL,
@@ -58,6 +60,8 @@ const stompConfig: StompConfig = {
     LoginComponent,
     LoaderComponent,
     ElapsedTimePipe,
+   
+    
         
   ],
   imports: [

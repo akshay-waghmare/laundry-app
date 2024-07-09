@@ -48,6 +48,7 @@ import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
 import { environment } from 'src/environments/environment';
 import { ComponentsModule } from 'src/app/component/components.module';
 import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
+import {AddUserComponent} from 'src/app/adduser/adduser.component'
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -105,7 +106,8 @@ const myRxStompConfig: InjectableRxStompConfig = {
     TennisRankingComponent,
     CricketOddsComponent,
     BetHistoryComponent,
-    ProfitLossComponent
+    ProfitLossComponent,
+    AddUserComponent
     
   ],
   providers: [
