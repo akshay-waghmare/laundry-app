@@ -21,7 +21,8 @@ import {
   MatProgressSpinnerModule,
   MatToolbarModule,
   MatIconModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSnackBar
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -57,7 +58,7 @@ const stompConfig: StompConfig = {
     AdminLayoutsComponent,
     LoginComponent,
     LoaderComponent,
-    ElapsedTimePipe,
+    ElapsedTimePipe
         
   ],
   imports: [
@@ -76,7 +77,7 @@ const stompConfig: StompConfig = {
     MatToolbarModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
 
 
   ],

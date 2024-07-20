@@ -18,22 +18,24 @@ import { CricketOddsComponent } from 'src/app/cricket-odds/cricket-odds.componen
 import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
 import { LogoutFormComponent } from 'src/app/logout-form/logout-form.component';
 import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
+import { ScrapeControlComponent } from 'src/app/scrape-control/scrape-control.component';
 
 export const AdminLayoutsRoute: Routes = [
-  { path: 'dashboard', component: DashboardComponent ,canActivate: [ AuthenticationGuard ]},
-  { path: 'add-service', component: AddServiceComponent },
-  { path: 'football', component: ServiceListComponent},
-  { path: 'add-customer', component: AddCustomerComponent},
-  { path: 'customer-list', component: CustomerListComponent},
-  { path: 'cric-live/:path', component: CricketOddsComponent}, // Add this line
-  { path: 'add-fuller', component: AddFullerComponent},
-  { path: 'fuller-list', component: FullerListComponent},
-  { path: 'bet-market/:id', component: BetMarketComponent}, 
-  { path: 'tennis', component: TennisListComponent},
-  { path: 'tennis/atp/ranking', component: TennisRankingComponent},
-  { path: 'tennis/wta/ranking', component: TennisRankingComponent},
-  { path: 'account/bet-history', component: BetHistoryComponent},
-  { path: 'account/profit-loss', component: ProfitLossComponent },
-  {path: 'logout',component: LogoutFormComponent}
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticationGuard] },
+  { path: 'add-service', component: AddServiceComponent, canActivate: [AuthenticationGuard] },
+  { path: 'football', component: ServiceListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'add-customer', component: AddCustomerComponent, canActivate: [AuthenticationGuard] },
+  { path: 'customer-list', component: CustomerListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'cric-live/:path', component: CricketOddsComponent, canActivate: [AuthenticationGuard] },
+  { path: 'add-fuller', component: AddFullerComponent, canActivate: [AuthenticationGuard] },
+  { path: 'fuller-list', component: FullerListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'bet-market/:id', component: BetMarketComponent, canActivate: [AuthenticationGuard] },
+  { path: 'tennis', component: TennisListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'tennis/atp/ranking', component: TennisRankingComponent, canActivate: [AuthenticationGuard] },
+  { path: 'tennis/wta/ranking', component: TennisRankingComponent, canActivate: [AuthenticationGuard] },
+  { path: 'account/bet-history', component: BetHistoryComponent, canActivate: [AuthenticationGuard] },
+  { path: 'account/profit-loss', component: ProfitLossComponent, canActivate: [AuthenticationGuard] },
+  { path: 'scraping', component: ScrapeControlComponent, canActivate: [AuthenticationGuard] },
+  { path: 'logout', component: LogoutFormComponent }
 ];
 

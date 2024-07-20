@@ -445,6 +445,7 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow */
     max-height: 600px; /* Optional: limits the height of the bets container */
     overflow-y: auto; /* Optional: adds scroll for overflow */
+    margin-top: 20px;
   }
   
   .user-bets-container h3 {
@@ -477,11 +478,13 @@
   .user-bets .mat-table {
     width: 100%;
     overflow: auto;
+    table-layout: auto; /* Ensure the table is responsive */
   }
   
   .user-bets th.mat-header-cell, .user-bets td.mat-cell {
     text-align: left;
     padding: 8px; /* Adjust padding as needed */
+    white-space: normal; /* Allow text to wrap */
   }
   
   .user-bets th {
@@ -618,7 +621,60 @@
   border-radius: 5px; /* Rounded corners */
 }
 
+/* ... existing styles ... */
+
+.fixed-odds {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.quick-stakes {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.quick-stakes button {
+  flex: 1;
+}
+
+.session-yes {
+  color: red;
+  font-weight: bold;
+}
+
+.session-no {
+  color: blue;
+  font-weight: bold;
+}
+
+.session-label {
+  font-weight: bold;
+}
+
+.session-exposures {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+}
+
 @media (max-width: 768px) {
+
+  .user-bets th.mat-header-cell, .user-bets td.mat-cell {
+    font-size: 12px; /* Adjust font size for smaller screens */
+    padding: 6px; /* Adjust padding for smaller screens */
+  }
+
+  .user-bets td {
+    word-break: break-word; /* Ensure long words break correctly */
+    white-space: normal; /* Allow text to wrap */
+  }
 
   .last-6-balls {
     justify-content: center;
@@ -673,6 +729,16 @@
 }
 
 @media (max-width: 480px) {
+
+  .user-bets th.mat-header-cell, .user-bets td.mat-cell {
+    font-size: 10px; /* Adjust font size for smaller screens */
+    padding: 4px; /* Adjust padding for smaller screens */
+  }
+
+  .user-bets td {
+    word-break: break-word; /* Ensure long words break correctly */
+    white-space: normal; /* Allow text to wrap */
+  }
 
   .last-6-balls {
       justify-content: center;

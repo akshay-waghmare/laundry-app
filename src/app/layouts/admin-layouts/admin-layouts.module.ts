@@ -32,7 +32,9 @@ import {
   DateAdapter,
   MAT_DATE_LOCALE,
   MatList,
-  MatListModule
+  MatListModule,
+  MatSnackBar,
+  MatSnackBarModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationGuard } from 'src/app/authentication.guard';
@@ -48,6 +50,9 @@ import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
 import { environment } from 'src/environments/environment';
 import { ComponentsModule } from 'src/app/component/components.module';
 import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Ensure this is imported
+import { ScrapeControlComponent } from 'src/app/scrape-control/scrape-control.component';
+
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -86,7 +91,8 @@ const myRxStompConfig: InjectableRxStompConfig = {
     MatNativeDateModule, 
     MatMomentDateModule,
     MatListModule,
-    ComponentsModule
+    ComponentsModule,
+    MatSnackBarModule, // Import MatSnackBarModule
     
   
   ],
@@ -105,7 +111,8 @@ const myRxStompConfig: InjectableRxStompConfig = {
     TennisRankingComponent,
     CricketOddsComponent,
     BetHistoryComponent,
-    ProfitLossComponent
+    ProfitLossComponent,
+    ScrapeControlComponent
     
   ],
   providers: [

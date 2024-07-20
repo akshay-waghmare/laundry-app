@@ -1,0 +1,9 @@
+<!-- start-scrape.component.html -->
+<div>
+  <h2>Start Scraping</h2>
+  <form (ngSubmit)="startScrape(urlInput.value)">
+    <label for="url">URL:</label>
+    <input type="text" id="url" #urlInput>
+    <button type="submit">Start Scraping</button>
+  </form>
+</div>

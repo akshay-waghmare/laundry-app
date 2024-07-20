@@ -12,19 +12,17 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
         private tokenStorage:TokenStorage,
     ) { }
 
-    canActivate(route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): boolean {
-            console.log(this.tokenStorage.getToken());
-        if (this.tokenStorage.getToken()) {
-            console.log("here");
-            return true;
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        if (this.tokenStorage.isLoggedIn()) {
+          return true;
         }
         this.router.navigate(['login']);
         return false;
-    }
+      }
 
     canActivateChild(childroute: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean {
         return this.canActivate(childroute, state);
     }
+
 }

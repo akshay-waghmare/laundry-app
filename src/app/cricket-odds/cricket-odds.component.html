@@ -41,6 +41,15 @@
                   totalPotentialLoss | currency }}</span>
               </div>
             </div>
+            <!-- Session Exposure Summary -->
+            <div class="session-exposures" *ngIf="sessionExposures && sessionExposures.length > 0">
+              <div class="overall-item" *ngFor="let sessionExposure of sessionExposures">
+                <span class="win-label">{{ sessionExposure.name }}:</span>
+                <span [ngClass]="{'loss-amount': sessionExposure.amount >= 0, 'loss-amount': sessionExposure.amount < 0}">
+                  {{ sessionExposure.amount | currency }}
+                </span>
+              </div>
+            </div>
             
             <!-- Favorite Team Odds -->
             <div *ngIf="!(testMatchOdds && testMatchOdds.length > 0) && favTeam !== '-'">
@@ -137,15 +146,18 @@
                 <div class="session-label">{{ session }}</div>
                 <div class="odds-buttons">
                   <button mat-raised-button color="primary" [disabled]="liveScoreUpdate === 'Ball Start'"
-                    (click)="showBettingOptions('sessionBackOdds')">{{ sessionBackOdds }} <ng-container
-                      *ngIf="liveScoreUpdate === 'Ball Start'">
-                      <div class="suspension-label">SUS</div>
-                    </ng-container></button>
-                  <button mat-raised-button color="accent" [disabled]="liveScoreUpdate === 'Ball Start'"
-                    (click)="toggleLayButton()" (click)="showBettingOptions('sessionLayOdds')">{{ sessionLayOdds }}
+                    (click)="selectedBetType='no'; showBettingOptions('sessionBackOdds')">NO {{ sessionBackOdds }}
                     <ng-container *ngIf="liveScoreUpdate === 'Ball Start'">
                       <div class="suspension-label">SUS</div>
-                    </ng-container></button>
+                    </ng-container>
+                  </button>
+                  <button mat-raised-button color="accent" [disabled]="liveScoreUpdate === 'Ball Start'"
+                    (click)="toggleLayButton(); selectedBetType='yes'; showBettingOptions('sessionLayOdds')">YES {{ sessionLayOdds
+                    }}
+                    <ng-container *ngIf="liveScoreUpdate === 'Ball Start'">
+                      <div class="suspension-label">SUS</div>
+                    </ng-container>
+                  </button>
                 </div>
               </div>
     
@@ -156,17 +168,18 @@
                   <button mat-button class="clear-bet" (click)="clearStake()">Clear</button> <!-- Clear button -->
                 </div>
 
-                <div class="odds">
-                  <label for="odds">Odds:</label>
-                  <input type="number" id="odds" class="disabled-input" (input)="handleOddsInputChange()" (blur)="handleOddsBlur()"
-                    [value]="selectedOdds" readonly/>
-                    <input type="hidden" name="odds" [value]="selectedOdds" />
+                <div class="odds-amount">
+                  <div class="amount">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" [(ngModel)]="betAmount" />
+                  </div>
                 </div>
-                <div class="amount">
-                  <label for="amount">Amount:</label>
-                  <input type="number" id="amount" [(ngModel)]="betAmount" />
+                <div class="quick-stakes">
+                  <button *ngFor="let amount of quickStakeAmounts" (click)="setStake(amount)">
+                    + {{ amount }}
+                  </button>
                 </div>
-                <button mat-raised-button class="place-bet" color="primary" (click)="placeBet()">Place Bet</button>
+                <button mat-raised-button class="place-bet" color="primary" (click)="placeSessionBet()">Place Bet</button>
               </div>
             </div>
     
@@ -199,7 +212,15 @@
                 <!-- Bet Team Column -->
                 <ng-container matColumnDef="teamName">
                   <th mat-header-cell *matHeaderCellDef> Team </th>
-                  <td mat-cell *matCellDef="let bet"> {{bet.teamName}} </td>
+                  <td mat-cell *matCellDef="let bet" [ngClass]="{
+                    'session-yes': bet.betType === 'yes',
+                    'session-no': bet.betType === 'no'
+                  }">
+                    <ng-container *ngIf="bet.isSessionBet; else normalBet">
+                      <span class="session-label">{{ bet.betType | uppercase }} {{ bet.sessionName }}</span>
+                    </ng-container>
+                    <ng-template #normalBet>{{ bet.teamName }}</ng-template>
+                  </td>
                 </ng-container>
           
                 <!-- Bet Type Column -->

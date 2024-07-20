@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TokenStorage } from '../token.storage';
@@ -13,6 +13,7 @@ export class CricketService {
   private lastUpdatedCricketData = environment.REST_API_URL + 'cricket-data';
   private  placeBetEndpoint = environment.REST_API_URL + 'cricket-data/' + 'placeBet';
   private  getAllbetsFormatch = environment.REST_API_URL + 'cricket-data/' + 'bets/';
+  private  getAllbetsFormatchNonUserBased = environment.REST_API_URL + 'cricket-data/' + 'get-match-bet-with-exposure/';
   
 
   constructor(private http: HttpClient , private tokenStorage:TokenStorage,
@@ -35,12 +36,37 @@ export class CricketService {
     return this.http.get<any>(`${this.getAllbetsFormatch}?url=${matchUrl}`, {headers: this.headers});
   }
 
+  getUserBetsForMatchNonUserBased(): Observable<any> {
+    return this.http.get<any>(this.getAllbetsFormatchNonUserBased, {headers: this.headers});
+  }
+
   getUserBetHistory(): Observable<any> {
     return this.http.get(this.entity_bet_history, { headers: this.headers });
   }
 
-  getProfitLoss(): Observable<any> {
-    return this.http.get(this.profitLossEndpoint, { headers: this.headers });
+  getProfitLoss(startDate: Date, endDate: Date): Observable<any> {
+    const startOfDay = this.getStartOfDay(startDate).toISOString();
+    const endOfDay = this.getEndOfDay(endDate).toISOString();
+    let params = new HttpParams().set('startDate', startOfDay).set('endDate', endOfDay);
+    return this.http.get(this.profitLossEndpoint, { headers: this.headers, params: params });
+  }
+
+  getStartOfDay(date: Date): Date {
+    if (!date || isNaN(date.getTime())) {
+      return new Date();
+    }
+    const start = new Date(date);
+    start.setHours(0, 0, 0, 0);
+    return start;
+  }
+
+  getEndOfDay(date: Date): Date {
+    if (!date || isNaN(date.getTime())) {
+      return new Date();
+    }
+    const end = new Date(date);
+    end.setHours(23, 59, 59, 999);
+    return end;
   }
 
 }

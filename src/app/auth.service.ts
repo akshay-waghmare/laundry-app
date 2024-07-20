@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TokenStorage } from './token.storage';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 
 
@@ -27,9 +28,9 @@ export class AuthService {
   userUpdates = this.userUpdateSource.asObservable();
 
   constructor(
-    private readonly http:HttpClient, private tokenStorage : TokenStorage
+    private readonly http:HttpClient, private tokenStorage : TokenStorage , private router: Router
   ) { 
-
+    this.startTokenCheck();
   }
 
   attemptAuth(formData:any) : any {
@@ -57,5 +58,13 @@ export class AuthService {
 
   updateUserDetails(userDetails: any) {
     this.userUpdateSource.next(userDetails);
+  }
+
+  private startTokenCheck(): void {
+    setInterval(() => {
+      if (!this.tokenStorage.isLoggedIn()) {
+        this.router.navigate(['login']);
+      }
+    }, 60000); // Check every 60 seconds
   }
 }

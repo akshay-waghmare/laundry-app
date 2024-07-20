@@ -2,15 +2,26 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { RxStompService } from '@stomp/ng2-stompjs';
 import { Subject } from 'rxjs';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { filter, switchMap, takeUntil, timeout } from 'rxjs/operators';
 import { CricketService } from './cricket-odds.service';
 import { TokenStorage } from '../token.storage';
 import { EventListService } from '../component/event-list.service';
 import { AuthService } from '../auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface FormattedExposure {
   win: number;
   lose: number;
+}
+
+interface Bet {
+  teamName: string;
+  betType: string;
+  amount: number;
+  odd: number;
+  isSessionBet: boolean;
+  sessionName: string;
+  matchUrl: string;
 }
 
 @Component({
@@ -87,10 +98,13 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
 
   userBets: any[] = []; // To store the bets
   updatedUserData: any;
+  battingTeam: any;
+  sessionExposures: any;
 
   constructor(private rxStompService: RxStompService,
               private cricketService: CricketService,
               private tokenStorage:TokenStorage,
+              private snackBar: MatSnackBar,
               private eventListService:EventListService,
               private authService : AuthService,
               private activatedRoute: ActivatedRoute,private router: Router) { }
@@ -111,6 +125,12 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     if (this.tossWonCountry && this.batOrBallSelected) {
       console.log('Country and option set');
     }
+  }
+  // Function to show toast message
+  showToast(message: string, action: string, duration: number = 3000) {
+    this.snackBar.open(message, action, {
+      duration: duration,
+    });
   }
   ngOnInit(): void {
 
@@ -223,6 +243,7 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
       if (this.cricObj.batting_team !== undefined) {
         const batting_team = this.cricObj.batting_team;
         this.team1Name = batting_team;
+        this.battingTeam = batting_team;
         console.log("Batting team:", batting_team);
       }
 
@@ -338,6 +359,14 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   // Function to show betting options
   showBettingOptions(section) {
 
+    this.showBetting = false;
+  this.layButtonActive = false;
+  this.selectedOdds = 0;
+  this.betAmount = 0;
+  this.showBettingFor = '';
+
+
+
     this.showBetting = true;
     this.selectedOdds = this.backOdds;
     this.prevOdds = this.selectedOdds;
@@ -351,15 +380,28 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
       if (this.layButtonActive) {
         this.layButtonActive = false;
       }
-
-      if(this.showBettingFor === 'sessionBackOdds'){
-        this.selectedBetType = 'back';
-        this.selectedOdds = this.backOdds;
-      }
     }
-    if(this.showBettingFor == 'layOdds'){
-      this.selectedBetType = 'lay'; 
-      this.selectedOdds = this.layOdds; 
+
+    if (this.showBettingFor == 'teamSectionBackOdds') {
+      this.selectedBetType = 'back';
+      this.selectedOdds = this.backOdds;
+    }
+
+    if (this.showBettingFor == 'layOdds') {
+      this.selectedBetType = 'lay';
+      this.layButtonActive = true;
+      this.selectedOdds = this.layOdds;
+    }
+
+    if (this.showBettingFor =='sessionBackOdds') {
+      this.selectedBetType = 'no';
+      this.selectedOdds = Number(this.sessionBackOdds);
+    }
+
+    if(this.showBettingFor == 'sessionLayOdds'){
+      this.layButtonActive = true;
+      this.selectedBetType = 'yes';
+      this.selectedOdds = Number(this.sessionLayOdds);
     }
 
   }
@@ -384,11 +426,20 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   // Function to cancel the bet
   cancelBet() {
     this.showBetting = false;
+    this.showBettingFor = '';
     if (this.layButtonActive) {
       this.layButtonActive = false;
     }
   }
 
+  resetBettingState() {
+    this.showBetting = false;
+    this.layButtonActive = false;
+    this.selectedOdds = 0;
+    this.prevOdds = 0;
+    this.selectedBetType = '';
+    this.betAmount = 0;
+  }
   // Function to place the bet (you can add your logic here)
   placeBet() {
 
@@ -408,16 +459,37 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     console.log('Selected Odds: ', this.selectedOdds);
     console.log('Bet Amount: ', this.betAmount);
 
-    this.cricketService.placeBet(betDetails).subscribe({
-      next: (response) => {
-        console.log('Bet placed successfully', response);
-        this.showBetting = false; // Hide betting options
-        // Additional success handling
-        this.checkBetConfirmation(response.betId);
+    this.cricketService.placeBet(betDetails).pipe(timeout(10000)).subscribe({
+      next: (response: any) => {
+        console.log('Bet response received for match bet', response);
+        
+        // Assuming response.bet contains the bet object
+        if (response.bet) {
+          const bet = response.bet;
+    
+          if (bet.status === "Confirmed") {
+            this.showToast('Bet placed and confirmed!', 'Close');
+          } else if (bet.status === "Cancelled") {
+            this.showToast('Bet was cancelled: ' + bet.teamName, 'Close');
+          } else {
+            this.showToast('Bet status: ' + bet.status, 'Close');
+          }
+        } else {
+          this.showToast('No bet found in the response', 'Close');
+        }
+    
+        this.isBetProcessing = false;
+        this.loadUserBets();
       },
-      error: (error) => {
-        console.error('Error placing bet', error);
-        // Error handling
+      error: (error: any) => {
+        if (error.name === 'TimeoutError') {
+          console.error('Error placing bet: Request timed out', error);
+          this.showToast('Error placing bet: Request timed out', 'Close');
+        } else {
+          console.error('Error placing bet', error);
+          this.showToast('Error placing bet: ' + error.message, 'Close');
+        }
+        this.isBetProcessing = false;
       }
     });
   }
@@ -439,6 +511,7 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
 
     this.cricketService.placeBet(betDetails).subscribe({
       next: (response) => {
+        this.showToast('Bet placed waiting for confirmation!', 'Close');
         console.log('Bet placed successfully', response);
         this.showBetting = false; // Hide betting options
         // Additional success handling
@@ -446,6 +519,7 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error placing bet', error);
+        this.showToast('Error placing bet: ' + error.message, 'Close');
         this.isBetProcessing = false;
         // Error handling
       }
@@ -461,12 +535,14 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
       const parsedBet = JSON.parse(bet.body);
       if(parsedBet.status === 'Confirmed' && parsedBet.betId === betId) {
         console.log("setting is bet processing to false after confirmation");
+        this.showToast('Bet placed Confirmed!', 'Close');
         this.isBetProcessing = false;
         this.loadUserBets();
         this.authService.updateUserDetails(parsedBet.user);
       }
       if(parsedBet.status === 'Cancelled' && parsedBet.betId === betId) {
         console.log("setting is bet processing to false after cancellation");
+        this.showToast('Error placing bet', 'Close');
         this.isBetProcessing = false;
         this.loadUserBets();
       }
@@ -545,9 +621,11 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     this.cricketService.getUserBetsForMatch(this.matchUrl).subscribe(
       (response) => {
         console.log(response);
-        this.userBets= response.bets;
-        this.updatedUserData = this.userBets[0].user;
-        this.formattedExposures = this.formatAndGroupExposures(response.adjustedExposures);
+        if(response.bets.length > 0){
+          this.userBets= response.bets;
+          this.updatedUserData = this.userBets[0].user;
+          this.authService.updateUserDetails(this.updatedUserData);
+        }
 
         if (response && response.adjustedExposures) {
           this.formattedExposures = this.formatAndGroupExposures(response.adjustedExposures);
@@ -561,6 +639,13 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
             this.winFormattedKey = `${teamName} Win`;
             this.loseFormattedKey = `${teamName} Lose`;
           }
+
+          
+  
+          if (response.sessionExposures) {
+            this.sessionExposures = this.formatSessionExposures(response.sessionExposures);
+          }
+          
           console.log('Total Potential Win:', this.totalPotentialWin);
           console.log('Total Potential Loss:', this.totalPotentialLoss);
           console.log('Win Formatted Key:', this.winFormattedKey);
@@ -578,6 +663,17 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   // Set the stake amount based on the quick stake button clicked
   setStake(amount: number) {
     this.betAmount += amount;
+  }
+
+  formatSessionExposures(sessionExposures: any): any[] {
+    const formattedSessionExposures: any[] = [];
+    Object.keys(sessionExposures).forEach(key => {
+      formattedSessionExposures.push({
+        name: key,
+        amount: sessionExposures[key]
+      });
+    });
+    return formattedSessionExposures;
   }
 
   formatAdjustedExposures(exposures: any): any {
@@ -628,6 +724,59 @@ formatAndGroupExposures(exposures: any): Record<string, FormattedExposure> {
 // Function to clear the stake
 clearStake() {
   this.betAmount = 0;
+}
+
+placeSessionBet() {
+  if (this.betAmount <= 0) {
+    // Handle invalid bet
+    return;
+  }
+
+  let bet: Bet = {
+    teamName: this.battingTeam,
+    betType: this.selectedBetType,
+    amount: Number(this.betAmount),
+    odd: Number(this.selectedOdds),
+    isSessionBet: true, // Explicitly set as boolean true
+    sessionName: this.session,
+    matchUrl: this.matchUrl
+  };
+
+  this.isBetProcessing = true;
+
+  this.cricketService.placeBet(bet).pipe(timeout(10000)).subscribe({
+    next: (response: any) => {
+      console.log('Bet response received for match bet', response);
+      
+      // Assuming response.bet contains the bet object
+      if (response.bet) {
+        const bet = response.bet;
+  
+        if (bet.status === "Confirmed") {
+          this.showToast('Bet placed and confirmed!', 'Close');
+        } else if (bet.status === "Cancelled") {
+          this.showToast('Bet was cancelled: ' + bet.teamName, 'Close');
+        } else {
+          this.showToast('Bet status: ' + bet.status, 'Close');
+        }
+      } else {
+        this.showToast('No bet found in the response', 'Close');
+      }
+  
+      this.isBetProcessing = false;
+      this.loadUserBets();
+    },
+    error: (error: any) => {
+      if (error.name === 'TimeoutError') {
+        console.error('Error placing bet: Request timed out', error);
+        this.showToast('Error placing bet: Request timed out', 'Close');
+      } else {
+        console.error('Error placing bet', error);
+        this.showToast('Error placing bet: ' + error.message, 'Close');
+      }
+      this.isBetProcessing = false;
+    }
+  });
 }
 
 }

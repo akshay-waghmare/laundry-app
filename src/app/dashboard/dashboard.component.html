@@ -1,42 +1,76 @@
-
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-warning card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">content_copy</i>
-                        </div>
-                        <p class="card-category">Tasks Completed</p>
-                        <h3 class="card-title">49/50
-                            <small>T</small>
-                        </h3>
+            <!-- Matches Overview Section -->
+            <div class="col-lg-8 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Matches Overview</h4>
+                        <p class="card-category">List of all matches</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                            <a href="#pablo">Get More Tasks...</a>
-                        </div>
-                    </div>
-                </div>
-             </div>
-             <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-success card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">store</i>
-                        </div>
-                        <p class="card-category">Revenue</p>
-                        <h3 class="card-title">34,245</h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
-                        </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover">
+                            <thead class="text-primary">
+                                <tr>
+                                    <th>Match</th>
+                                    <th>Winning Team</th>
+                                    <th>Losing Team</th>
+                                    <th>Total Potential Win</th>
+                                    <th>Total Potential Loss</th>
+                                    <th>Session Exposures</th>
+                                    <th>View Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let match of matches">
+                                    <td>{{ match.teamName }}</td>
+                                    <td>{{ match.winningTeam }}</td>
+                                    <td>{{ match.losingTeam }}</td>
+                                    <td [ngClass]="{'win-amount': match.totalPotentialWin >= 0, 'loss-amount': match.totalPotentialWin < 0}">
+                                        {{ match.totalPotentialWin | currency }}
+                                    </td>
+                                    <td [ngClass]="{'win-amount': match.totalPotentialLoss >= 0, 'loss-amount': match.totalPotentialLoss < 0}">
+                                        {{ match.totalPotentialLoss | currency }}
+                                    </td>
+                                    <td>
+                                        <ul>
+                                          <li *ngFor="let session of match.sessionExposures | keyvalue">
+                                            {{ session.key }}: {{ session.value | currency }}
+                                          </li>
+                                        </ul>
+                                      </td>
+                                    <td>
+                                        <button (click)="viewMatchDetails(match.id)" class="btn btn-primary btn-sm">View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+
+             <!-- Notifications Section -->
+             <div class="col-lg-4 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">Notifications</h4>
+                        <p class="card-category">Bets placed by users</p>
+                    </div>
+                    <div class="card-body">
+                        <button (click)="clearNotifications()" class="btn btn-danger mt-3">Clear Notifications</button>
+
+                        <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let notification of notifications | slice:0:10 ">
+                                <strong>Match:</strong> {{ notification.matchUrl }}<br>
+                                <strong>Amount:</strong> {{ notification.amount }}<br>
+                                <strong>Team:</strong> {{ notification.teamName }}<br>
+                                <strong>Bet Type:</strong> {{ notification.betType }}<br>
+                                <strong>Odds:</strong> {{ notification.odd }}<br>
+                                <strong>Status:</strong> {{ notification.status }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
         </div>
-     </div>
+    </div>
 </div>

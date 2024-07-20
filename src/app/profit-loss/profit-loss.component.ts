@@ -12,8 +12,10 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class ProfitLossComponent implements OnInit, OnDestroy, AfterViewInit {
   profitLoss = new MatTableDataSource<any>([]); // Data source for profit and loss
-  profitLossColumns: string[] = ['matchName', 'profitOrLoss']; // Columns for profit and loss
+  profitLossColumns: string[] = ['profitLoss', 'finalBalance', 'remark', 'transactionDate', 'transactionType']; // Columns for profit and loss
   private subscriptions: Subscription = new Subscription();
+  startDate: string;
+  endDate: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -28,9 +30,9 @@ export class ProfitLossComponent implements OnInit, OnDestroy, AfterViewInit {
       '(max-width: 480px)'
     ]).subscribe(result => {
       if (result.matches) {
-        this.profitLossColumns = ['matchName', 'profitOrLoss'];
+        this.profitLossColumns = ['profitLoss', 'finalBalance', 'remark', 'transactionDate', 'transactionType'];
       } else {
-        this.profitLossColumns = ['matchName', 'profitOrLoss'];
+        this.profitLossColumns = ['profitLoss', 'finalBalance', 'remark', 'transactionDate', 'transactionType'];
       }
     });
   }
@@ -40,10 +42,22 @@ export class ProfitLossComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadProfitLoss(): void {
-    const subscription = this.cricketService.getProfitLoss().subscribe(
-      (response: any) => {
+
+
+    const subscription = this.cricketService.getProfitLoss(new Date(this.startDate), new Date(this.endDate)).subscribe(
+        (response: any) => {
         console.log("logging profit loss response : ", response);
-        this.profitLoss.data = response;
+        const profitLossArray = Object.values(response);
+        // Sorting the profitLossArray by transactionDate in ascending order
+        profitLossArray.sort((a: any, b: any) => {
+          const dateA = new Date(a.transactionDate);
+          const dateB = new Date(b.transactionDate);
+
+          // Sort ascending: earlier dates first
+          return dateA.getTime() - dateB.getTime();
+        });
+
+        this.profitLoss.data = profitLossArray;
       },
       (error) => {
         console.error('Error fetching profit and loss:', error);

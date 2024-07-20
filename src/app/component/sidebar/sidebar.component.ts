@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { N_ROUTES } from 'src/app/constants/constants';
 import { ROUTES } from 'src/app/constants/constants';
 import { SidebarService } from './sidebar.service';
+import { MatchService } from 'src/app/dashboard/match-service.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,9 +21,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   eventlistSubscription: Subscription;
 
   @Output() toggleSidebar = new EventEmitter<void>();
+  matchTeamsSubscription: Subscription;
 
   constructor(private eventListService: EventListService,
               private sidebarService: SidebarService,
+              private matchDataService: MatchService,
               private router: Router) { }
 
 
@@ -54,10 +57,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
       this.extractAndSetURls(newMatchUrl);
     });
 
+    this.matchTeamsSubscription = this.matchDataService.getMatchTeams().subscribe(matchTeams => {
+      console.log("Data in matchTeams" , matchTeams);
+    });
+
+    
+
   }
 
   ngOnDestroy(): void {
     this.eventlistSubscription.unsubscribe();
+    this.matchTeamsSubscription.unsubscribe();
   }
 
   private extractAndSetURls(message: any) {
@@ -83,6 +93,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         const index = this.matchTeams.indexOf(urlToDelete, 0);
         if (index > -1) {
           this.matchTeams.splice(index, 1); // Remove using the computed index of 'matchTeam'
+          this.matchDataService.removeMatchTeam(this.matchTeams[index]);
         }
       }
     }
@@ -103,6 +114,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
       const teamObject = { url: message, teamName: matchTeam } as { url: string; teamName: string };
       this.matchTeams.push(teamObject);
+      this.matchDataService.addMatchTeam(teamObject);
 
     }
   }
