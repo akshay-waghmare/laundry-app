@@ -12,7 +12,7 @@ import { AuthenticationGuard } from 'src/app/authentication.guard';
 import { BetMarketComponent } from 'src/app/bet-market/bet-market.component';
 import { TennisListComponent } from 'src/app/tennis-card-list/tennis-list/tennis-list.component';
 import { TennisRankingComponent } from 'src/app/tennis-card-list/tennis-list/tennis-ranking/tennis-ranking.component';
-
+import { HomeComponent } from 'src/app/home/home.component';
 
 import { CricketOddsComponent } from 'src/app/cricket-odds/cricket-odds.component';
 import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
@@ -36,6 +36,9 @@ export const AdminLayoutsRoute: Routes = [
   { path: 'account/bet-history', component: BetHistoryComponent, canActivate: [AuthenticationGuard] },
   { path: 'account/profit-loss', component: ProfitLossComponent, canActivate: [AuthenticationGuard] },
   { path: 'scraping', component: ScrapeControlComponent, canActivate: [AuthenticationGuard] },
-  { path: 'logout', component: LogoutFormComponent }
+  { path: 'logout', component: LogoutFormComponent },
+  {path:'Home',component:HomeComponent},
 ];
+
+
 

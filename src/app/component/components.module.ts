@@ -14,6 +14,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from '../loader/loader.interceptor';
 import { environment } from 'src/environments/environment';
 import { LogoutFormComponent } from '../logout-form/logout-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from '../home/home.component';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -43,7 +45,8 @@ const myRxStompConfig: InjectableRxStompConfig = {
   declarations: [
     SidebarComponent,
     NavbarComponent,
-    LogoutFormComponent
+    LogoutFormComponent,
+    
   ],
   entryComponents: [
     LogoutFormComponent // Ensure the component is in entryComponents
