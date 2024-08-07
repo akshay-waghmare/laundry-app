@@ -3,7 +3,7 @@
   <div class="scroll-wrapper">
     <button class="scroll-button" (click)="scrollLeft()">&#9664;</button>
     <div class="matches-container" #scrollContainer>
-      <mat-card class="match-card" *ngFor="let match of liveMatches">
+      <mat-card class="match-card" *ngFor="let match of liveMatches" (click)="navigateToMatch(match)">
         <div class="match-date">{{ match.date }}</div>
         <div class="match-title">{{ match.title }}</div>
         <div class="match-description">{{ match.description }}</div>
@@ -11,10 +11,8 @@
           <div class="team">{{ match.team1 }}</div>
           <div class="team">{{ match.team2 }}</div>
         </div>
-        <!-- <div class="start-time">Starts at: <span class="time">{{ match.startTime }}</span></div> -->
       </mat-card>
     </div>
     <button class="scroll-button" (click)="scrollRight()">&#9654;</button>
   </div>
 </div>
-
