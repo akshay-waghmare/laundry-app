@@ -2,7 +2,7 @@ import { AddCustomerComponent } from './../../add-customer/add-customer.componen
 import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { HomeComponent } from 'src/app/home/home.component';
-//import {DashboardComponent} from '../../dashboard/dashboard.component';
+import {DashboardComponent} from '../../dashboard/dashboard.component';
 import {AddServiceComponent} from '../../add-service/add-service.component';
 import { ServiceListComponent } from 'src/app/service-list/service-list.component';
 import { CustomerListComponent } from '../../customer-list/customer-list.component';
@@ -24,7 +24,7 @@ import { ScrapeControlComponent } from 'src/app/scrape-control/scrape-control.co
 
 export const AdminLayoutsRoute: Routes = [
   { path: 'Home', component: HomeComponent, canActivate: [AuthenticationGuard] },
-  //{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticationGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticationGuard] },
   { path: 'add-service', component: AddServiceComponent, canActivate: [AuthenticationGuard] },
   { path: 'football', component: ServiceListComponent, canActivate: [AuthenticationGuard] },
   { path: 'add-customer', component: AddCustomerComponent, canActivate: [AuthenticationGuard] },
