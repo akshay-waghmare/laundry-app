@@ -13,8 +13,9 @@ import { LoginComponent } from 'src/app/login/login.component';
 import { TennisService } from 'src/app/tennis-card-list/tennis-list/tennis.service';
 import { TennisaRankingService } from 'src/app/tennis-card-list/tennis-list/tennis-ranking/tennisa-ranking.service';
 import { LogoutFormComponent } from 'src/app/logout-form/logout-form.component';
+import { PasswordChangeService } from 'src/app/password-change/password-change.service';
 
-import {
+import { 
   MatFormFieldModule,
   MatButtonModule,
   MatInputModule,
@@ -48,7 +49,8 @@ import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
 import { environment } from 'src/environments/environment';
 import { ComponentsModule } from 'src/app/component/components.module';
 import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
-import {AddUserComponent} from 'src/app/adduser/adduser.component'
+import { AddUserComponent } from 'src/app/adduser/adduser.component'
+import { PasswordChangeComponent } from 'src/app/password-change/password-change.component';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -107,7 +109,9 @@ const myRxStompConfig: InjectableRxStompConfig = {
     CricketOddsComponent,
     BetHistoryComponent,
     ProfitLossComponent,
-    AddUserComponent
+    AddUserComponent,
+    PasswordChangeComponent
+
     
   ],
   providers: [

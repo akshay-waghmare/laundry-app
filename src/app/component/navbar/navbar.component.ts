@@ -64,4 +64,8 @@ export class NavbarComponent implements OnInit {
   navigateToProfitLoss():void {
     this.router.navigate(['/account/profit-loss']);
   }
+
+  navigateToChangePassword():void {
+    this.router.navigate(['/account/password-change']);
+  }
 }
