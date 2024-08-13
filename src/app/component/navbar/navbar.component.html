@@ -1,4 +1,49 @@
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute">
+<!-- <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute">
+  <div class="container-fluid justify-content-end">
+    <div class="navbar-wrapper">
+      <a class="navbar-brand" href="#"></a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="material-icons icon-large me-2">account_circle</i>
+            <div class="user-info d-flex align-items-center">
+              <div class="username font-weight-bold">{{user?.username}}</div>
+              <div class="balance-info ms-3 d-none d-lg-flex">
+                <i class="material-icons me-1">account_balance_wallet</i>
+                <span>{{user?.balance | currency}}</span>
+              </div>
+              <div class="exposure-info ms-3 d-none d-lg-flex">
+                <i class="material-icons me-1">insights</i>
+                <span>{{user?.exposure | currency}}</span>
+              </div>
+            </div>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="userDropdown"> -->
+            <!-- <a class="dropdown-item" href="#"><i class="material-icons">home</i> Home</a>
+                      <a class="dropdown-item" href="#"><i class="material-icons">account_balance_wallet</i> Deposit</a>
+                      <a class="dropdown-item" href="#"><i class="material-icons">payment</i> Withdraw</a>
+                      <a class="dropdown-item" href="#"><i class="material-icons">person</i> My Profile</a>
+                      <a class="dropdown-item" href="#"><i class="material-icons">description</i> Account Statement</a>
+                      <a class="dropdown-item" href="#"><i class="material-icons">settings</i> Stake Settings</a> -->
+           <!--  <a class="dropdown-item" (click)="navigateToProfitLoss()"><i class="material-icons">trending_up</i> Profit & Loss</a>
+            <a class="dropdown-item" (click)="navigateToBetHistory()"><i class="material-icons">hourglass_empty</i> Unsettled
+              Bets</a> -->
+            <!--      <a class="dropdown-item" href="#"><i class="material-icons">lock</i> Change Password</a>--> 
+           <!--  <a (click)="openLogoutDialog()" class="dropdown-item"><i class="material-icons">logout</i> Sign Out</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+
+<nav *ngIf="showNavBar" class="navbar navbar-expand-lg navbar-transparent navbar-absolute">
   <div class="container-fluid justify-content-end">
     <div class="navbar-wrapper">
       <a class="navbar-brand" href="#"></a>
@@ -24,20 +69,13 @@
             </div>
           </a>
           <div class="dropdown-menu" aria-labelledby="userDropdown">
-            <!-- <a class="dropdown-item" href="#"><i class="material-icons">home</i> Home</a>
-                      <a class="dropdown-item" href="#"><i class="material-icons">account_balance_wallet</i> Deposit</a>
-                      <a class="dropdown-item" href="#"><i class="material-icons">payment</i> Withdraw</a>
-                      <a class="dropdown-item" href="#"><i class="material-icons">person</i> My Profile</a>
-                      <a class="dropdown-item" href="#"><i class="material-icons">description</i> Account Statement</a>
-                      <a class="dropdown-item" href="#"><i class="material-icons">settings</i> Stake Settings</a> -->
             <a class="dropdown-item" (click)="navigateToProfitLoss()"><i class="material-icons">trending_up</i> Profit & Loss</a>
-            <a class="dropdown-item" (click)="navigateToBetHistory()"><i class="material-icons">hourglass_empty</i> Unsettled
-              Bets</a>
-            <!--             <a class="dropdown-item" href="#"><i class="material-icons">lock</i> Change Password</a>
-           --> <a (click)="openLogoutDialog()" class="dropdown-item"><i class="material-icons">logout</i> Sign Out</a>
+            <a class="dropdown-item" (click)="navigateToBetHistory()"><i class="material-icons">hourglass_empty</i> Unsettled Bets</a>
+            <a (click)="openLogoutDialog()" class="dropdown-item"><i class="material-icons">logout</i> Sign Out</a>
           </div>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
