@@ -52,8 +52,6 @@ import { ComponentsModule } from 'src/app/component/components.module';
 import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Ensure this is imported
 import { ScrapeControlComponent } from 'src/app/scrape-control/scrape-control.component';
-import { HomeComponent } from 'src/app/home/home.component';
-
 
 
 const myRxStompConfig: InjectableRxStompConfig = {
@@ -114,9 +112,7 @@ const myRxStompConfig: InjectableRxStompConfig = {
     CricketOddsComponent,
     BetHistoryComponent,
     ProfitLossComponent,
-    ScrapeControlComponent,
-    HomeComponent,
-    
+    ScrapeControlComponent
     
   ],
   providers: [

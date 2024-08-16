@@ -805,9 +805,3 @@
 
 
 }
-
-.non-clickable {
-  pointer-events: none; /* Prevents the button from being clickable */
-  opacity: 1; /* Ensures the button retains its color */
-}
-

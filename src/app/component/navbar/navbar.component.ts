@@ -14,7 +14,7 @@ import { TokenStorage } from 'src/app/token.storage';
 })
 export class NavbarComponent implements OnInit {
   user: any;
-  showNavBar: boolean = false; // Controls the visibility of the navbar
+
   //inject AuthService 
 
   constructor(private router: Router, public dialog: MatDialog, private authService: AuthService, private tokenStorage: TokenStorage) { }
@@ -22,9 +22,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(this.tokenStorage.getUser());
     this.getUserData(this.user.sub);
-
-    // Show the navbar when user data is loaded
-    //this.showNavBar = true;
 
     this.authService.userUpdates.subscribe((updatedUserDetails) => {
       if (updatedUserDetails) {
