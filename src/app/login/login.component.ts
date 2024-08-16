@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
       })
     ).subscribe((userDetails) => {
       this.authService.updateUserDetails(userDetails);
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['Home']);
     });
   }
 
