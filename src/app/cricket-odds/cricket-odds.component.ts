@@ -743,6 +743,7 @@ placeSessionBet() {
   };
 
   this.isBetProcessing = true;
+  this.showBetting = false;
 
   this.cricketService.placeBet(bet).pipe(timeout(10000)).subscribe({
     next: (response: any) => {
@@ -762,9 +763,9 @@ placeSessionBet() {
       } else {
         this.showToast('No bet found in the response', 'Close');
       }
-  
       this.isBetProcessing = false;
       this.loadUserBets();
+      
     },
     error: (error: any) => {
       if (error.name === 'TimeoutError') {
