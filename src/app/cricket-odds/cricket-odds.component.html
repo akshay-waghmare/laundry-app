@@ -56,9 +56,16 @@
               <div class="favorite-odds team-section">
                 <div class="team-label">{{ favTeam }}</div>
                 <div class="odds-buttons">
-                  <button mat-raised-button color="primary" [ngClass]="{'non-clickable': !isClickable}">
-                    {{ backOdds }}</button>
-                  <button mat-raised-button color="accent" [ngClass]="{'non-clickable': !isClickable}">{{ layOdds }}</button>
+                  <button mat-raised-button color="primary" [disabled]="liveScoreUpdate === 'Ball Start'"
+                    (click)="selectedBetType='back'; showBettingOptions('teamSectionBackOdds')">
+                    {{ backOdds }} <ng-container *ngIf="liveScoreUpdate === 'Ball Start'">
+                      <div class="suspension-label">SUS</div>
+                    </ng-container></button>
+                  <button mat-raised-button color="accent" [disabled]="liveScoreUpdate === 'Ball Start'"
+                    (click)="toggleLayButton()" (click)="selectedBetType='lay'; showBettingOptions('layOdds')">{{ layOdds }} <ng-container
+                      *ngIf="liveScoreUpdate === 'Ball Start'">
+                      <div class="suspension-label">SUS</div>
+                    </ng-container></button>
                 </div>
               </div>
     
@@ -96,10 +103,14 @@
                 <div class="favorite-odds team-section">
                   <div class="team-label">{{ match.teamName }}</div>
                   <div class="odds-buttons">
-                    <button mat-raised-button color="primary" [ngClass]="{'non-clickable': !isClickable}">
+                    <button mat-raised-button color="primary"
+                      (click)="showBettingOptionsForTestMatch('testMatchOdds', i, 'back')"
+                      [disabled]="liveScoreUpdate === 'Ball Start'">
                       {{ match.odds.backOdds }}
                     </button>
-                    <button mat-raised-button color="accent" [ngClass]="{'non-clickable': !isClickable}">
+                    <button mat-raised-button color="accent"
+                      (click)="showBettingOptionsForTestMatch('testMatchOdds', i, 'lay')"
+                      [disabled]="liveScoreUpdate === 'Ball Start'">
                       {{ match.odds.layOdds }}
                     </button>
                   </div>
@@ -134,10 +145,18 @@
               <div class="favorite-odds session-section">
                 <div class="session-label">{{ session }}</div>
                 <div class="odds-buttons">
-                  <button mat-raised-button color="primary" [ngClass]="{'non-clickable': !isClickable}">NO {{ sessionBackOdds }}
+                  <button mat-raised-button color="primary" [disabled]="liveScoreUpdate === 'Ball Start'"
+                    (click)="selectedBetType='no'; showBettingOptions('sessionBackOdds')">NO {{ sessionBackOdds }}
+                    <ng-container *ngIf="liveScoreUpdate === 'Ball Start'">
+                      <div class="suspension-label">SUS</div>
+                    </ng-container>
                   </button>
-                  <button mat-raised-button color="accent" [ngClass]="{'non-clickable': !isClickable}">YES {{ sessionLayOdds
+                  <button mat-raised-button color="accent" [disabled]="liveScoreUpdate === 'Ball Start'"
+                    (click)="toggleLayButton(); selectedBetType='yes'; showBettingOptions('sessionLayOdds')">YES {{ sessionLayOdds
                     }}
+                    <ng-container *ngIf="liveScoreUpdate === 'Ball Start'">
+                      <div class="suspension-label">SUS</div>
+                    </ng-container>
                   </button>
                 </div>
               </div>
@@ -172,6 +191,68 @@
             </div>
           </div>
         </div>
+        <div class="user-bets-container" *ngIf="userBets.length === 0">
+          <mat-card class="user-bets">
+            <mat-card-header>
+              <mat-card-title>No Bets Placed</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>You have not placed any bets for this match.</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <mat-card *ngIf="userBets.length > 0" class="user-bets">
+          <mat-card-header>
+            <mat-card-title>Your Bets for This Match</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-card-content>
+              <table mat-table [dataSource]="userBets" class="mat-elevation-z8">
+          
+                <!-- Bet Team Column -->
+                <ng-container matColumnDef="teamName">
+                  <th mat-header-cell *matHeaderCellDef> Team </th>
+                  <td mat-cell *matCellDef="let bet" [ngClass]="{
+                    'session-yes': bet.betType === 'yes',
+                    'session-no': bet.betType === 'no'
+                  }">
+                    <ng-container *ngIf="bet.isSessionBet; else normalBet">
+                      <span class="session-label">{{ bet.betType | uppercase }} {{ bet.sessionName }}</span>
+                    </ng-container>
+                    <ng-template #normalBet>{{ bet.teamName }}</ng-template>
+                  </td>
+                </ng-container>
+          
+                <!-- Bet Type Column -->
+                <ng-container matColumnDef="type">
+                  <th mat-header-cell *matHeaderCellDef> Type </th>
+                  <td mat-cell *matCellDef="let bet"> {{bet.betType}} </td>
+                </ng-container>
+
+                <!-- Amount Column -->
+                <ng-container matColumnDef="amount">
+                  <th mat-header-cell *matHeaderCellDef> Amount </th>
+                  <td mat-cell *matCellDef="let bet"> {{bet.amount | currency}} </td>
+                </ng-container>
+          
+                <!-- Odds Column -->
+                <ng-container matColumnDef="odd">
+                  <th mat-header-cell *matHeaderCellDef> Odds </th>
+                  <td mat-cell *matCellDef="let bet"> {{bet.odd}} </td>
+                </ng-container>
+          
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef> Status </th>
+                  <td mat-cell *matCellDef="let bet"> {{bet.status}} </td>
+                </ng-container>
+          
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-card-content>
+          </mat-card-content>
+        </mat-card>
       </div>
     </mat-card-content>
   </mat-card>

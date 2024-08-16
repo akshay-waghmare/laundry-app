@@ -7,23 +7,25 @@ import { LoginComponent } from './login/login.component';
 import { from } from 'rxjs';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
-  {
+const routes: Routes = [{
     path: '',
-    component: AdminLayoutsComponent,
-    children: [
+    redirectTo: 'login',
+    pathMatch: 'full',
+},
+
+{
+  path: 'login',
+  component: LoginComponent,
+  pathMatch: 'full',
+}, 
+{
+  path: '',
+  component: AdminLayoutsComponent,
+  children: [
       {
-        path: '',
-        redirectTo: 'Home', // Redirect to Home component on load
-        pathMatch: 'full',
-      },
-      {
-        path: '',
-        loadChildren: './layouts/admin-layouts/admin-layouts.module#AdminLayoutsModule'
-      }
-    ]
-  },
-];
+    path: '',
+    loadChildren: './layouts/admin-layouts/admin-layouts.module#AdminLayoutsModule'
+}]}];
 
 @NgModule({
   imports: [
