@@ -1,0 +1,75 @@
+<h3>Transaction Details (Bet ID: {{ transaction.betId }})</h3>
+<table mat-table [dataSource]="filteredBets" class="mat-elevation-z8">
+
+  <!-- Amount Column -->
+  <ng-container matColumnDef="amount">
+    <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.amount | currency }} </mat-cell>
+  </ng-container>
+
+  <!-- Bet Type Column -->
+  <ng-container matColumnDef="betType">
+    <mat-header-cell *matHeaderCellDef> Bet Type </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.betType }} </mat-cell>
+  </ng-container>
+
+  <!-- Match URL Column -->
+  <ng-container matColumnDef="matchUrl">
+    <mat-header-cell *matHeaderCellDef> Match URL </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.matchUrl }} </mat-cell>
+  </ng-container>
+
+  <!-- Odd Column -->
+  <ng-container matColumnDef="odd">
+    <mat-header-cell *matHeaderCellDef> Odd </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.odd }} </mat-cell>
+  </ng-container>
+
+  <!-- Placed At Column -->
+  <ng-container matColumnDef="placedAt">
+    <mat-header-cell *matHeaderCellDef> Placed At </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.placedAt }} </mat-cell>
+  </ng-container>
+
+  <!-- Potential Win Column -->
+  <ng-container matColumnDef="potentialWin">
+    <mat-header-cell *matHeaderCellDef> Potential Win </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.potentialWin || 'N/A' }} </mat-cell>
+  </ng-container>
+
+  <!-- Status Column -->
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.status }} </mat-cell>
+  </ng-container>
+
+  <!-- Team Name Column -->
+  <ng-container matColumnDef="teamName">
+    <mat-header-cell *matHeaderCellDef> Team Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.teamName }} </mat-cell>
+  </ng-container>
+
+  <!-- User ID Column -->
+  <ng-container matColumnDef="userId">
+    <mat-header-cell *matHeaderCellDef> User ID </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.userId }} </mat-cell>
+  </ng-container>
+
+  <!-- Is Session Bet Column -->
+  <ng-container matColumnDef="isSessionBet">
+    <mat-header-cell *matHeaderCellDef> Is Session Bet </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.isSessionBet ? 'Yes' : 'No' }} </mat-cell>
+  </ng-container>
+
+  <!-- Session Name Column -->
+  <ng-container matColumnDef="sessionName">
+    <mat-header-cell *matHeaderCellDef> Session Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.sessionName || 'N/A' }} </mat-cell>
+  </ng-container>
+
+  <!-- Header Row Definition -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <!-- Data Row Definition -->
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</table>

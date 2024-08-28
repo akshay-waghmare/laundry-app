@@ -36,6 +36,7 @@ import { ElapsedTimePipe } from './utils/elapsed-time.pipe';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { environment } from 'src/environments/environment';
 import { LogoutFormComponent } from './logout-form/logout-form.component';
+import { TransactionDetailComponent } from './transaction-detail/transaction-detail.component';
 
 
 const stompConfig: StompConfig = {
@@ -58,7 +59,8 @@ const stompConfig: StompConfig = {
     AdminLayoutsComponent,
     LoginComponent,
     LoaderComponent,
-    ElapsedTimePipe
+    ElapsedTimePipe,
+    //TransactionDetailComponent
         
   ],
   imports: [

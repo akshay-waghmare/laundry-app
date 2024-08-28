@@ -34,7 +34,9 @@ import {
   MatList,
   MatListModule,
   MatSnackBar,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDialogModule
+  
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationGuard } from 'src/app/authentication.guard';
@@ -52,6 +54,7 @@ import { ComponentsModule } from 'src/app/component/components.module';
 import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Ensure this is imported
 import { ScrapeControlComponent } from 'src/app/scrape-control/scrape-control.component';
+import { TransactionDetailComponent } from 'src/app/transaction-detail/transaction-detail.component';
 
 
 const myRxStompConfig: InjectableRxStompConfig = {
@@ -94,6 +97,7 @@ const myRxStompConfig: InjectableRxStompConfig = {
     ComponentsModule,
     MatSnackBarModule, // Import MatSnackBarModule
     
+    
   
   ],
   declarations: [
@@ -112,7 +116,8 @@ const myRxStompConfig: InjectableRxStompConfig = {
     CricketOddsComponent,
     BetHistoryComponent,
     ProfitLossComponent,
-    ScrapeControlComponent
+    ScrapeControlComponent,
+    TransactionDetailComponent
     
   ],
   providers: [

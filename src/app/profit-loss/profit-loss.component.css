@@ -84,4 +84,9 @@
     color: white;
     padding: 10px 20px;
   }
+  .clickable-cell {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+  }
   

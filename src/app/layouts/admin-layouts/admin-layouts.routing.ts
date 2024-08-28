@@ -19,6 +19,7 @@ import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
 import { LogoutFormComponent } from 'src/app/logout-form/logout-form.component';
 import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
 import { ScrapeControlComponent } from 'src/app/scrape-control/scrape-control.component';
+import { TransactionDetailComponent } from 'src/app/transaction-detail/transaction-detail.component';
 
 export const AdminLayoutsRoute: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticationGuard] },
@@ -36,6 +37,7 @@ export const AdminLayoutsRoute: Routes = [
   { path: 'account/bet-history', component: BetHistoryComponent, canActivate: [AuthenticationGuard] },
   { path: 'account/profit-loss', component: ProfitLossComponent, canActivate: [AuthenticationGuard] },
   { path: 'scraping', component: ScrapeControlComponent, canActivate: [AuthenticationGuard] },
-  { path: 'logout', component: LogoutFormComponent }
+  { path: 'logout', component: LogoutFormComponent },
+  { path: 'transactions', component: TransactionDetailComponent}
 ];
 

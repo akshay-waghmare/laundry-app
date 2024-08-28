@@ -18,30 +18,43 @@
     </div>
     <div class="table-responsive">
       <mat-table [dataSource]="profitLoss" class="mat-elevation-z8">
-        <!-- Table headers for profit and loss -->
+        
+        <!-- Column: Amount -->
         <ng-container matColumnDef="profitLoss">
           <mat-header-cell *matHeaderCellDef class="header-text"> Amount</mat-header-cell>
-          <mat-cell *matCellDef="let pl" data-header="Match Name"> {{pl.amount}} </mat-cell>
+          <mat-cell *matCellDef="let pl" (click)="openTransactionDetail(pl)"> {{pl.amount}} </mat-cell>
         </ng-container>
+
+        <!-- Column: Balance -->
         <ng-container matColumnDef="finalBalance">
           <mat-header-cell *matHeaderCellDef class="header-text"> Balance </mat-header-cell>
-          <mat-cell *matCellDef="let pl" [ngClass]="{'profit': pl.balanceAfterTransaction > 0, 'loss': pl.balanceAfterTransaction < 0}" data-header="Profit/Loss"> {{pl.balanceAfterTransaction | currency}} </mat-cell>
+          <mat-cell *matCellDef="let pl" (click)="openTransactionDetail(pl)" [ngClass]="{'profit': pl.balanceAfterTransaction > 0, 'loss': pl.balanceAfterTransaction < 0}">
+            {{pl.balanceAfterTransaction | currency}} 
+          </mat-cell>
         </ng-container>
+
+        <!-- Column: Remark -->
         <ng-container matColumnDef="remark">
           <mat-header-cell *matHeaderCellDef class="header-text"> Remark </mat-header-cell>
-          <mat-cell *matCellDef="let pl" data-header="Remark"> {{pl.remark}} </mat-cell>
+          <mat-cell *matCellDef="let pl" (click)="openTransactionDetail(pl)"> {{pl.remark}} </mat-cell>
         </ng-container>
+
+        <!-- Column: Transaction Date -->
         <ng-container matColumnDef="transactionDate">
           <mat-header-cell *matHeaderCellDef class="header-text"> Transaction Date </mat-header-cell>
-          <mat-cell *matCellDef="let pl" data-header="Transaction Date"> {{pl.transactionDate | date}} </mat-cell>
+          <mat-cell *matCellDef="let pl" (click)="openTransactionDetail(pl)"> {{pl.transactionDate | date}} </mat-cell>
         </ng-container>
+
+        <!-- Column: Transaction Type -->
         <ng-container matColumnDef="transactionType">
           <mat-header-cell *matHeaderCellDef class="header-text"> Transaction Type </mat-header-cell>
-          <mat-cell *matCellDef="let pl" data-header="Transaction Type"> {{pl.transactionType}} </mat-cell>
+          <mat-cell *matCellDef="let pl" (click)="openTransactionDetail(pl)"> {{pl.transactionType}} </mat-cell>
         </ng-container>
-        <!-- Row template -->
+
+        <!-- Define Header and Row -->
         <mat-header-row *matHeaderRowDef="profitLossColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: profitLossColumns;" class="data-row"></mat-row>
+        <mat-row *matRowDef="let row; columns: profitLossColumns;"></mat-row>
+
       </mat-table>
     </div>
   </mat-card-content>
