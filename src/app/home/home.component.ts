@@ -28,12 +28,18 @@ export class HomeComponent implements OnInit {
   }
 
   parseLiveMatchUrl(url: string) {
+    const result1 = this.extractTeamAndTournament(url);
+    console.log(`URL1 -> Team: ${result1.teamName}, Tournament: ${result1.tournamentName}`);
     const parts = url.split('/').slice(2); // Ignore the first empty part and 'scoreboard'
 
     //const date = '27 July'; // Assuming we have the date already or can derive it
-    const title = parts[5].split('-').slice(-3).join('-');
+    const title = result1.tournamentName;
     const description = `${parts[2].replace(/-/g, ' ')}`; // Create a description
-    const teams = parts[5].split('-vs-');
+    const teams = result1.teamName;
+
+    const team1 = this.extractTeams(teams).team1;
+    const team2 = this.extractTeams(teams).team2;
+
     const matchUrl =parts[5];
     //const startTime = '06:00 PM'; // Assuming we have the start time already or can derive it
 
@@ -41,8 +47,8 @@ export class HomeComponent implements OnInit {
       //date,
       title,
       description,
-      team1: this.formatTeamName(teams[0]),
-      team2: this.formatTeamName(teams[1].split('-')[0].toUpperCase()),
+      team1,
+      team2,
       matchUrl,
       //startTime
     };
@@ -63,4 +69,71 @@ export class HomeComponent implements OnInit {
   scrollRight(): void {
     this.scrollContainer.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
   }
+
+
+ extractTeamAndTournament(url: string): { teamName: string | null, tournamentName: string | null } {
+    // Regular expression to capture the part of the URL with team names and tournament name
+    const pattern = /\/([a-z0-9\-]+)\/(live|scorecard)$/i;
+
+    // Search for the pattern in the URL
+    const match = url.match(pattern);
+
+    if (match) {
+        // The full match for the team names and tournament name
+        const fullMatch = match[1];
+        
+        // Split on hyphens to separate the match details
+        const parts = fullMatch.split('-');
+
+        // Handle cases with team names and tournament name
+        if (parts.length >= 5) {
+            // Extract team names (everything before the first 'match')
+            const teamPart = parts.slice(0, parts.indexOf('match') - 1).join('-');
+
+            // Extract tournament name (everything after the 'match')
+            const matchIndex = parts.indexOf('match');
+            const tournamentName = parts.slice(matchIndex + 1).join('-');
+
+            return { teamName: teamPart, tournamentName: tournamentName };
+        }
+    }
+
+    return { teamName: null, tournamentName: null };
+}
+
+extractTeams(matchString: string): { team1: string, team2: string } | null {
+  // Check if the match string contains the "-vs-" separator
+  if (matchString.includes("-vs-")) {
+      // Split the string at "-vs-" to get the two teams
+      const teams = matchString.split("-vs-");
+
+      // Ensure we have exactly two teams
+      if (teams.length === 2) {
+          return {
+              team1: teams[0], // First team
+              team2: teams[1]  // Second team
+          };
+      }
+  }
+  // Return null if the format is incorrect
+  return null;
+}
+
+ extractTournamentName(matchString: string): string | null {
+    // Define the pattern to match the 'match' part (e.g., 1st-match, 4th-match, etc.)
+    const matchPattern = /\d{1,2}(st|nd|rd|th)-match/i;
+
+    // Search for the matchPattern in the matchString
+    const match = matchString.match(matchPattern);
+
+    if (match) {
+        // Extract everything after the matched "1st-match" or "4th-match" part
+        const startIndex = match.index! + match[0].length; // Start after the match part
+        const tournamentName = matchString.substring(startIndex + 1); // Extract the tournament name
+        return tournamentName.trim(); // Return trimmed tournament name
+    }
+
+    // Return null if the pattern is not found
+    return null;
+}
 }

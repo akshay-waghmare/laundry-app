@@ -1,77 +1,137 @@
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px;
+  overflow-x: auto;
+  font-family: 'Roboto', sans-serif;  /* Modern font */
+}
+
+.header {
+  font-size: 1.25rem;  /* Slightly larger for modern header */
+  font-weight: 700;     /* Bold, modern look */
+  margin-bottom: 20px;
+  color: var(--primary-foreground);  /* Accent color for modern design */
+}
+
+.scroll-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* Distribute scroll buttons equally */
+}
+
+.scroll-button {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+  padding: 12px 16px;
+  border-radius: 50%;  /* Circular buttons for modern look */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.scroll-button:hover {
+  background-color: var(--primary-dark);  /* Darken on hover */
+}
+
+.scroll-button:active {
+  background-color: var(--primary-darker);  /* Darker when clicked */
+}
+
+/* Hide scrollbar while retaining scrolling */
+.matches-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+  gap: 16px;
+  flex-grow: 1;
+  padding-bottom: 16px;  /* Space to avoid touching bottom */
+  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.matches-container::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Modern match cards */
+.match-card {
+  background-color: white;
+  border-radius: 12px;  /* Modern rounded corners */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);  /* Soft shadow for modern look */
+  padding: 20px;
+  width: 18rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;  /* Space between elements inside the card */
+}
+
+.match-card:hover {
+  transform: translateY(-4px);  /* Slight lift on hover for modern effect */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);  /* Stronger shadow on hover */
+}
+
+.match-date {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-bottom: 8px; /* Space below the date */
+}
+
+.match-title {
+  font-size: 1.125rem;  /* Larger title */
+  font-weight: bold;
+  color: var(--primary);  /* Use accent color for title */
+  margin-bottom: 4px;  /* Slight space between title and description */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;  /* Truncate long titles */
+}
+
+.match-description {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin-bottom: 12px;  /* Space below the description */
+}
+
+.teams {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;  /* Align teams vertically */
+  justify-content: flex-start;  /* Align teams to the left */
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-foreground);  /* Slightly darker text */
+}
+
+.team {
+  margin: 0 4px;  /* Small margin around the teams */
+}
+
+.vs {
+  margin: 0 4px;  /* Small space around the 'vs' */
+  font-weight: normal;  /* Make 'vs' less prominent */
+  color: var(--muted-foreground);  /* Lighter color for 'vs' */
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
   .container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 16px;
-    overflow-x: auto;
+      padding: 8px;
   }
-  
-  .header {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 16px;
-  }
-  
-  .scroll-wrapper {
-    display: flex;
-    align-items: center;
-  }
-  
-  .scroll-button {
-    background-color: var(--primary);
-    color: var(--primary-foreground);
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .matches-container {
-    overflow-x: auto;
-    white-space: nowrap;
-    display: flex;
-    gap: 16px;
-    flex-grow: 1;
-  }
-  
+
   .match-card {
-    display: inline-block;
-    background-color: var(--card);
-    padding: 16px;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0;
-    width: 16rem;
+      width: 14rem;  /* Adjust card size for mobile */
   }
-  
-  .match-date {
-    font-size: 0.875rem;
-    color: var(--muted-foreground);
+
+  .header {
+      font-size: 1.125rem;  /* Adjust font size for smaller screens */
+      text-align: center;
   }
-  
-  .match-title {
-    font-size: 1rem;
-    font-weight: bold;
+
+  .scroll-button {
+      padding: 10px;  /* Adjust padding for smaller screens */
   }
-  
-  .match-description {
-    font-size: 0.75rem;
-  }
-  
-  .teams {
-    margin-top: 8px;
-  }
-  
-  .team {
-    font-size: 0.875rem;
-    font-weight: 600;
-  }
-  
-  .start-time {
-    margin-top: 8px;
-    font-size: 0.875rem;
-  }
-  
-  .time {
-    font-weight: bold;
-  }
-  
+}
