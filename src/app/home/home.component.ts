@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { EventListService } from '../component/event-list.service';
 import { Router } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-home',
@@ -12,7 +14,12 @@ export class HomeComponent implements OnInit {
   @ViewChild('scrollContainer', { read: ElementRef }) scrollContainer!: ElementRef;
   liveMatches: any[] = [];
 
-  constructor(private eventListService: EventListService, private router: Router) { }
+  constructor(
+    private eventListService: EventListService, 
+    private router: Router,
+    private metaService: Meta,
+    private titleService: Title
+    ) { }
 
   ngOnInit(): void {
     this.eventListService.getLiveMatches().subscribe(data => {
@@ -55,8 +62,31 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToMatch(match: any): void {
+
+     // Dynamically update meta tags for the clicked match
+    this.updateMetaTags(match);
+
+    // Navigate to the match details page
     this.router.navigate(['cric-live', match.matchUrl]);
   }
+
+  updateMetaTags(match: any): void {
+    // Update page title dynamically
+    this.titleService.setTitle(match.title);
+  
+    // Update meta description
+    this.metaService.updateTag({ name: 'description', content: match.description });
+  
+    // Update meta keywords
+    this.metaService.updateTag({ name: 'keywords', content: `${match.team1}, ${match.team2}, cricket match, live score, ${match.title}` });
+  
+    // Update Open Graph title
+    this.metaService.updateTag({ property: 'og:title', content: match.title });
+  
+    // Update Open Graph description
+    this.metaService.updateTag({ property: 'og:description', content: match.description });
+  }
+  
 
   private formatTeamName(team: string): string {
     return team.toUpperCase();
