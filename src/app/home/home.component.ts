@@ -143,6 +143,25 @@ extractTeams(matchString: string): { team1: string, team2: string } | null {
               team1: teams[0], // First team
               team2: teams[1]  // Second team
           };
+      }else if(teams.length > 2)
+      {
+        const firstVsIndex = matchString.indexOf("-vs-");
+
+    // If "-vs-" is found
+    if (firstVsIndex !== -1) {
+        // Extract the substring before and after the first "-vs-"
+        const team1Part = matchString.substring(0, firstVsIndex);
+        const team2Part = matchString.substring(firstVsIndex + 4); // Skip over "-vs-"
+
+        // Split team2Part by "-" to get the first word after "vs", which would be the second team
+        const team2Array = team2Part.split("-");
+        const team2 = team2Array[0];
+
+        return {
+            team1: team1Part, // The first team is the part before "-vs-"
+            team2: team2 // The second team is the first segment after "-vs-"
+        };
+    }
       }
   }
   // Return null if the format is incorrect
