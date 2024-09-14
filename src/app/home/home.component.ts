@@ -185,4 +185,8 @@ extractTeams(matchString: string): { team1: string, team2: string } | null {
     // Return null if the pattern is not found
     return null;
 }
+openNews(url: string): void {
+  window.open(url, '_blank');
+}
+
 }

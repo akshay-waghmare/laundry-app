@@ -134,4 +134,105 @@
   .scroll-button {
       padding: 10px;  /* Adjust padding for smaller screens */
   }
+
+
+
 }
+/*Hardcoded News Css*/
+.news-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.news-item {
+  display: flex;
+  flex-direction: row; /* Default for larger screens */
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 16px;
+}
+
+.news-item:last-child {
+  margin-bottom: 0;
+}
+
+.news-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.news-image {
+  width: 320px;  
+  height: auto;
+  border-radius: 12px 0 0 12px;
+}
+
+.news-content {
+  padding: 16px;
+  flex-grow: 1;
+}
+
+.news-heading {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-foreground);
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.news-description {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .news-item {
+    flex-direction: column; /* Stack image and content vertically */
+    align-items: center;
+    text-align: center; /* Center the text */
+  }
+
+  .news-image {
+    width: 100%; /* Make image full width */
+    border-radius: 12px 12px 0 0; /* Rounded corners on top */
+  }
+
+  .news-content {
+    padding: 16px;
+  }
+
+  .news-heading {
+    font-size: 1.1rem; /* Slightly smaller for mobile */
+  }
+
+  .news-description {
+    font-size: 0.9rem;
+  }
+
+  .news-description {
+    display: -webkit-box; /* Webkit-based flexbox model */
+    -webkit-box-orient: vertical; /* Vertical orientation for Webkit */
+    -webkit-line-clamp: 2; /* Limit to 2 lines on Webkit-based browsers */
+    line-clamp: 2; /* Standard property for future support */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis */
+    max-height: 3rem; /* Set max height to ensure consistency */
+  }
+}
+
+
+
+
+
