@@ -10,3 +10,6 @@ RUN npm run build --prod
 FROM nginx:alpine
 COPY --from=build /app/dist/id-card-app /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copy the sw.js to the web root as a part of propeller verification task
+COPY sw.js /usr/share/nginx/html/

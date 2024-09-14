@@ -24,6 +24,7 @@ import { ScrapeControlComponent } from 'src/app/scrape-control/scrape-control.co
 
 export const AdminLayoutsRoute: Routes = [
   { path: 'Home', component: HomeComponent },
+  { path: 'live-cricket-score', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'add-service', component: AddServiceComponent },
   { path: 'football', component: ServiceListComponent },

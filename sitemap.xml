@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <!-- Home route -->
+   <url>
+      <loc>https://victoryline.live/Home</loc>
+      <lastmod>2024-09-08</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   
+   <!-- Cric-live route with a placeholder for the dynamic part -->
+   <url>
+      <loc>https://victoryline.live/cric-live/rc-vs-ysg-3rd-match-oman-d10-league-2024-25</loc> <!-- Adjust "sample-path" to a relevant path -->
+      <lastmod>2024-09-08</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.8</priority>
+   </url>
+</urlset>
