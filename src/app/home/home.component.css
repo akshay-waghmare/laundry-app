@@ -138,7 +138,8 @@
 
 
 }
-/*Hardcoded News Css*/
+/*Hardcoded News CSS*/
+
 .news-container {
   display: flex;
   flex-direction: column;
@@ -154,13 +155,15 @@
   background-color: white;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  width: 92%;  /* Reduces width from both sides */
   max-width: 100%;
   box-sizing: border-box;
   cursor: pointer;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-bottom: 16px;
+  /*margin-bottom: 16px;*/
+  margin: 0 auto 80px; /* Centers the item and adds margin-bottom */
+  /* border-radius: 0; */
 }
 
 .news-item:last-child {
@@ -173,14 +176,23 @@
 }
 
 .news-image {
-  width: 320px;  
-  height: auto;
+  width: 320px;
+  height: 100%; /* The image will fill the container height */
+  object-fit: contain; /* Ensures the image scales without being cut off */
   border-radius: 12px 0 0 12px;
+  margin-right: 80px;
+
 }
 
 .news-content {
-  padding: 16px;
+  padding-right: 50px;
+  padding-top: 50px;
   flex-grow: 1;
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Stack the heading and description vertically */
+  align-items: center; /* Center align the content horizontally */
+  justify-content: center; /* Center align the content vertically */
+  text-align: center; /* Center the text */
 }
 
 .news-heading {
@@ -194,7 +206,15 @@
 .news-description {
   font-size: 0.9rem;
   color: #444;
+  margin: 0;
 }
+
+.news-hr {
+  width: 92%;  /* Same width as .news-item */
+  max-width: 100%;
+}
+
+
 
 /* Mobile-specific styles */
 @media (max-width: 768px) {
@@ -205,8 +225,10 @@
   }
 
   .news-image {
+
     width: 100%; /* Make image full width */
     border-radius: 12px 12px 0 0; /* Rounded corners on top */
+    margin-right: 0px !important;
   }
 
   .news-content {
@@ -231,8 +253,3 @@
     max-height: 3rem; /* Set max height to ensure consistency */
   }
 }
-
-
-
-
-
