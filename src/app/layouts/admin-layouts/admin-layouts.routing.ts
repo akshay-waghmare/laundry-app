@@ -20,6 +20,7 @@ import { BetHistoryComponent } from 'src/app/bet-history/bet-history.component';
 import { LogoutFormComponent } from 'src/app/logout-form/logout-form.component';
 import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
 import { ScrapeControlComponent } from 'src/app/scrape-control/scrape-control.component';
+import { ScorecardComponent } from 'src/app/scorecard/scorecard.component';
 
 
 export const AdminLayoutsRoute: Routes = [
@@ -41,6 +42,7 @@ export const AdminLayoutsRoute: Routes = [
   { path: 'account/profit-loss', component: ProfitLossComponent },
   { path: 'scraping', component: ScrapeControlComponent },
   { path: 'logout', component: LogoutFormComponent },
+  { path: 'scorecard', component: ScorecardComponent },
 ];
 
 

@@ -53,6 +53,7 @@ import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Ensure this is imported
 import { ScrapeControlComponent } from 'src/app/scrape-control/scrape-control.component';
 import { HomeComponent } from 'src/app/home/home.component';
+import { ScorecardComponent } from 'src/app/scorecard/scorecard.component';
 
 
 
@@ -116,6 +117,7 @@ const myRxStompConfig: InjectableRxStompConfig = {
     ProfitLossComponent,
     ScrapeControlComponent,
     HomeComponent,
+    ScorecardComponent,
     
     
   ],

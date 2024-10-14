@@ -1,0 +1,90 @@
+<div class="scorecard">
+  <h1>Scorecard</h1>
+  <div class="header">
+    <img alt="Team logo" src="https://storage.googleapis.com/a1aa/image/4UABGLpDUirXJ9b2pskJj5YhXCHUjxgEYq32nUFm45HqN74E.jpg" width="24" height="24">
+    <div class="score">{{ match_info.team }} {{ match_info.score }} ({{ match_info.overs }})</div>
+  </div>
+  
+  <div class="batting">
+    <h2>Batting</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Batter</th>
+          <th>R</th>
+          <th>B</th>
+          <th>4s</th>
+          <th>6s</th>
+          <th>SR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let batter of batting.batters">
+          <td>{{ batter.name }} <i class="fas fa-chevron-down"></i></td>
+          <td>{{ batter.runs }}</td>
+          <td>{{ batter.balls }}</td>
+          <td>{{ batter.fours }}</td>
+          <td>{{ batter.sixes }}</td>
+          <td>{{ batter.strike_rate | number: '1.0-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="extras">Extras: {{ batting.extras.total }} (b {{ batting.extras.byes }}, lb {{ batting.extras.leg_byes }}, w {{ batting.extras.wides }}, nb {{ batting.extras.no_balls }}, p {{ batting.extras.penalty }})</div>
+  </div>
+
+  <h2>Bowling</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Bowler</th>
+        <th>O</th>
+        <th>M</th>
+        <th>R</th>
+        <th>W</th>
+        <th>ER</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bowler of bowling.bowlers">
+        <td>{{ bowler.name }}</td>
+        <td>{{ bowler.overs }}</td>
+        <td>{{ bowler.maidens }}</td>
+        <td>{{ bowler.runs_conceded }}</td>
+        <td>{{ bowler.wickets }}</td>
+        <td>{{ bowler.economy_rate | number: '1.0-2' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Fall of Wickets</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Batsman</th>
+        <th>Score</th>
+        <th>Overs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fall of fall_of_wickets">
+        <td>{{ fall.batsman }}</td>
+        <td class="score">{{ fall.score }}</td>
+        <td>{{ fall.overs }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Partnership</h2>
+  <div class="partnership">
+    <div *ngFor="let partnership of partnerships">
+      <h3>{{ partnership.partnership }}</h3>
+      <div class="players">
+        <div>{{ partnership.batter1 }}</div>
+        <div class="score">{{ partnership.batter1_score }}</div>
+        <div>{{ partnership.batter2 }}</div>
+        <div class="score">{{ partnership.batter2_score }}</div>
+      </div>
+      <div class="score">Partnership: {{ partnership.partnership_score }}</div>
+    </div>
+  </div>
+</div>

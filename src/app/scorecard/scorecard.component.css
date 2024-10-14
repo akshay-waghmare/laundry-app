@@ -1,0 +1,209 @@
+/* Global Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.scorecard {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Header Styles */
+.scorecard h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.scorecard .header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.scorecard .header img {
+  width: 32px;
+  height: 32px;
+  margin-right: 15px;
+  border-radius: 50%;
+}
+
+.scorecard .header .score {
+  font-size: 20px;
+  font-weight: 600;
+  color: #007bff;
+}
+
+/* Batting Section */
+.scorecard .batting {
+  margin-top: 20px;
+}
+
+.scorecard .batting h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.scorecard table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.scorecard table th, .scorecard table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.scorecard table th {
+  background-color: #f9f9f9;
+  font-weight: 600;
+  color: #555;
+}
+
+.scorecard table td {
+  font-size: 14px;
+  color: #666;
+}
+
+.scorecard table td i {
+  font-size: 18px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+/* Extras Section */
+.scorecard .extras {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  color: #555;
+}
+
+/* Partnership Section */
+.partnership {
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+.partnership h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.partnership .players {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.partnership .players div {
+  font-size: 14px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.partnership .players .score {
+  font-weight: 600;
+  color: #28a745;
+}
+
+.partnership .progress {
+  height: 6px;
+  background: #d3d3d3;
+  border-radius: 2px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.partnership .progress .bar {
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.partnership .progress .bar.red {
+  background: #ff4500;
+}
+
+.partnership .progress .bar.green {
+  background: #28a745;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .scorecard table th, .scorecard table td {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .scorecard h1, .scorecard h2 {
+    font-size: 20px;
+  }
+
+  .scorecard .header img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .partnership .players {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .partnership .players div {
+    width: 100%;
+    text-align: left;
+  }
+
+  .partnership .players .score {
+    font-size: 12px;
+    color: #28a745;
+  }
+}
+
+/* Add hover effects to table rows */
+.scorecard table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.scorecard table tbody tr td {
+  transition: background-color 0.3s ease;
+}
+
+/* Target "1st Wicket" and similar words */
+.partnership .wicket {
+  font-size: 06px; /* Reduce font size */
+  font-weight: normal; /* Optional: Make the font weight lighter */
+  color: #555; /* Optional: Slightly lighter color */
+  text-transform: capitalize; /* Keep the first letter capitalized */
+}
+
+/* For larger devices */
+@media (min-width: 768px) {
+  .partnership .wicket {
+    font-size: 12px; /* Adjust to a smaller size for larger screens */
+  }
+}
