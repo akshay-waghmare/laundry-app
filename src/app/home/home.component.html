@@ -16,44 +16,17 @@
     </div>
     <button class="scroll-button" (click)="scrollRight()">&#9654;</button>
   </div>
-
+  
   <hr class="news-hr" />
 
-  <div class="news-item" (click)="openNews('https://cricket.one/cricket-news/kl-rahul-breaks-silence-on-rumours-of-joining-rcb-for-ipl-2025/66e690dfde0f1a7b030fa32a')">
-    <img src="assets/img/Screenshot 2024-09-15 132440.png" alt="Suryakumar Iconic Catch" class="news-image" />
+  <div *ngFor="let blogPost of blogPosts" class="news-item" (click)="openNews(blogPost.link)">
+    <img [src]="blogPost.imgUrl" alt="{{ blogPost.title }}" class="news-image" />
     <div class="news-content">
-      <h3 class="news-heading">KL Rahul Breaks Silence On Rumours Of Joining RCB For IPL 2025</h3>
-      <p class="news-description">Preparations for IPL 2025 are in full swing. The franchises are awaiting BCCI's decision on the retention list to start finalising their list for the coming season. However, there are reports that the board has asked the teams to finalise their retention list by November 15.</p>
+      <h3 class="news-heading">{{ blogPost.title }}</h3>
+      <p class="news-description">{{ blogPost.description | slice:0:400 }}...</p>
+
     </div>
   </div>
-
-  <hr class="news-hr" />
-
-  <div class="news-item" (click)="openNews('https://cricket.one/cricket-news/virat-kohli-wins-hearts-fulfils-a-fan-request-ahead-of-test-series-vs-bangladesh/66e676b4ac94d32b0f021964')">
-    <img src="assets/img/Screenshot 2024-09-15 133223.png" alt="Rohit Sharma Test Record" class="news-image" />
-    <div class="news-content">
-      <h3 class="news-heading">Virat Kohli Wins Hearts, Fulfils A Fan Request Ahead Of Test Series Vs Bangladesh</h3>
-      <p class="news-description">Virat Kohli is currently in Chennai with the rest of his teammates for the upcoming Test series against Bangladesh. The legendary Indian batter, who has a colossal fanbase in the cricketing fraternity, is renowned for pandering to his fans' requests from time to time.</p>
-    </div>
-  </div>
-
-  <hr class="news-hr" />
-
-  <div class="news-item" (click)="openNews('https://cricket.one/cricket-news/shubman-gill-set-to-be-rested-for-t20i-series-vs-bangladesh/66e684c4ac94d32b0f0219b7')">
-    <img src="assets/img/Screenshot 2024-09-15 133640.png" alt="MS Dhoni's Captaincy Era" class="news-image" />
-    <div class="news-content">
-      <h3 class="news-heading">Shubman Gill Set To Be Rested For T20I Series Vs Bangladesh</h3>
-      <p class="news-description">India vice-captain Shubman Gill is among the prominent players who will be rested for the three-match T20I series against Bangladesh starting October 7 as part of BCCI's workload management policy.</p>
-    </div>
-  </div>
-
-  <hr class="news-hr" />
-
-  <div class="news-item" (click)="openNews('https://cricket.one/cricket-news/ishan-kishan-to-return-for-india-vs-bangladesh-t20is-if-rishabh-pant-is-rested-reports/66e695a4ac94d32b0f021a39')">
-    <img src="assets/img/Screenshot 2024-09-15 134118.png" alt="India Nears Historic Record" class="news-image" />
-    <div class="news-content">
-      <h3 class="news-heading">Ishan Kishan To Return For India vs Bangladesh T20Is If Rishabh Pant Is Rested: Reports</h3>
-      <p class="news-description">As per the latest reports, Rishabh Pant's fate for the series against Bangladesh is yet to be decided, as his workload management concerns the selectors since he is one of the most important cricketers for India in the longer formats. </p>
-    </div>
-  </div>
+  
+  <hr class="news-hr" *ngFor="let blogPost of blogPosts" />
 </div>

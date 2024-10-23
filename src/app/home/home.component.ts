@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { EventListService } from '../component/event-list.service';
 import { Router } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
+import { BlogListService } from '../component/blog-list.service';
 
 
 @Component({
@@ -13,15 +14,22 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('scrollContainer', { read: ElementRef }) scrollContainer!: ElementRef;
   liveMatches: any[] = [];
+  blogPosts: import("e:/Projects/LiveScore/FrontEnd/laundry-app/src/app/component/blog-list.service").BlogPost[];
 
   constructor(
     private eventListService: EventListService, 
     private router: Router,
     private metaService: Meta,
-    private titleService: Title
+    private titleService: Title,
+    private blogListService: BlogListService,
     ) { }
 
   ngOnInit(): void {
+    this.blogListService.getBlogPosts().subscribe((data) => {
+      this.blogPosts = data;
+      console.log(this.blogPosts);
+    });
+
     this.eventListService.getLiveMatches().subscribe(data => {
       if (Array.isArray(data)) {
         data.forEach((item: any) => {
