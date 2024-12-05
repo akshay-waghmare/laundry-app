@@ -34,7 +34,11 @@ import {
   MatList,
   MatListModule,
   MatSnackBar,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatProgressSpinnerModule,
+  MatExpansionModule,
+  MatSliderModule,
+  MatProgressBarModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationGuard } from 'src/app/authentication.guard';
@@ -80,11 +84,18 @@ const myRxStompConfig: InjectableRxStompConfig = {
     MatTableModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatExpansionModule,
     MatButtonModule,
+    MatProgressBarModule,
     MatInputModule,
     MatRippleModule,
+    MatSliderModule,
+    FormsModule, // Ensure FormsModule is imported as well
     MatIconModule,
     MatCardModule,
+    MatListModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
     MatTabsModule,
     MatDividerModule,
     MatGridListModule,

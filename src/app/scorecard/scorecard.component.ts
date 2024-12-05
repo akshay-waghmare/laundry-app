@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-scorecard',
@@ -6,11 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./scorecard.component.css']
 })
 export class ScorecardComponent implements OnInit {
+
+  @Input() scorecardInfo: any;
+  
   match_info: any;
   batting: any;
   bowling: any;
   fall_of_wickets: any;
   partnerships: any;
+  inningsKeys: string[];
+  selectedInning: string;
 
   ngOnInit() {
     const scorecardData = {
@@ -188,5 +194,58 @@ export class ScorecardComponent implements OnInit {
     this.bowling = scorecardData.bowling;
     this.fall_of_wickets = scorecardData.fall_of_wickets;
     this.partnerships = scorecardData.partnerships;
+
+    if(this.scorecardInfo && this.scorecardInfo.match_stats_by_innings.innings){
+      this.inningsKeys = Object.keys(this.scorecardInfo.match_stats_by_innings.innings);
+      console.log(this.inningsKeys);
+      if (this.inningsKeys.length > 0) {
+        this.selectedInning = this.inningsKeys[0];
+      }
+    }
+  }
+
+  selectInning(inningKey: string): void {
+    this.selectedInning = inningKey;
+  }
+
+  onTabChange(event: MatTabChangeEvent) {
+    console.log(event);
+
+    if(event.index >=0 && event.index < this.inningsKeys.length){
+
+      this.selectedInning = this.inningsKeys[event.index];
+    }
+  }
+
+  getBatsmanKeys(): string[] {
+    return this.selectedInning ? Object.keys(this.scorecardInfo.match_stats_by_innings.innings[this.selectedInning].batsman_stats) : [];
+  }
+
+  getBowlerKeys(): string[] {
+    return this.selectedInning ? Object.keys(this.scorecardInfo.match_stats_by_innings.innings[this.selectedInning].bowlers_stats) : [];
+  }
+
+  getInningLabel(inningKey: string): string {
+    return inningKey.replace('_', ' ').replace('inning', 'Inning');
+  }
+
+  calculateStrikeRate(runs: number, balls: number): number {
+    if (balls === 0) return 0;
+    return (runs / balls) * 100;
+  }
+
+  calculateEconomyRate(runs: number, overs: number): number {
+    if (overs === 0) return 0;
+    return runs / overs;
+  }
+
+  calculateOvers(teamScore: string): string {
+    const match = teamScore.match(/\((\d+)/);
+    if (match && match[1]) {
+      const oversNumber = match[1];
+      const overs = (parseInt(oversNumber, 10) / 10).toFixed(1);
+      return overs;
+    }
+    return '';
   }
 }

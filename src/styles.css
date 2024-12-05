@@ -1,6 +1,35 @@
 
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
+:root {
+  /* Color Palette */
+  --primary-color: #1e3a8a; /* Deep Blue */
+  --secondary-color: #ffffff; /* White */
+  --accent-color: #f59e0b; /* Amber */
+  --muted-color: #6b7280; /* Gray */
+  --background-color: #f3f4f6; /* Light Gray */
+
+  /* Typography */
+  --font-family-primary: 'Poppins', sans-serif;
+  --font-family-secondary: 'Roboto', sans-serif;
+
+  --font-size-small: 0.875rem;
+  --font-size-medium: 1rem;
+  --font-size-large: 1.25rem;
+
+  /* Additional Colors for Hover and Active States */
+  --primary-dark: #163e7a;
+  --primary-darker: #0f2e63;
+  --text-color: #333333;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: var(--font-family-primary);
+  color: var(--muted-color);
+  margin: 0;
+  padding: 0;
+}
 
 .wrapper{
   position: relative;
@@ -15,7 +44,7 @@
   height: 100%;
   overflow-y: auto;
   width: 260px;
-  z-index: 4;
+  z-index: 1000;
   padding-bottom: 30px;
   transition: width 0.3s;
   -webkit-box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -94,15 +123,35 @@
 
 .nav-link {
   display: block;
+  align-items: center;
   padding: 0.5rem 1rem;
   transition: color 0.3s, background-color 0.3s; /* Smooth transition for hover effects */
-  color: #bdc3c7; /* Soft gray for text */
+  color: var(--secondary-color);
+  text-decoration: none;
+  padding: 12px 20px;
 }
 
 .nav-link:hover, .nav-link:focus {
-  background-color: #1abc9c; /* Bright color for hover */
-  color: #ecf0f1;
+  text-decoration: none;
+  background-color: var(--accent-color);
+  color: var(--secondary-color);
 }
+
+.sidebar-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 3px;
+}
+.main-panel::-webkit-scrollbar {
+  width: 6px;
+}
+.main-panel::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 3px;
+}
+
 
 .sidebar .nav li a:hover {
   background-color: #f44336;
@@ -117,23 +166,44 @@
 .logo{
   position: relative;
   z-index: 4;
+  width: 100%;
+    height: auto; /* Adjust height as per your design */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: transparent; /* Ensure it's blending with the sidebar */
+
 }
 
 .logo-img{
-  width: 35px;
-  display: block;
-  max-height: 30px;
-  margin-left: 13px;
-  margin-right: 15px;
+  width: auto; /* Maintain natural aspect ratio */
+    max-width: 150px; /* Adjust the size but keep aspect ratio */
+    flex-direction: column; /* Stack the images vertically */
+    height: auto; /* Prevent distortion */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 
 }
 
+.logo-text {
+  font-family: var(--font-family-primary);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.text-logo {
+  position:absolute;
+}
+
 .logo-img img{
-  width: 50px;
-  top: 16px;
-  margin: auto; /* Center logo */
-  position: absolute;
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* Ensure the image scales properly */
 }
 
 .favourite-not-logged{
@@ -169,13 +239,21 @@
   padding: 5px 0px;
   display: inline-block;
   font-size: 18px;
-  color: #3C4858;
+  color: var(--secondary-color);
   white-space: nowrap;
   font-weight: 400;
   line-height: 30px;
   overflow: hidden;
   text-align: center;
   display: block;
+}
+
+.logo a.simple-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none; /* Remove underline from the link */
+  padding: 0 20px;
 }
 
 .sidebar .logo {
@@ -198,6 +276,7 @@
   .main-panel {
   position: relative;
   float: right;
+  padding:20px;
   width: calc(100% - 260px);
   -webkit-transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);
   transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);

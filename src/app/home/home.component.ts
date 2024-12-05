@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { EventListService } from '../component/event-list.service';
 import { Router } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
-import { BlogListService } from '../component/blog-list.service';
+import { BlogListService, BlogPost } from '../component/blog-list.service';
 
 
 @Component({
@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('scrollContainer', { read: ElementRef }) scrollContainer!: ElementRef;
   liveMatches: any[] = [];
-  blogPosts: import("e:/Projects/LiveScore/FrontEnd/laundry-app/src/app/component/blog-list.service").BlogPost[];
+  blogPosts: BlogPost[];
 
   constructor(
     private eventListService: EventListService, 

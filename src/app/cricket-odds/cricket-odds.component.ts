@@ -8,6 +8,7 @@ import { TokenStorage } from '../token.storage';
 import { EventListService } from '../component/event-list.service';
 import { AuthService } from '../auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 interface FormattedExposure {
   win: number;
@@ -32,6 +33,9 @@ interface Bet {
 export class CricketOddsComponent implements OnInit, OnDestroy {
 
   formattedExposures: Record<string, FormattedExposure> = {};
+  sessionOddsListDisplay: Array<{ session: string, backOdds: string, layOdds: string }> = [];
+  batsmanDataList: Array<any> = [];
+  bowlerDataList: Array<any> = [];
 
   team1Name: string = 'NA';
   team1Score: string = 'NA';
@@ -78,6 +82,9 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   totalPotentialLoss: number = 0;
   winFormattedKey: string = '';
   loseFormattedKey: string = '';
+  
+  matchInfo: any;
+  scorecardData: any;
 
   last6Balls: { score: number }[] = [{ score: 0 }, { score: 0 }, { score: 0 }, { score: 0 }, { score: 0 }, { score: 0 }]; // Example: Array to store last 6 ball scores.
   cricetTopicSubscription: any;
@@ -100,6 +107,22 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   updatedUserData: any;
   battingTeam: any;
   sessionExposures: any;
+
+  // Property to hold the match URL
+  currentUrl: string;
+
+
+
+  teamComparisonKeys: string[] = [];
+  teamComparisonSubKeys: string[] = [];
+  venueStatsKeys: string[] = [];
+  playingXIKeys: string[] = [];
+  teamFormKeys: string[] = [];
+  bowlFirstPercentage: number;
+  winBatFirstPercentage: number;
+  winBowlFirstPercentage: number;
+  scorecardInfo: any;
+
 
   constructor(private rxStompService: RxStompService,
               private cricketService: CricketService,
@@ -133,6 +156,7 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
+    this.currentUrl = this.activatedRoute.snapshot.queryParamMap.get('url') || this.activatedRoute.snapshot.params['url'];
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
@@ -167,7 +191,7 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     const user = this.tokenStorage.getUser();
     this.loggedUser =  JSON.parse(user);
 
-    this.loadUserBets();
+    //this.loadUserBets();
 
   }
   
@@ -216,17 +240,85 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
       if (this.cricObj.current_ball !== undefined) {
         this.liveScoreUpdate = this.cricObj.current_ball;
       }
-
-      if (this.cricObj.session_odds !== undefined) {
-        const session_odds = this.cricObj.session_odds;
-
-        if (session_odds !== undefined && session_odds !== null) {
-          this.session = session_odds.sessionOver + ' Over';
-          this.sessionBackOdds = session_odds.sessionBackOdds;
-          this.sessionLayOdds = session_odds.sessionLayOdds;
+      
+      if (this.cricObj.batsman_data !== undefined && Array.isArray(this.cricObj.batsman_data)) {
+        const batsmanData = this.cricObj.batsman_data;
+  
+        // Initialize arrays to store batsman and bowler data
+        this.batsmanDataList = [];
+  
+        // Iterate through the batsman_data array
+        if (this.cricObj.batsman_data && Array.isArray(this.cricObj.batsman_data)) {
+          const batsmanData = this.cricObj.batsman_data;
+    
+          this.batsmanDataList = [];
+    
+          batsmanData.forEach(playerInfo => {
+            if (!playerInfo.name.includes('Unknown')) { // Skip if the name contains 'Unknown'
+              const strikeRate = (playerInfo.score / playerInfo.ballsFaced) * 100; // Strike rate calculation
+                this.batsmanDataList.push({
+                    name: playerInfo.name,
+                    score: playerInfo.score,
+                    ballsFaced: playerInfo.ballsFaced,
+                    fours: playerInfo.fours,
+                    sixes: playerInfo.sixes,
+                    strikeRate: strikeRate.toFixed(2),
+                    onStrike: playerInfo.onStrike
+                });
+            }
+        });
+    
+          console.log("Parsed Batsman Data List:", this.batsmanDataList);
         }
 
-        console.log("session_odds: ", session_odds);
+  
+        // Log the batsman and bowler data for debugging
+        console.log("Parsed Bowler Data List:", this.bowlerDataList);
+      }
+
+      if (this.cricObj.bowler_data !== undefined && Array.isArray(this.cricObj.bowler_data)) {
+        const bowlerData = this.cricObj.bowler_data;
+
+        this.bowlerDataList = [];
+  
+        // Initialize arrays to store batsman and bowler data
+        bowlerData.forEach(playerInfo => {
+          if (!playerInfo.name.includes('Unknown')) { // Skip if the name contains 'Unknown'
+
+              const ballsBowled = playerInfo.ballsBowled;
+              const oversBowled = Math.floor(ballsBowled / 6); // Full overs
+              const ballsInCurrentOver = ballsBowled % 6; // Remaining balls in current over
+              const oversDisplay = `${oversBowled}.${ballsInCurrentOver}`; // Display as 'x.y' where y is the number of balls
+              const economyRate = playerInfo.score / oversBowled; // Economy rate calculation
+              this.bowlerDataList.push({
+                  name: playerInfo.name,
+                  score: playerInfo.score,
+                  ballsBowled: oversDisplay,
+                  economyRate: economyRate.toFixed(2),
+                  wicketsTaken:playerInfo.wicketsTaken,
+                  dotBalls:playerInfo.dotBalls
+              });
+          }
+      })
+        
+        console.log("Parsed Bowler Data List:", this.bowlerDataList);
+      }
+      
+      if (this.cricObj.session_odds !== undefined) {
+        const sessionOddsList = this.cricObj.session_odds;
+  
+        if (Array.isArray(sessionOddsList) && sessionOddsList.length > 0) {
+          this.sessionOddsListDisplay = this.cricObj.session_odds.sort((a, b) => {
+            // Parse sessionOver as a number and sort by ascending order
+            return Number(a.sessionOver) - Number(b.sessionOver);
+          });
+          this.sessionOddsListDisplay = sessionOddsList.map((sessionOdds) => ({
+            session: sessionOdds.sessionOver + ' Over',
+            backOdds: sessionOdds.sessionBackOdds,
+            layOdds: sessionOdds.sessionLayOdds
+          }));
+
+        }
       }
       if (this.cricObj.bat_or_ball_selected !== undefined) {
         const bat_or_ball_selected = this.cricObj.bat_or_ball_selected;
@@ -493,7 +585,12 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  getTruncatedTeamName(fullName: string, maxLength: number = 15): string {
+    if (fullName.length > maxLength) {
+      return fullName.slice(0, maxLength) + '...'; // Truncate and append '...'
+    }
+    return fullName; // No truncation needed
+  }
   placeTestBet(match) {
     
     const betDetails = {
@@ -697,6 +794,122 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     });
 
     return formattedExposures;
+}
+
+onTabChange(event: MatTabChangeEvent) {
+  if (event.index === 1) { // Match Info tab is selected
+    this.activatedRoute.params.subscribe(params => {
+      const match = params['path']; // Use 'path' instead of 'match'
+      this.matchUrl = match;
+
+      this.fetchMatchInfo(this.matchUrl);
+    });
+  } else if (event.index === 2) { // Scorecard tab is selected
+    //this.fetchScorecardInfo(this.matchUrl);
+
+    this.activatedRoute.params.subscribe(params => {
+      const match = params['path']; // Use 'path' instead of 'match'
+      this.matchUrl = match;
+
+      this.fetchScorecardInfo(this.matchUrl);
+    });
+  }
+}
+
+fetchScorecardInfo(matchUrl:string){
+
+  this.cricketService.getScorecardInfo(matchUrl).subscribe(
+    data => {
+      this.scorecardData = data;
+      console.log('Match Scorecard:', this.scorecardData);
+    },
+    error => {
+      console.error('Error fetching match scorecard:', error);
+    }
+  );
+}
+
+fetchMatchInfo(matchUrl:string) {
+  if (this.matchInfo) {
+    // Data already fetched, no need to fetch again
+    return;
+  }
+
+  this.cricketService.getMatchInfo(matchUrl).subscribe(
+    data => {
+      this.matchInfo = data;
+      console.log('Match Info:', this.matchInfo);
+
+      // Extract keys
+      this.teamComparisonKeys = Object.keys(this.matchInfo.team_comparison || {});
+      if (this.teamComparisonKeys.length) {
+        this.teamComparisonSubKeys = Object.keys(this.matchInfo.team_comparison[this.teamComparisonKeys[0]]);
+      }
+      this.venueStatsKeys = Object.keys(this.matchInfo.venue_stats || {});
+      this.playingXIKeys = Object.keys(this.matchInfo.playing_xi || {});
+      this.teamFormKeys = Object.keys(this.matchInfo.team_form || {});
+
+      this.setVenuePercentages();
+    },
+    error => {
+      console.error('Error fetching match info:', error);
+    }
+  );
+}
+  setVenuePercentages() {
+    // Ensure that win_bat_first exists and is a string
+    const batFirstStr: string = this.matchInfo.venue_stats.win_bat_first || '0%';
+    this.winBatFirstPercentage = this.parsePercentage(batFirstStr);
+    this.winBowlFirstPercentage = 100 - this.winBatFirstPercentage;
+
+    // Optional: Validate percentages
+    if (this.winBatFirstPercentage < 0 || this.winBatFirstPercentage > 100) {
+      console.warn('win_bat_first percentage out of bounds:', this.winBatFirstPercentage);
+      this.winBatFirstPercentage = Math.max(0, Math.min(this.winBatFirstPercentage, 100));
+      this.winBowlFirstPercentage = 100 - this.winBatFirstPercentage;
+    }
+  }
+
+  parsePercentage(value: string): number {
+    // Remove '%' and convert to number
+    const num = parseFloat(value.replace('%', ''));
+    return isNaN(num) ? 0 : num;
+  }
+
+getPlayerIcon(role: string): string {
+  if (role.toLowerCase().includes('batter')) {
+    return 'sports_cricket';
+  } else if (role.toLowerCase().includes('bowler')) {
+    return 'emoji_events';
+  } else if (role.toLowerCase().includes('all rounder')) {
+    return 'autorenew';
+  } else if (role.toLowerCase().includes('wk')) {
+    return 'sports';
+  } else {
+    return 'person';
+  }
+}
+
+calculateBowlFirstPercentage(): void {
+  this.bowlFirstPercentage = 100 - this.matchInfo.venue_stats.win_bat_first;
+}
+
+getTeamLogo(team: string): string {
+  // Return the path to the team's logo
+  return `assets/team-logos/${team.toLowerCase()}.png`;
+}
+
+getResultClass(result: string): string {
+  switch (result) {
+    case 'W':
+      return 'win';
+    case 'L':
+      return 'loss';
+    case 'D':
+      return 'draw';
+    default:
+      return '';
+  }
 }
 
 formatAndGroupExposures(exposures: any): Record<string, FormattedExposure> {

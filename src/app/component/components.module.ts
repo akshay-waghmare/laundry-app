@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import { LogoutFormComponent } from '../logout-form/logout-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from '../home/home.component';
+import { MatchInfoComponent } from './match-info/match-info.component';
 
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
@@ -46,6 +47,7 @@ const myRxStompConfig: InjectableRxStompConfig = {
     SidebarComponent,
     NavbarComponent,
     LogoutFormComponent,
+    MatchInfoComponent
     
   ],
   entryComponents: [
@@ -54,7 +56,8 @@ const myRxStompConfig: InjectableRxStompConfig = {
   exports: [
     SidebarComponent,
     NavbarComponent,
-    LogoutFormComponent
+    LogoutFormComponent,
+    MatchInfoComponent
   ],
 
   providers: [RxStompService,

@@ -1,3 +1,7 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 .cricket-odds {
     border: 1px solid #eaeaea; /* Softer border color */
     padding: 20px;
@@ -811,3 +815,982 @@
   opacity: 1; /* Ensures the button retains its color */
 }
 
+
+/* ... [existing styles] */
+
+/* Player Stats Container */
+.player-stats-container {
+  margin-top: 20px;
+}
+
+/* Batsman Stats */
+.batsman-stats, .bowler-stats {
+  margin-bottom: 20px;
+}
+
+.batsman-cards, .bowler-cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.batsman-card, .bowler-card {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.batsman-stats h3 {
+  margin-bottom: 10px;
+}
+
+.batsman-cards {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.batsman-name, .bowler-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.batsman-stats-line, .bowler-stats-line {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Bowler Stats */
+.bowler-stats h3 {
+  margin-bottom: 10px;
+}
+
+/* ... [rest of your existing styles] */
+
+
+/* Table Styles for Batsman and Bowler Stats */
+/* Overall container for batsman and bowler stats to ensure consistent width */
+.stats-container {
+  width: 100%;
+  max-width: 100%; /* Set the maximum width for larger screens */
+  margin: 0 auto; /* Center the container */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Table Styles for Batsman and Bowler Stats */
+.stats-table {
+  width: 100%; /* Make the table span the full width of its container */
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  table-layout: fixed; /* Distribute column widths evenly */
+}
+
+.stats-table th,
+.stats-table td {
+  padding: 8px 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.stats-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  color: #333;
+}
+
+.stats-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.batsman-stats h3, 
+.bowler-stats h3 {
+  margin-bottom: 10px;
+  text-align: left;
+  font-size: 18px;
+  color: #34495e;
+  font-weight: bold;
+}
+
+.team-label:hover::after {
+  content: attr(data-full-name); /* Show the full name stored in data attribute */
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 14px;
+  z-index: 10;
+}
+
+/* Responsive Design: Smaller Screen Adjustments */
+@media screen and (max-width: 768px) {
+  /* Restrict the container width on smaller screens */
+  .stats-container {
+    width: 100%; /* Ensure the container spans the full width */
+    max-width: 100%; /* Remove any max width limit on small screens */
+    padding: 10px;
+  }
+
+  .stats-table {
+    width: 100%; /* Ensure the table spans the full width of the container */
+    font-size: 12px; /* Reduce font size on smaller screens */
+  }
+
+  .stats-table th,
+  .stats-table td {
+    padding: 4px 6px;
+  }
+
+  .stats-table th {
+    font-size: 12px; /* Reduce header font size */
+  }
+
+  .stats-table td {
+    font-size: 12px;
+  }
+
+  /* Add gap between the first column and other columns */
+  .stats-table td:not(:first-child),
+  .stats-table th:not(:first-child) {
+    padding-left: 25px; /* Add gap for better readability */
+  }
+
+  /* Add gap between the first column and other columns */
+  .stats-table td:last-child,
+  .stats-table th:last-child {
+    margin-right: 15px; /* Add gap for better readability */
+  }
+
+  .team-label {
+    color: #34495e;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    max-width: 150px; /* Adjust this based on your layout */
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden; /* Hides the overflow content */
+    text-overflow: ellipsis; /* Adds the '...' to truncated text */
+    padding-right: 10px; /* Add some space between the name and the odds */
+    position: relative; 
+  }
+  
+  /* Tooltip styling for full team name on hover */
+  .team-label:hover::after {
+    content: attr(data-full-name); /* Show the full name stored in data attribute */
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    white-space: nowrap;
+    font-size: 12px;
+    z-index: 10;
+  }
+}
+
+/* General Styles */
+.match-info-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: var(--font-family-primary);
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+h2, h3, h4 {
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 24px; /* Reduced from 32px */
+}
+
+h3 {
+  font-size: 20px; /* Adjusted for hierarchy */
+}
+
+h4 {
+  font-size: 18px; /* Adjusted for hierarchy */
+}
+
+p {
+  color: #666;
+  font-size: 16px; /* Consistent and subtle size */
+}
+
+/* Match Overview */
+.match-overview {
+  background: #fdfdfd; /* Slightly lighter background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.overview-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.series-logo {
+  width: 50px;
+  height: 60px;
+  margin-right: 20px;
+}
+
+.match-details h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.series-name {
+  font-size: 14px; /* Reduced size */
+  color: #777;
+}
+
+.overview-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 20px;
+  padding:20px;
+}
+
+.match-date-venue {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  font-size: 1rem; /* Slightly smaller for subtlety */
+  color: #34495e;
+}
+
+.match-date-venue, .toss-info {
+  background-color: #e3f2fd; /* Light blue background to draw attention */
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px; /* Space it out for emphasis */
+  display: flex;
+  align-items: center;
+}
+
+.toss-info mat-icon {
+  margin-right: 10px;
+  color: #1976d2; /* Consistent with the background */
+  font-size: 24px;
+}
+
+.toss-info span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Match Date and Venue */
+.match-date-venue {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.match-date-venue .date,
+.match-date-venue .venue {
+  display: flex;
+  align-items: center;
+}
+
+.match-date-venue mat-icon {
+  margin-right: 8px;
+  color: #555;
+}
+
+.date mat-icon, .venue mat-icon {
+  margin-right: 5px;
+}
+
+.match-date-venue span {
+  font-size: 14px;
+  color: #555;
+}
+
+
+.team-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+
+
+.section-title {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.team-card {
+  flex: 1 1 calc(50% - 20px);
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  outline: none;
+}
+
+
+
+
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.stat-icon {
+  font-size: 40px;
+  color: #3f51b5;
+  margin-right: 15px;
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+
+
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+
+.stat-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-card-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.team-card-content li {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+/* Playing XI */
+.playing-xi-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.player-card {
+  flex: 1 1 calc(33.333% - 15px);
+  display: flex;
+  align-items: center;
+  background: #fafafa;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.player-icon {
+  font-size: 36px;
+  color: #ff9800;
+  margin-right: 15px;
+}
+
+.player-details h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.player-details p {
+  margin: 5px 0 0;
+  color: #777;
+}
+
+/* Team Form */
+.team-form-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.team-form-card {
+  flex: 1 1 calc(50% - 20px);
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.team-form-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.match-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.match-result {
+  flex: 1 1 calc(33.333% - 10px);
+  background: #f1f8e9;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.result {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.result.win {
+  color: #4caf50;
+}
+
+.result.loss {
+  color: #f44336;
+}
+
+.result.draw {
+  color: #ff9800;
+}
+
+/* Loading Indicator */
+.loading-indicator {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.loading-indicator mat-spinner {
+  margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .team-card, .team-form-card {
+    flex: 1 1 100%;
+  }
+
+  .playing-xi-content .player-card {
+    flex: 1 1 calc(50% - 15px);
+  }
+
+  .match-overview {
+    padding: 15px;
+  }
+
+  .overview-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .overview-content {
+    flex-direction: column;
+  }
+
+  .match-date-venue, .toss-info {
+    flex: 1 1 100%;
+    margin-bottom: 15px;
+  }
+
+
+  
+  .team-logo {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .team-name {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .playing-xi-content .player-card {
+    flex: 1 1 100%;
+  }
+
+  .team-logo {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .team-name {
+    font-size: 14px;
+  }
+}
+
+
+/* ============================================================
+ Team Comparison Section
+ ============================================================ */
+
+/* Team Comparison Section */
+.team-comparison {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Section Title */
+.section-title {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+/* Team Comparison Table */
+.team-comparison-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Three columns */
+  gap: 20px;
+}
+
+/* Team Headers */
+.team-headers {
+  grid-column: 1 / 4; /* Span all three columns */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Individual Team Header */
+.team-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Team Logo and Name Container */
+.team-logo-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Team Logo */
+.team-logo {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+/* Team Name */
+.team-name {
+  font-size: 20px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Stat Headings */
+.stat-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-heading h3 {
+  font-size: 18px;
+  color: #555;
+  font-weight: 600;
+}
+
+/* Stats Rows */
+.stats-rows {
+  grid-column: 1 / 4; /* Span all three columns */
+}
+
+/* Individual Stat Row */
+.stat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Three columns for each stat row */
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+/* Team Stat Values */
+.team-stat {
+  text-align: center;
+  font-size: 16px;
+  color: #34495e;
+  font-weight: 500;
+}
+
+/* Stat Key */
+.stat-key {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+  font-weight: 600;
+}
+
+/* ============================================================
+   Responsive Design Adjustments
+   ============================================================ */
+
+/* Responsive Design for Team Comparison */
+@media (max-width: 768px) {
+  /* Maintain three-column layout */
+  .team-comparison-table {
+      grid-template-columns: 1fr 1fr 1fr; /* Keep three columns */
+  }
+
+  /* Reduce gap between columns */
+  .team-comparison-table {
+      gap: 10px;
+  }
+
+  /* Adjust Team Headers */
+  .team-headers {
+      flex-direction: row;
+      gap: 10px;
+  }
+
+  /* Adjust Stat Rows */
+  .stat-row {
+      grid-template-columns: 1fr 1fr 1fr; /* Keep three columns */
+      padding: 8px 0;
+  }
+
+  /* Reduce font sizes */
+  .team-logo {
+      width: 40px;
+      height: 40px;
+  }
+
+  .team-name {
+      font-size: 18px;
+  }
+
+  .stat-key, .team-stat {
+      font-size: 14px;
+  }
+
+  /* Adjust margins */
+  .stat-key {
+      margin: 8px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Maintain three-column layout with further adjustments */
+  .team-comparison-table {
+      grid-template-columns: 1fr 1fr 1fr; /* Keep three columns */
+  }
+
+  /* Further reduce gap between columns */
+  .team-comparison-table {
+      gap: 5px;
+  }
+
+  /* Adjust Team Headers */
+  .team-headers {
+      flex-direction: row;
+      gap: 8px;
+  }
+
+  /* Adjust Stat Rows */
+  .stat-row {
+      grid-template-columns: 1fr 1fr 1fr; /* Keep three columns */
+      padding: 6px 0;
+  }
+
+  /* Further reduce font sizes */
+  .team-logo {
+      width: 30px;
+      height: 30px;
+  }
+
+  .team-name {
+      font-size: 16px;
+  }
+
+  .stat-key, .team-stat {
+      font-size: 12px;
+  }
+
+  /* Adjust margins */
+  .stat-key {
+      margin: 6px 0;
+  }
+
+  /* Enable horizontal scrolling if necessary */
+  .team-comparison-table {
+      overflow-x: auto;
+  }
+
+  .team-comparison-table::-webkit-scrollbar {
+      height: 8px;
+  }
+
+  .team-comparison-table::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 4px;
+  }
+}
+
+
+
+/* ============================================================
+   Venue Statistics Section Enhancements
+   ============================================================ */
+
+/* Venue Stats Content */
+
+/* Venue Stats Content */
+
+.venue-stats .section-title {
+  margin-top:30px;
+}
+
+.venue-stats-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Venue Summary */
+.venue-summary {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Individual Stat Card */
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9; /* Lighter background */
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05); /* Softer shadow */
+  max-width: 200px;
+}
+
+/* Stat Icon */
+.stat-icon {
+  font-size: 36px;
+  color: #1976d2; /* Blue color */
+  margin-bottom: 10px;
+}
+
+/* Stat Details */
+.stat-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Stat Value */
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* Stat Key */
+.stat-key {
+  font-size: 16px;
+  color: #555555;
+  margin-top: 5px;
+}
+
+/* Progress Bars Container */
+.progress-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Individual Progress Card */
+.progress-card {
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Progress Header */
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Percentage Text */
+.percentage {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* Venue Averages */
+.venue-averages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.average-card {
+  background-color: #f1f8e9;
+  padding: 20px 15px;
+  border-radius: 8px;
+  flex: 1 1 200px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.average-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.average-title {
+  display: block;
+  font-size: 16px;
+  color: #555555;
+  margin-bottom: 10px;
+}
+
+.average-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333333;
+}
+
+/* Responsive Design Enhancements */
+
+/* Maintain Layout on Medium Screens */
+@media (max-width: 768px) {
+  .venue-summary {
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .stat-card {
+    max-width: 180px;
+    padding: 15px;
+  }
+
+  .progress-bars {
+    max-width: 350px;
+  }
+
+  .progress-card {
+    padding: 12px;
+  }
+
+  .progress-header .stat-key, .progress-header .percentage {
+    font-size: 14px;
+  }
+}
+
+/* Stack Layout on Small Screens */
+@media (max-width: 480px) {
+  .venue-summary {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .stat-card {
+    max-width: 160px;
+    padding: 10px;
+  }
+
+  .progress-bars {
+    max-width: 300px;
+  }
+
+  .progress-card {
+    padding: 10px;
+  }
+
+  .progress-header .stat-key, .progress-header .percentage {
+    font-size: 12px;
+  }
+}
+/* Stack Layout on Small Screens */
+@media (max-width: 480px) {
+  .venue-summary {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .stat-card {
+    max-width: 160px;
+    padding: 10px;
+  }
+
+  .spinner {
+    width: 60px;
+    height: 60px;
+  }
+
+  .spinner-label .percentage {
+    font-size: 14px;
+  }
+
+  .spinner-label .stat-key {
+    font-size: 10px;
+  }
+
+  .venue-averages {
+    flex: 1 1 120px;
+  }
+}

@@ -4,175 +4,453 @@
       <mat-card-title>LIVE</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div *ngIf="isBetProcessing" class="loader-container">
-        <div class="loader"></div>
-        <!-- Optional: Add text like 'Confirming bet...' -->
-      </div>
-      <div class="live-match-container">
-        <div class="cricket-odds-container">
-          <div class="cricket-odds">
-            <!-- Live Score Update -->
-            <div class="live-score">
-              <div class="score-update">{{ liveScoreUpdate }}</div>
-              <div class="bottom">
-                <div class="left-half">
-                  <div class="team-label">{{ team1Name }}</div>
-                  <div class="team-score">{{ team1Score }}</div>
-                  <div class="team-overs">{{ team1Overs }}</div>
-                </div>
-                <div class="match-info">
-                  <!-- Displaying CRR and final result text -->
-                  <div class="crr">CRR: {{ currentRunRate }}</div>
-                  <div class="final-result-text">{{ finalResultTextValue }}</div>
-                </div>
-              </div>
-            </div>
-    
-            <!-- Overall Win/Loss Summary -->
-            <div class="overall-win-loss" *ngIf="userBets.length > 0">
-              <div class="overall-item">
-                <span class="win-label">{{ winFormattedKey }}:</span>
-                <span [ngClass]="{'win-amount': totalPotentialWin >= 0, 'loss-amount': totalPotentialWin < 0}">{{
-                  totalPotentialWin | currency }}</span>
-              </div>
-              <div class="overall-item">
-                <span class="loss-label">{{ loseFormattedKey }}:</span>
-                <span [ngClass]="{'win-amount': totalPotentialLoss >= 0, 'loss-amount': totalPotentialLoss < 0}">{{
-                  totalPotentialLoss | currency }}</span>
-              </div>
-            </div>
-            <!-- Session Exposure Summary -->
-            <div class="session-exposures" *ngIf="sessionExposures && sessionExposures.length > 0">
-              <div class="overall-item" *ngFor="let sessionExposure of sessionExposures">
-                <span class="win-label">{{ sessionExposure.name }}:</span>
-                <span [ngClass]="{'loss-amount': sessionExposure.amount >= 0, 'loss-amount': sessionExposure.amount < 0}">
-                  {{ sessionExposure.amount | currency }}
-                </span>
-              </div>
-            </div>
-            
-            <!-- Favorite Team Odds -->
-            <div *ngIf="!(testMatchOdds && testMatchOdds.length > 0) && favTeam !== '-'">
-              <div class="favorite-odds team-section">
-                <div class="team-label">{{ favTeam }}</div>
-                <div class="odds-buttons">
-                  <button mat-raised-button color="primary" [ngClass]="{'non-clickable': !isClickable}">
-                    {{ backOdds }}</button>
-                  <button mat-raised-button color="accent" [ngClass]="{'non-clickable': !isClickable}">{{ layOdds }}</button>
-                </div>
-              </div>
-    
-              <div class="betting-options" [class.lay-active]="layButtonActive"
-                *ngIf="showBetting && (showBettingFor === 'teamSectionBackOdds' || showBettingFor === 'layOdds' )">
-                <div class="button-row">
-                  <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
-                  <button mat-button class="clear-bet" (click)="clearStake()">Clear</button> <!-- Clear button -->
-                </div>
-
-                <div class="odds-amount">
-                  <div class="odds">
-                    <label for="odds">Odds:</label>
-                    <input type="number" id="odds" class="disabled-input" readonly (input)="handleOddsInputChange()" (blur)="handleOddsBlur()" [value]="selectedOdds" />
-                    <input type="hidden" name="odds" [value]="selectedOdds" />
-                  </div>
-                  <div class="amount">
-                    <label for="amount">Amount:</label>
-                    <input type="number" id="amount" [(ngModel)]="betAmount" />
+       
+      <mat-tab-group (selectedTabChange)="onTabChange($event)">
+        <!-- First Tab: Live Match -->
+        <mat-tab label="Live Match">
+          <!-- Existing Live Match Content -->
+          <!-- Place your existing template content here -->
+          <!-- ... -->
+          <div *ngIf="isBetProcessing" class="loader-container">
+            <div class="loader"></div>
+            <!-- Optional: Add text like 'Confirming bet...' -->
+          </div>
+          <div class="live-match-container">
+            <div class="cricket-odds-container">
+              <div class="cricket-odds">
+                <!-- Live Score Update -->
+                <div class="live-score">
+                  <div class="score-update">{{ liveScoreUpdate }}</div>
+                  <div class="bottom">
+                    <div class="left-half">
+                      <div class="team-label">{{ team1Name }}</div>
+                      <div class="team-score">{{ team1Score }}</div>
+                      <div class="team-overs">{{ team1Overs }}</div>
+                    </div>
+                    <div class="match-info">
+                      <!-- Displaying CRR and final result text -->
+                      <div class="crr">CRR: {{ currentRunRate }}</div>
+                      <div class="final-result-text">{{ finalResultTextValue }}</div>
+                    </div>
                   </div>
                 </div>
-                <div class="quick-stakes">
-                  <button *ngFor="let amount of quickStakeAmounts" (click)="setStake(amount)">
-                    + {{ amount }}
-                  </button>
-                </div>
-                <button mat-raised-button class="place-bet" color="primary" (click)="placeBet()">Place Bet</button>
-              </div>
-            </div>
-    
-            <!-- Test Match Odds -->
-            <!-- This section is shown only if it's a test match, i.e., testMatchOdds has values -->
-            <div *ngIf="testMatchOdds && testMatchOdds.length">
-              <div *ngFor="let match of testMatchOdds; let i = index" class="test-match-odds">
-                <div class="favorite-odds team-section">
-                  <div class="team-label">{{ match.teamName }}</div>
-                  <div class="odds-buttons">
-                    <button mat-raised-button color="primary" [ngClass]="{'non-clickable': !isClickable}">
-                      {{ match.odds.backOdds }}
-                    </button>
-                    <button mat-raised-button color="accent" [ngClass]="{'non-clickable': !isClickable}">
-                      {{ match.odds.layOdds }}
-                    </button>
+        
+                <!-- Overall Win/Loss Summary -->
+                <div class="overall-win-loss" *ngIf="userBets.length > 0">
+                  <div class="overall-item">
+                    <span class="win-label">{{ winFormattedKey }}:</span>
+                    <span [ngClass]="{'win-amount': totalPotentialWin >= 0, 'loss-amount': totalPotentialWin < 0}">{{
+                      totalPotentialWin | currency }}</span>
+                  </div>
+                  <div class="overall-item">
+                    <span class="loss-label">{{ loseFormattedKey }}:</span>
+                    <span [ngClass]="{'win-amount': totalPotentialLoss >= 0, 'loss-amount': totalPotentialLoss < 0}">{{
+                      totalPotentialLoss | currency }}</span>
                   </div>
                 </div>
-                <!-- Corrected conditional rendering and class binding syntax -->
-                <div class="betting-options"
-                  *ngIf="showBetting && showBettingFor === 'testMatchOdds' && currentMatchIndex === i"
-                  [class.lay-active]="layButtonActive">
-                  <div class="button-row">
-                    <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
-                    <button mat-button class="clear-bet" (click)="clearStake()">Clear</button> <!-- Clear button -->
-                  </div>
-
-                  <div class="odds">
-                    <label for="odds{{i}}">Odds:</label>
-                    <input type="number" id="odds{{i}}" class="disabled-input" [(ngModel)]="selectedOdds" readonly/>
-                    <input type="hidden" name="odds{{i}}" [value]="selectedOdds" />
-                  </div>
-                  <div class="amount">
-                    <label for="amount{{i}}">Amount:</label>
-                    <input type="number" id="amount{{i}}" [(ngModel)]="betAmount" />
-                  </div>
-                  <button mat-raised-button class="place-bet" color="primary" (click)="placeTestBet(match)">Place
-                    Bet</button>
-                </div>
-              </div>
-            </div>
-    
-    
-            <!-- Session Odds -->
-            <div *ngIf="session !== '-'">
-              <div class="favorite-odds session-section">
-                <div class="session-label">{{ session }}</div>
-                <div class="odds-buttons">
-                  <button mat-raised-button color="primary" [ngClass]="{'non-clickable': !isClickable}">NO {{ sessionBackOdds }}
-                  </button>
-                  <button mat-raised-button color="accent" [ngClass]="{'non-clickable': !isClickable}">YES {{ sessionLayOdds
-                    }}
-                  </button>
-                </div>
-              </div>
-    
-              <div class="betting-options" [class.lay-active]="layButtonActive"
-                *ngIf="showBetting && (showBettingFor === 'sessionBackOdds' || showBettingFor === 'sessionLayOdds')">
-                <div class="button-row">
-                  <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
-                  <button mat-button class="clear-bet" (click)="clearStake()">Clear</button> <!-- Clear button -->
-                </div>
-
-                <div class="odds-amount">
-                  <div class="amount">
-                    <label for="amount">Amount:</label>
-                    <input type="number" id="amount" [(ngModel)]="betAmount" />
+                <!-- Session Exposure Summary -->
+                <div class="session-exposures" *ngIf="sessionExposures && sessionExposures.length > 0">
+                  <div class="overall-item" *ngFor="let sessionExposure of sessionExposures">
+                    <span class="win-label">{{ sessionExposure.name }}:</span>
+                    <span [ngClass]="{'loss-amount': sessionExposure.amount >= 0, 'loss-amount': sessionExposure.amount < 0}">
+                      {{ sessionExposure.amount | currency }}
+                    </span>
                   </div>
                 </div>
-                <div class="quick-stakes">
-                  <button *ngFor="let amount of quickStakeAmounts" (click)="setStake(amount)">
-                    + {{ amount }}
-                  </button>
-                </div>
-                <button mat-raised-button class="place-bet" color="primary" (click)="placeSessionBet()">Place Bet</button>
-              </div>
-            </div>
+                
+                <!-- Favorite Team Odds -->
+                <div *ngIf="!(testMatchOdds && testMatchOdds.length > 0) && favTeam !== '-'">
+                  <div *ngIf="!favTeam.includes('Unknown')" class="favorite-odds team-section">
+                    <div class="team-label" [attr.data-full-name]="favTeam"> {{getTruncatedTeamName(favTeam) }}</div>
+                    <div class="odds-buttons">
+                      <button mat-raised-button color="primary" [ngClass]="{'non-clickable': !isClickable}">
+                        {{ backOdds }}</button>
+                      <button mat-raised-button color="accent" [ngClass]="{'non-clickable': !isClickable}">{{ layOdds }}</button>
+                    </div>
+                  </div>
+        
+                  <div class="betting-options" [class.lay-active]="layButtonActive"
+                    *ngIf="showBetting && (showBettingFor === 'teamSectionBackOdds' || showBettingFor === 'layOdds' )">
+                    <div class="button-row">
+                      <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+                      <button mat-button class="clear-bet" (click)="clearStake()">Clear</button> <!-- Clear button -->
+                    </div>
     
-            <!-- Last 6 Balls -->
-            <div class="last-6-balls">
-              <div class="ball" *ngFor="let ball of last6Balls">
-                <div class="ball-score">{{ ball.score }}</div>
+                    <div class="odds-amount">
+                      <div class="odds">
+                        <label for="odds">Odds:</label>
+                        <input type="number" id="odds" class="disabled-input" readonly (input)="handleOddsInputChange()" (blur)="handleOddsBlur()" [value]="selectedOdds" />
+                        <input type="hidden" name="odds" [value]="selectedOdds" />
+                      </div>
+                      <div class="amount">
+                        <label for="amount">Amount:</label>
+                        <input type="number" id="amount" [(ngModel)]="betAmount" />
+                      </div>
+                    </div>
+                    <div class="quick-stakes">
+                      <button *ngFor="let amount of quickStakeAmounts" (click)="setStake(amount)">
+                        + {{ amount }}
+                      </button>
+                    </div>
+                    <button mat-raised-button class="place-bet" color="primary" (click)="placeBet()">Place Bet</button>
+                  </div>
+                </div>
+        
+                <!-- Test Match Odds -->
+                <!-- This section is shown only if it's a test match, i.e., testMatchOdds has values -->
+                <div *ngIf="testMatchOdds && testMatchOdds.length">
+                  <div *ngFor="let match of testMatchOdds; let i = index" class="test-match-odds">
+                    <div class="favorite-odds team-section">
+                      <div class="team-label">{{ match.teamName }}</div>
+                      <div class="odds-buttons">
+                        <button mat-raised-button color="primary" [ngClass]="{'non-clickable': !isClickable}">
+                          {{ match.odds.backOdds }}
+                        </button>
+                        <button mat-raised-button color="accent" [ngClass]="{'non-clickable': !isClickable}">
+                          {{ match.odds.layOdds }}
+                        </button>
+                      </div>
+                    </div>
+                    <!-- Corrected conditional rendering and class binding syntax -->
+                    <div class="betting-options"
+                      *ngIf="showBetting && showBettingFor === 'testMatchOdds' && currentMatchIndex === i"
+                      [class.lay-active]="layButtonActive">
+                      <div class="button-row">
+                        <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+                        <button mat-button class="clear-bet" (click)="clearStake()">Clear</button> <!-- Clear button -->
+                      </div>
+    
+                      <div class="odds">
+                        <label for="odds{{i}}">Odds:</label>
+                        <input type="number" id="odds{{i}}" class="disabled-input" [(ngModel)]="selectedOdds" readonly/>
+                        <input type="hidden" name="odds{{i}}" [value]="selectedOdds" />
+                      </div>
+                      <div class="amount">
+                        <label for="amount{{i}}">Amount:</label>
+                        <input type="number" id="amount{{i}}" [(ngModel)]="betAmount" />
+                      </div>
+                      <button mat-raised-button class="place-bet" color="primary" (click)="placeTestBet(match)">Place
+                        Bet</button>
+                    </div>
+                  </div>
+                </div>
+        
+        
+                <!-- Session Odds -->
+                <div *ngFor="let sessionOdds of sessionOddsListDisplay">
+                  <div *ngIf="sessionOdds.session !== '-'">
+                    <div class="favorite-odds session-section">
+                      <div class="session-label">{{ sessionOdds.session }}</div>
+                      <div class="odds-buttons">
+                        <button mat-raised-button color="primary" [ngClass]="{'non-clickable': !isClickable}"
+                                (click)="showBetForOdds('sessionBackOdds')">NO {{ sessionOdds.backOdds }}</button>
+                        <button mat-raised-button color="accent" [ngClass]="{'non-clickable': !isClickable}"
+                                (click)="showBetForOdds('sessionLayOdds')">YES {{ sessionOdds.layOdds }}</button>
+                      </div>
+                    </div>
+                
+                    <div class="betting-options" [class.lay-active]="layButtonActive"
+                         *ngIf="showBetting && (showBettingFor === 'sessionBackOdds' || showBettingFor === 'sessionLayOdds')">
+                      <div class="button-row">
+                        <button mat-button class="cancel-bet" (click)="cancelBet()">Cancel</button>
+                        <button mat-button class="clear-bet" (click)="clearStake()">Clear</button>
+                      </div>
+                
+                      <div class="odds-amount">
+                        <div class="amount">
+                          <label for="amount">Amount:</label>
+                          <input type="number" id="amount" [(ngModel)]="betAmount" />
+                        </div>
+                      </div>
+                
+                      <div class="quick-stakes">
+                        <button *ngFor="let amount of quickStakeAmounts" (click)="setStake(amount)">
+                          + {{ amount }}
+                        </button>
+                      </div>
+                      
+                      <button mat-raised-button class="place-bet" color="primary" (click)="placeSessionBet()">Place Bet</button>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- Last 6 Balls -->
+                <div class="last-6-balls">
+                  <div class="ball" *ngFor="let ball of last6Balls">
+                    <div class="ball-score">{{ ball.score }}</div>
+                  </div>
+                </div>
+    
+                <div class="stats-container">
+                  <!-- Batsman Stats -->
+                  <div class="batsman-stats" *ngIf="batsmanDataList.length > 0">
+                    <table class="stats-table">
+                      <thead>
+                        <tr>
+                          <th>Batter</th>
+                          <th>R</th>
+                          <th>B</th>
+                          <th>4s</th>
+                          <th>6s</th>
+                          <th>SR</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let batsman of batsmanDataList">
+                          <td>{{ batsman.name }}  
+                            <span *ngIf="batsman.onStrike" class="material-icons">sports_cricket</span> <!-- Cricket bat icon -->
+                          </td>
+                          <td>{{ batsman.score }}</td>
+                          <td>{{ batsman.ballsFaced }}</td>
+                          <td>{{ batsman.fours }}</td>
+                          <td>{{ batsman.sixes }}</td>
+                          <td>{{ batsman.strikeRate }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                
+                  <!-- Bowler Stats -->
+                  <div class="bowler-stats" *ngIf="bowlerDataList.length > 0">
+                    <table class="stats-table">
+                      <thead>
+                        <tr>
+                          <th>Bowler</th>
+                          <th>O</th>
+                          <th>R</th>
+                          <th>W</th>
+                          <th>D</th>
+                          <th>ECO</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let bowler of bowlerDataList">
+                          <td>{{ bowler.name }}</td>
+                          <td>{{ bowler.ballsBowled }}</td>
+                          <td>{{ bowler.score }}</td>
+                          <td>{{ bowler.wicketsTaken }}</td>
+                          <td>{{ bowler.dotBalls }}</td>
+                          <td>{{ bowler.economyRate }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+    
+                
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </mat-tab>
+
+        <!-- Second Tab: Match Info -->
+        <mat-tab label="Match Info">
+          <div class="match-info-container" *ngIf="matchInfo">
+            <!-- Match Overview Section -->
+            <section class="match-overview">
+              <div class="overview-header">
+                <!-- <img src="assets/icons/series.png" alt="Series Logo" class="series-logo"> -->
+                <div class="match-details">
+                  <h2>{{ matchInfo.match_name }}</h2>
+                  <p class="series-name">{{ matchInfo.series_name }}</p>
+                </div>
+              </div>
+              <div class="overview-content">
+                <div class="match-date-venue">
+                  <div class="date">
+                    <mat-icon>event</mat-icon>
+                    <span>{{ matchInfo.match_date | date: 'fullDate' }}, {{ matchInfo.match_date | date: 'shortTime' }}</span>
+                  </div>
+                  <div class="venue">
+                    <mat-icon>location_on</mat-icon>
+                    <span>{{ matchInfo.venue }}</span>
+                  </div>
+                </div>
+                <div class="toss-info">
+                  <mat-icon>info</mat-icon>
+                  <span>{{ matchInfo.toss_info }}</span>
+                </div>
+              </div>
+            </section>
+          
+            <!-- Team Comparison Section -->
+            <section class="team-comparison">
+              <h2 class="section-title">Team Comparison</h2>
+              
+              <div class="team-comparison-table">
+                <!-- Team Headers -->
+                <div class="team-headers">
+                  <!-- Left Team Header -->
+                  <div class="team-header left-team">
+                    <div class="team-logo-name">
+                      <!-- <img [src]="getTeamLogo(teamComparisonKeys[0])" alt="{{ teamComparisonKeys[0] }} Logo" class="team-logo"> -->
+                      <h3 class="team-name">{{ teamComparisonKeys[0] }}</h3>
+                    </div>
+                  </div>
+                  
+                  <!-- Stat Headings -->
+                  <div class="stat-heading">
+                    <h3>Stats</h3>
+                  </div>
+                  
+                  <!-- Right Team Header -->
+                  <div class="team-header right-team">
+                    <div class="team-logo-name">
+                      <!-- <img [src]="getTeamLogo(teamComparisonKeys[1])" alt="{{ teamComparisonKeys[1] }} Logo" class="team-logo"> -->
+                      <h3 class="team-name">{{ teamComparisonKeys[1] }}</h3>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Stats Rows -->
+                <div class="stats-rows">
+                  <div class="stat-row" *ngFor="let key of teamComparisonSubKeys">
+                    <!-- Left Team Stat Value -->
+                    <div class="team-stat left-team">
+                      {{ matchInfo.team_comparison[teamComparisonKeys[0]][key] }}
+                    </div>
+                    
+                    <!-- Stat Heading -->
+                    <div class="stat-key">
+                      {{ key | titlecase }}
+                    </div>
+                    
+                    <!-- Right Team Stat Value -->
+                    <div class="team-stat right-team">
+                      {{ matchInfo.team_comparison[teamComparisonKeys[1]][key] }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          
+            <!-- Venue Stats Section -->
+            <!-- cricket-odds.component.html -->
+            <section class="venue-stats">
+              <h2 class="section-title">Venue Statistics</h2>
+              <div class="venue-stats-content">
+                
+                <!-- Venue Summary -->
+                <div class="venue-summary">
+                  
+                  <!-- Matches Stat Card -->
+                  <div class="stat-card">
+                    <mat-icon class="stat-icon">sports_cricket</mat-icon>
+                    <div class="stat-details">
+                      <span class="stat-value">{{ matchInfo.venue_stats.matches }}</span>
+                      <span class="stat-key">Matches</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Progress Bars for Win Bat First and Win Bowl First -->
+                  <div class="progress-bars">
+                    
+                    <!-- Win Bat First Progress Bar -->
+                    <mat-card class="progress-card">
+                      <div class="progress-header">
+                        <span class="stat-key">Win Bat First</span>
+                        <span class="percentage">{{ winBatFirstPercentage }}%</span>
+                      </div>
+                      <mat-progress-bar
+                        mode="determinate"
+                        [value]="winBatFirstPercentage"
+                        color="primary">
+                      </mat-progress-bar>
+                    </mat-card>
+                    
+                    <!-- Win Bowl First Progress Bar -->
+                    <mat-card class="progress-card">
+                      <div class="progress-header">
+                        <span class="stat-key">Win Bowl First</span>
+                        <span class="percentage">{{ winBowlFirstPercentage }}%</span>
+                      </div>
+                      <mat-progress-bar
+                        mode="determinate"
+                        [value]="winBowlFirstPercentage"
+                        color="warn">
+                      </mat-progress-bar>
+                    </mat-card>
+                    
+                  </div>
+                  
+                </div>
+                
+
+                <!-- Venue Averages -->
+                <div class="venue-averages">
+                  <div class="average-card">
+                    <span class="average-title">Avg 1st Inns</span>
+                    <strong class="average-value">{{ matchInfo.venue_stats.avg_1st_inns }}</strong>
+                  </div>
+                  <div class="average-card">
+                    <span class="average-title">Avg 2nd Inns</span>
+                    <strong class="average-value">{{ matchInfo.venue_stats.avg_2nd_inns }}</strong>
+                  </div>
+                  <!-- Add more average cards as needed -->
+                </div>
+                
+              </div>
+            </section>
+          
+            <!-- Playing XI Section -->
+            <section class="playing-xi">
+              <h3>Playing XI</h3>
+              <mat-tab-group>
+                <mat-tab *ngFor="let team of playingXIKeys" [label]="team">
+                  <div class="playing-xi-content">
+                    <div class="player-card" *ngFor="let player of matchInfo.playing_xi[team]">
+                      <mat-icon class="player-icon">{{ getPlayerIcon(player.playerRole) }}</mat-icon>
+                      <div class="player-details">
+                        <h4>{{ player.playerName }}</h4>
+                        <p>{{ player.playerRole }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+            </section>
+          
+            <!-- Team Form Section -->
+            <section class="team-form">
+              <h3>Team Form (Last 5 Matches)</h3>
+              <div class="team-form-cards">
+                <div class="team-form-card" *ngFor="let team of teamFormKeys">
+                  <div class="team-form-header">
+                    <!-- <img [src]="getTeamLogo(team)" alt="{{ team }} Logo" class="team-logo"> -->
+                    <h4>{{ team }}</h4>
+                  </div>
+                  <div class="match-results">
+                    <div class="match-result" *ngFor="let match of matchInfo.team_form[team]">
+                      <span class="result {{ getResultClass(match.result) }}">{{ match.result }}</span>
+                      <p>{{ match.match_name }} - {{ match.series_name }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          
+          <!-- Loading Indicator -->
+          <div class="loading-indicator" *ngIf="!matchInfo">
+            <mat-spinner></mat-spinner>
+            <p>Loading match info...</p>
+          </div>
+        </mat-tab>
+
+        <!-- Third Tab: Scorecard -->
+        <mat-tab label="Scorecard">
+          <!-- Scorecard Content -->
+          <!-- Implement your scorecard content here -->
+          <div *ngIf="scorecardData">
+            <!-- Display scorecard data -->
+             <app-scorecard [scorecardInfo]="scorecardData"></app-scorecard>
+          </div>
+          <div *ngIf="!scorecardData">
+            <p>Loading scorecard...</p>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
     </mat-card-content>
   </mat-card>
 </div>

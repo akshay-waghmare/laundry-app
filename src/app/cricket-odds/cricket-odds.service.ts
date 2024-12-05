@@ -13,6 +13,8 @@ export class CricketService {
   private lastUpdatedCricketData = environment.REST_API_URL + 'cricket-data';
   private  placeBetEndpoint = environment.REST_API_URL + 'cricket-data/' + 'placeBet';
   private  getAllbetsFormatch = environment.REST_API_URL + 'cricket-data/' + 'bets/';
+  private  getMatchInfoDetails = environment.REST_API_URL + 'cricket-data/' + 'match-info/get';
+  private  getScorecardDetails = environment.REST_API_URL + 'cricket-data/' + 'sC4-stats/get';
   private  getAllbetsFormatchNonUserBased = environment.REST_API_URL + 'cricket-data/' + 'get-match-bet-with-exposure/';
   
 
@@ -36,6 +38,14 @@ export class CricketService {
     return this.http.get<any>(`${this.getAllbetsFormatch}?url=${matchUrl}`, {headers: this.headers});
   }
 
+  getMatchInfo(url: string) {
+    return  this.http.get<any>(`${this.getMatchInfoDetails}?url=${encodeURIComponent(url)}`);
+  }
+
+  getScorecardInfo(url: string) {
+    return  this.http.get<any>(`${this.getScorecardDetails}?url=${encodeURIComponent(url)}`);
+  }
+
   getUserBetsForMatchNonUserBased(): Observable<any> {
     return this.http.get<any>(this.getAllbetsFormatchNonUserBased, {headers: this.headers});
   }
@@ -50,6 +60,8 @@ export class CricketService {
     let params = new HttpParams().set('startDate', startOfDay).set('endDate', endOfDay);
     return this.http.get(this.profitLossEndpoint, { headers: this.headers, params: params });
   }
+
+ 
 
   getStartOfDay(date: Date): Date {
     if (!date || isNaN(date.getTime())) {
