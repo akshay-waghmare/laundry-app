@@ -61,6 +61,7 @@ import { ScorecardComponent } from 'src/app/scorecard/scorecard.component';
 
 
 
+
 const myRxStompConfig: InjectableRxStompConfig = {
   // added '/websocket' for spring boot SockJS
   brokerURL: environment.ws.brokerURL,
@@ -129,6 +130,7 @@ const myRxStompConfig: InjectableRxStompConfig = {
     ScrapeControlComponent,
     HomeComponent,
     ScorecardComponent,
+    
     
     
   ],
