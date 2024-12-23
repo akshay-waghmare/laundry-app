@@ -434,6 +434,12 @@
     justify-content: space-between;
     margin-top: 20px;
   }
+
+  .ad-container {
+    flex: 0 0 200px; /* Fixed width */
+    max-width: 200px;
+    margin: 10px;
+  }
   
   .cricket-odds-container {
     flex: 3; /* Adjust this value based on your layout needs */
@@ -1711,10 +1717,25 @@ p {
   color: #333333;
 }
 
+.adsbygoogle {
+  width: 100% !important;
+  height: auto !important;
+}
+
 /* Responsive Design Enhancements */
 
 /* Maintain Layout on Medium Screens */
 @media (max-width: 768px) {
+
+  .ad-container {
+    display: none; /* Hide ads on very small screens */
+  }
+
+  .cricket-odds-container {
+    flex: 1 1 100%; /* Take full width when ads are hidden */
+    margin: 0;
+  }
+
   .venue-summary {
     flex-direction: row;
     justify-content: center;
@@ -1792,5 +1813,19 @@ p {
 
   .venue-averages {
     flex: 1 1 120px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .ad-container {
+    flex: 0 0 180px;
+    max-width: 180px;
+  }
+}
+
+@media (max-width: 992px) {
+  .ad-container {
+    flex: 0 0 160px;
+    max-width: 160px;
   }
 }
