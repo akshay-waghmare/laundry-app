@@ -22,6 +22,8 @@ import { ProfitLossComponent } from 'src/app/profit-loss/profit-loss.component';
 import { ScrapeControlComponent } from 'src/app/scrape-control/scrape-control.component';
 import { ScorecardComponent } from 'src/app/scorecard/scorecard.component';
 import { BannerComponent } from 'src/app/component/banner/banner.component';
+import { PrivacyPolicyComponent } from 'src/app/privacy-policy/privacy-policy.component';
+import { TermsOfServiceComponent } from 'src/app/terms-of-service/terms-of-service.component';
 
 
 export const AdminLayoutsRoute: Routes = [
@@ -45,6 +47,8 @@ export const AdminLayoutsRoute: Routes = [
   { path: 'logout', component: LogoutFormComponent },
   { path: 'scorecard', component: ScorecardComponent },
   { path: 'banner', component: BannerComponent},
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'terms-of-service', component: TermsOfServiceComponent },
 ];
 
 

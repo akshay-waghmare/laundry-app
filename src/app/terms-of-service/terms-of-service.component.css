@@ -1,0 +1,87 @@
+/* General styles for both Privacy Policy and Terms of Service */
+.privacy-policy, .terms-of-service {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  /* Header styles */
+  header {
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #0056b3;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  /* Navigation styles */
+  nav {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  nav a {
+    color: #0056b3;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: bold;
+  }
+  
+  nav a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Section styling */
+  section {
+    margin-bottom: 20px;
+  }
+  
+  /* Section header */
+  h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-top: 20px;
+  }
+  
+  /* Footer styles */
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.875rem;
+    color: #666;
+  }
+  
+  /* List styling */
+  ul {
+    padding-left: 20px;
+  }
+  
+  ul li {
+    margin-bottom: 10px;
+  }
+  
+  /* Styling for the date */
+  p {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  /* Links */
+  a {
+    color: #0056b3;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  

@@ -58,6 +58,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { ScrapeControlComponent } from 'src/app/scrape-control/scrape-control.component';
 import { HomeComponent } from 'src/app/home/home.component';
 import { ScorecardComponent } from 'src/app/scorecard/scorecard.component';
+import { PrivacyPolicyComponent } from 'src/app/privacy-policy/privacy-policy.component';
+import { TermsOfServiceComponent } from 'src/app/terms-of-service/terms-of-service.component';
 
 
 
@@ -130,6 +132,8 @@ const myRxStompConfig: InjectableRxStompConfig = {
     ScrapeControlComponent,
     HomeComponent,
     ScorecardComponent,
+    PrivacyPolicyComponent,
+    TermsOfServiceComponent,
     
     
     

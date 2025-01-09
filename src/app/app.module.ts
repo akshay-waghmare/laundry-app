@@ -61,6 +61,7 @@ const stompConfig: StompConfig = {
     LoaderComponent,
     ElapsedTimePipe,
     
+    
         
   ],
   imports: [
