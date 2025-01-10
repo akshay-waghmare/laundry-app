@@ -1794,3 +1794,70 @@ p {
     flex: 1 1 120px;
   }
 }
+
+
+/* Left banner styling */
+.left-banner {
+  flex: 1; /* Adjustable width for responsive design */
+  max-width: 200px; /* Optional: Set a max width */
+  position: sticky;
+  top: 0; /* Makes the banner sticky at the top */
+  height: auto; /* Adjust to content height */
+  margin-right: 10px;
+}
+
+.left-banner img {
+  width: 100%; /* Ensures the image fits within the container */
+  height: 150%; /* Maintain aspect ratio */
+  border-radius: 8px; /* Optional: Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
+  
+}
+
+/* Right banner styling */
+.right-banner {
+  flex: 1; /* Adjustable width for responsive design */
+  max-width: 200px; /* Optional: Set a max width */
+  position: sticky;
+  top: 0; /* Makes the banner sticky at the top */
+  height: auto; /* Adjust to content height */
+  margin-left: 10px;
+}
+
+.right-banner img {
+  width: 100%; /* Ensures the image fits within the container */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px; /* Optional: Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
+}
+
+/* Container for the entire layout */
+.container {
+  display: flex;
+  justify-content: space-between; /* Ensures space between the three divs */
+  align-items: flex-start; /* Aligns items at the start of the container */
+  gap: 10px; /* Adds some space between the divs */
+}
+
+/* Style for the banner containers */
+.banner-container {
+  flex: 1; /* Allows banners to take equal width */
+  max-width: 200px; /* Adjust width of the banners */
+  text-align: center; /* Centers content inside the banner */
+  margin-top: 180px;
+  
+}
+
+.banner-container img {
+  max-width: 100%;
+  height: auto; /* Ensures images scale properly */
+  display: block; /* Removes extra space below the image */
+}
+
+/* Style for the live match container */
+.live-match-container {
+  flex: 2; /* Makes it wider than the banners */
+  padding: 10px;
+  background-color: #f9f9f9; /* Optional: Adds a background color */
+  border: 1px solid #ddd; /* Optional: Adds a border for clarity */
+}

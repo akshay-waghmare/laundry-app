@@ -579,13 +579,15 @@ body, html {
   position: fixed;
   top: 10px;
   left: 10px;
-  background-color: #343a40;
+  background-color: #34495e;
   color: white;
   border: none;
+  outline: none; 
   padding: 10px;
   cursor: pointer;
   z-index: 1001; /* Ensure the button is on top of everything */
 }
+
 
 .nav-link .dummy-icon {
   font-size: 24px;
