@@ -16,7 +16,8 @@ export class CricketService {
   private  getMatchInfoDetails = environment.REST_API_URL + 'cricket-data/' + 'match-info/get';
   private  getScorecardDetails = environment.REST_API_URL + 'cricket-data/' + 'sC4-stats/get';
   private  getAllbetsFormatchNonUserBased = environment.REST_API_URL + 'cricket-data/' + 'get-match-bet-with-exposure/';
-  
+  private createPollUrl = 'http://localhost:8099/api/poll/create';
+  private getPollUrl = 'http://localhost:8099/api/poll/get';
 
   constructor(private http: HttpClient , private tokenStorage:TokenStorage,
      ) { }
@@ -81,4 +82,13 @@ export class CricketService {
     return end;
   }
 
+
+  createPoll(liveMatchId: number, pollData: any): Observable<any> {
+    const url = `${this.createPollUrl}?liveMatchId=${liveMatchId}`;
+    return this.http.post(url, pollData);
+  }
+  getPoll(liveMatchId: number): Observable<any> {
+    const url = `${this.getPollUrl}?liveMatchId=${liveMatchId}`;
+    return this.http.get(url);
+  }
 }

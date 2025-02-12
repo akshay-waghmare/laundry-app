@@ -201,6 +201,18 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe(params => {
       const match = params['path']; // Use 'path' instead of 'match'
       this.matchUrl = match;
+      //fetchcurrent matchid from url using getLiveMatches() method in eventlistservice
+      this.eventListService.getLiveMatches().subscribe(data => {
+        //find the match url in data.url and get the match id
+        const matchArray = Object.values(data);
+        const matchId = matchArray.find((match: any) => match.url.includes(this.matchUrl)).id;
+        console.log('Match ID:', matchId);
+
+        //fetch poll using match id 
+        this.cricketService.getPoll(matchId).subscribe(data => {
+          console.log('Poll Data:', data);
+        });
+      });
 
       this.cricketService.getLastUpdatedData(match).subscribe(data => {
         this.parseCricObjData(data);
