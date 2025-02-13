@@ -201,28 +201,71 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe(params => {
       const match = params['path']; // Use 'path' instead of 'match'
       this.matchUrl = match;
+
       //fetchcurrent matchid from url using getLiveMatches() method in eventlistservice
-      this.eventListService.getLiveMatches().subscribe(data => {
+      // Fetch live match data
+      this.eventListService.getLiveMatches().subscribe(matchesData => {
+        const matchArray = Object.values(matchesData);
+  
         //find the match url in data.url and get the match id
-        const matchArray = Object.values(data);
-        const matchId = matchArray.find((match: any) => match.url.includes(this.matchUrl)).id;
+        // Find the match object by checking if the URL includes matchUrl
+        const matchedMatch = matchArray.find((match: any) => match.url.includes(this.matchUrl));
+  
+        if (!matchedMatch) {
+          console.error("Match not found for URL:", this.matchUrl);
+          return;
+        }
+  
+        const matchId = matchedMatch.id;
         console.log('Match ID:', matchId);
-
-        //fetch poll using match id 
-        this.cricketService.getPoll(matchId).subscribe(data => {
-          console.log('Poll Data:', data);
+  
+        // Fetch poll using match ID
+        this.cricketService.getPoll(matchId).subscribe(pollData => {
+          if (!pollData || Object.keys(pollData).length === 0) { 
+            console.log('Poll ID not found, creating a new poll...');
+  
+            const pollQuestion = {
+              question: "Who will win the match?",
+              answers: this.teamComparisonKeys.slice(0, 2) // Ensure correct answer format
+            };
+  
+            this.cricketService.createPoll(matchId, pollQuestion).subscribe(newPoll => {
+              console.log('New Poll Created:', newPoll);
+            }, error => {
+              console.error('Error creating poll:', error);
+            });
+  
+          } else {
+            console.log('Existing Poll Data:', pollData);
+          }
+        }, error => {
+          console.error('Error fetching poll:', error);
         });
+  
+      }, error => {
+        console.error('Error fetching live matches:', error);
       });
-
+  
+      // Fetch last updated data
       this.cricketService.getLastUpdatedData(match).subscribe(data => {
         this.parseCricObjData(data);
+      }, error => {
+        console.error('Error fetching last updated data:', error);
       });
-      //watching live score for cricket data
-      this.cricetTopicSubscription = this.rxStompService.watch(`/topic/cricket.${match}.*`).subscribe((data) => {
+  
+      // Watching live score updates for cricket data
+      if (this.cricetTopicSubscription) {
+        this.cricetTopicSubscription.unsubscribe(); // Unsubscribe before creating a new one
+      }
+  
+      this.cricetTopicSubscription = this.rxStompService.watch(`/topic/cricket.${match}.*`).subscribe(data => {
         this.parseCricObjData(data);
+      }, error => {
+        console.error('Error in WebSocket subscription:', error);
       });
     });
   }
+  
 
   private parseCricObjData(data) {
     console.log(data);
@@ -1002,6 +1045,8 @@ placeSessionBet() {
       this.isBetProcessing = false;
     }
   });
+
+  
 }
 
 }
