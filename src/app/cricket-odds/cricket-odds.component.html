@@ -255,6 +255,31 @@
               <img src="src/assets/img/victory365.jpg" alt="Victory 365 Promo Banner" class="img-fluid" />
             </a>
           </div>
+
+          <div class="poll-container" *ngIf="pollData">
+            <h2>{{ pollData.question }}</h2>
+          
+            <!-- Poll Options -->
+            <div *ngFor="let option of pollData.answers">
+              <input
+                type="radio"
+                [value]="option"
+                [(ngModel)]="selectedAnswer"
+                name="poll"
+              />
+              <label>{{ option }}</label>
+            </div>
+          
+            <button (click)="vote()" [disabled]="!selectedAnswer">Vote</button>
+          
+            <!-- Show results after voting -->
+            <div *ngFor="let option of percentages | keyvalue">
+              <p>{{ option.key }}: {{ option.value | number:'1.0-2' }}%</p>
+            </div>
+          </div>
+          
+          
+          
         </div>
         </mat-tab>
 

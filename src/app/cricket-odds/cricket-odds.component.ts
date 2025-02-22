@@ -122,6 +122,14 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
   winBatFirstPercentage: number;
   winBowlFirstPercentage: number;
   scorecardInfo: any;
+  pollData: any = null;// Declare a class variable to store poll data
+  hasVoted: boolean;
+  selectedAnswer: any;
+ 
+  pollId!: number; // Poll ID passed dynamically
+  question!: string; // Poll question fetched earlier
+  percentages!: { [key: string]: number }; // Pre-fetched percentages
+
 
 
   constructor(private rxStompService: RxStompService,
@@ -219,22 +227,57 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
         const matchId = matchedMatch.id;
         console.log('Match ID:', matchId);
   
+        
         // Fetch poll using match ID
         this.cricketService.getPoll(matchId).subscribe(pollData => {
+          this.pollData = pollData; // Store poll data in the class variable
+          console.log('Poll Data Stored:', this.pollData);
+          if (Array.isArray(pollData) && pollData.length > 0) {
+            this.pollData = pollData[0]; // Store only the first object
+            this.pollId = this.pollData.id;
+            this.cricketService.getPollResults(this.pollId).subscribe(results => {  
+              this.percentages = results.percentages;
+              console.log('Poll Results:', results);
+            }, error => {
+              console.error('Error fetching poll results:', error);
+            }
+            );
+          } else {
+            this.pollData = null;
+          }
+
+
           if (!pollData || Object.keys(pollData).length === 0) { 
             console.log('Poll ID not found, creating a new poll...');
-  
-            const pollQuestion = {
-              question: "Who will win the match?",
-              answers: this.teamComparisonKeys.slice(0, 2) // Ensure correct answer format
-            };
-  
-            this.cricketService.createPoll(matchId, pollQuestion).subscribe(newPoll => {
-              console.log('New Poll Created:', newPoll);
-            }, error => {
-              console.error('Error creating poll:', error);
-            });
-  
+           
+            this.cricketService.getMatchInfo(this.matchUrl).subscribe(
+              data => {
+                this.matchInfo = data;
+                console.log('Match Info:', this.matchInfo);
+          
+                // Extract keys
+                this.teamComparisonKeys = Object.keys(this.matchInfo.team_comparison || {});
+                if (this.teamComparisonKeys.length) {
+                  this.teamComparisonSubKeys = Object.keys(this.matchInfo.team_comparison[this.teamComparisonKeys[0]]);
+                }
+                const pollQuestion = {
+                  question: "Who will win the match?",
+                  answers: [this.teamComparisonKeys[0], this.teamComparisonKeys[1]] // Ensure correct answer format
+                };
+                this.cricketService.createPoll(matchId, pollQuestion).subscribe(newPoll => {
+                  this.pollData = newPoll; // Update UI with newly created poll
+                  this.pollId = newPoll.id;
+                  this.percentages = pollData.percentages || {};
+                  console.log('New Poll Created:', newPoll);
+                }, error => {
+                  console.error('Error creating poll:', error);
+                });
+              },
+              error => {
+                console.error('Error fetching match info:', error);
+              }
+            ); 
+            
           } else {
             console.log('Existing Poll Data:', pollData);
           }
@@ -264,6 +307,26 @@ export class CricketOddsComponent implements OnInit, OnDestroy {
         console.error('Error in WebSocket subscription:', error);
       });
     });
+  }
+
+  vote() {
+    if (!this.selectedAnswer) {
+      console.error('No answer selected');
+      return;
+    }
+
+    this.cricketService.vote(this.pollId, this.selectedAnswer).subscribe({
+      next: (response) => {
+        this.percentages = response.percentages;
+      },
+      error: () => {
+       console.error('Error voting');
+      },
+    });
+  }
+
+  pollQuestion(pollQuestion: any) {
+    throw new Error('Method not implemented.');
   }
   
 
