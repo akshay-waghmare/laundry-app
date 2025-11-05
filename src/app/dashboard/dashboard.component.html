@@ -7,6 +7,9 @@
                     <div class="card-header card-header-primary">
                         <h4 class="card-title">Matches Overview</h4>
                         <p class="card-category">List of all matches</p>
+                        <button (click)="refreshMatches()" class="btn btn-sm btn-info" style="float: right; margin-top: -30px;">
+                            <i class="material-icons">refresh</i> Refresh Matches
+                        </button>
                     </div>
                     <div class="card-body table-responsive">
                         <table class="table table-hover">
@@ -22,6 +25,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr *ngIf="matches.length === 0">
+                                    <td colspan="7" class="text-center">
+                                        <p>No matches available. Loading...</p>
+                                    </td>
+                                </tr>
                                 <tr *ngFor="let match of matches">
                                     <td>{{ match.teamName }}</td>
                                     <td>{{ match.winningTeam }}</td>

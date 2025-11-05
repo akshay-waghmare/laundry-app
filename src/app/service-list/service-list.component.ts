@@ -56,7 +56,11 @@ export class ServiceListComponent implements OnInit {
     });
   }
 
-  
+  ngOnDestroy() {
+    if (this.inplayTopicSubscription) {
+      this.inplayTopicSubscription.unsubscribe();
+    }
+  }
 
   
 

@@ -20,8 +20,13 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router, public dialog: MatDialog, private authService: AuthService, private tokenStorage: TokenStorage) { }
 
   ngOnInit() {
-    this.user = JSON.parse(this.tokenStorage.getUser());
-    this.getUserData(this.user.sub);
+    const userString = this.tokenStorage.getUser();
+    if (userString) {
+      this.user = JSON.parse(userString);
+      if (this.user && this.user.sub) {
+        this.getUserData(this.user.sub);
+      }
+    }
 
     // Show the navbar when user data is loaded
     //this.showNavBar = true;
